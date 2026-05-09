@@ -11,163 +11,110 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#0f1419;--panel:#1c2733;--card:#22303c;--border:#38444d;--text:#8899a6;--bright:#e7e9ea;--muted:#657786;--red:#f4212e;--amber:#ffad1f;--green:#00ba7c;--blue:#1d9bf0;--purple:#794bc4;--cyan:#00c9db}
-body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Noto Sans','Microsoft YaHei',sans-serif;font-size:14px;height:100vh;display:flex;flex-direction:column;overflow:hidden}
-
-.topbar{background:var(--red);color:white;text-align:center;padding:4px 12px;font-size:11px;font-weight:700;letter-spacing:0.04em}
-.header{background:var(--panel);border-bottom:1px solid var(--border);padding:8px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;font-size:14px}
+a{color:var(--cyan);text-decoration:none}
+.topbar{background:var(--red);color:white;text-align:center;padding:4px;font-size:11px;font-weight:700;letter-spacing:0.03em}
+.header{background:var(--panel);border-bottom:1px solid var(--border);padding:8px 16px;display:flex;align-items:center;justify-content:space-between}
 .header h1{font-size:15px;font-weight:700;color:var(--bright)}
-.header-r{display:flex;align-items:center;gap:8px}
+.hdr-r{display:flex;align-items:center;gap:8px}
 .sel{background:var(--card);color:var(--text);border:1px solid var(--border);padding:4px 8px;border-radius:6px;font-size:12px;font-family:inherit}
-
-/* Breaking news - fast vertical scroll */
-.breaking{background:var(--panel);border-bottom:1px solid var(--border);height:26px;display:flex;align-items:center;overflow:hidden}
-.breaking-lbl{background:var(--red);color:white;padding:0 8px;font-size:10px;font-weight:700;height:100%;display:flex;align-items:center;flex-shrink:0}
-.breaking-scroll{flex:1;height:100%;overflow:hidden;position:relative}
-.breaking-inner{position:absolute;width:100%;animation:bscroll 15s linear infinite}
-@keyframes bscroll{0%{top:0}100%{top:-50%}}
-.breaking-item{height:26px;display:flex;align-items:center;padding:0 12px;font-size:12px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.breaking-item a{color:var(--cyan);margin-left:6px}
-.breaking-item .bdot{color:var(--red);margin-right:6px}
-
-/* Filter bar */
+.news-bar{background:var(--panel);border-bottom:1px solid var(--border);height:26px;overflow:hidden;display:flex;align-items:center}
+.news-lbl{background:var(--red);color:white;padding:0 8px;font-size:10px;font-weight:700;height:100%;display:flex;align-items:center;flex-shrink:0}
+.news-scroll{flex:1;height:100%;overflow:hidden;position:relative}
+.news-inner{position:absolute;width:100%;animation:ns 6s linear infinite}
+@keyframes ns{0%{top:0}100%{top:-50%}}
+.ni{height:26px;line-height:26px;padding:0 12px;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ni .dot{color:var(--red);margin-right:6px}
 .filters{background:var(--panel);border-bottom:1px solid var(--border);padding:6px 16px;display:flex;gap:8px;align-items:center}
 .filters input{flex:1;background:var(--card);border:1px solid var(--border);color:var(--bright);padding:6px 12px;border-radius:6px;font-size:13px;font-family:inherit}
 .filters input:focus{outline:none;border-color:var(--blue)}
 .filters input::placeholder{color:var(--muted)}
-
-/* Stats bar */
 .stats{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--border)}
-.st{background:var(--panel);padding:8px;text-align:center;border-right:1px solid var(--border)}
-.st:last-child{border-right:none}
-.st-v{font-size:18px;font-weight:700}
-.st-l{font-size:10px;color:var(--muted);text-transform:uppercase;margin-top:1px}
+.st{background:var(--panel);padding:8px;text-align:center;border-right:1px solid var(--border)}.st:last-child{border-right:none}
+.st-v{font-size:18px;font-weight:700}.st-l{font-size:10px;color:var(--muted);text-transform:uppercase;margin-top:1px}
 .st:nth-child(1) .st-v{color:var(--red)}.st:nth-child(2) .st-v{color:var(--amber)}.st:nth-child(3) .st-v{color:var(--blue)}.st:nth-child(4) .st-v{color:var(--purple)}.st:nth-child(5) .st-v{color:var(--green)}
 
-/* Main content - map left, list right */
-.content{flex:1;display:grid;grid-template-columns:1fr 350px;overflow:hidden}
-.map-box{position:relative}
+.main{display:grid;grid-template-columns:1fr 340px;height:calc(100vh - 200px)}
 #map{width:100%;height:100%}
-.leaflet-container{background:#1c2733!important}
+.leaflet-container{background:var(--panel)!important}
+.side{border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;background:var(--panel)}
+.side-body{flex:1;overflow-y:auto;padding:6px}
+.side-body::-webkit-scrollbar{width:4px}.side-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
 
-.side{display:flex;flex-direction:column;border-left:1px solid var(--border);overflow:hidden;background:var(--panel)}
-.side-scroll{flex:1;overflow-y:auto;padding:6px}
-.side-scroll::-webkit-scrollbar{width:4px}
-.side-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
-
-/* Cards */
-.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:9px;margin-bottom:5px;cursor:pointer;border-left:3px solid transparent;transition:transform 0.1s}
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:9px;margin-bottom:4px;cursor:pointer;border-left:3px solid transparent;transition:transform 0.1s}
 .card:hover{transform:translateX(2px);border-color:var(--blue)}
-.card.sev-crit{border-left-color:var(--red)}.card.sev-high{border-left-color:var(--amber)}.card.sev-mod{border-left-color:var(--blue)}.card.sev-low{border-left-color:var(--green)}
+.card.sc{border-left-color:var(--red)}.card.sh{border-left-color:var(--amber)}.card.sm{border-left-color:var(--blue)}.card.sl{border-left-color:var(--green)}
 .card-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px}
-.card-name{font-size:13px;font-weight:600;color:var(--bright);position:relative;cursor:help}
-.card-name:hover .ttip{display:block}
-.ttip{display:none;position:absolute;top:100%;left:0;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:8px;font-size:11px;font-weight:400;color:var(--text);width:250px;z-index:999;line-height:1.4;box-shadow:0 4px 12px rgba(0,0,0,0.5)}
-.badge{font-size:10px;padding:1px 5px;border-radius:4px;font-weight:600}
-.b-c{background:rgba(244,33,46,0.15);color:var(--red)}.b-h{background:rgba(255,173,31,0.15);color:var(--amber)}.b-m{background:rgba(29,155,240,0.15);color:var(--blue)}.b-l{background:rgba(0,186,124,0.15);color:var(--green)}
+.card-nm{font-size:13px;font-weight:600;color:var(--bright);position:relative;cursor:help}
+.card-nm:hover .tt{display:block}
+.tt{display:none;position:absolute;top:100%;left:0;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:7px;font-size:11px;font-weight:400;color:var(--text);width:240px;z-index:999;line-height:1.4;box-shadow:0 4px 10px rgba(0,0,0,0.5)}
+.bge{font-size:10px;padding:1px 5px;border-radius:4px;font-weight:600}
+.bc{background:rgba(244,33,46,0.15);color:var(--red)}.bh{background:rgba(255,173,31,0.15);color:var(--amber)}.bm{background:rgba(29,155,240,0.15);color:var(--blue)}.bl{background:rgba(0,186,124,0.15);color:var(--green)}
 .card-loc{font-size:11px;color:var(--muted);margin-bottom:2px}
-.card-stats{display:flex;gap:8px;font-size:12px;margin-bottom:3px}.card-stats b{color:var(--bright)}
-.card-tags{display:flex;gap:3px;font-size:10px}
-.tg{padding:1px 4px;border-radius:3px}.tg-v{background:rgba(0,186,124,0.1);color:var(--green)}.tg-p{background:rgba(255,173,31,0.1);color:var(--amber)}.tg-h{background:rgba(244,33,46,0.12);color:var(--red)}
+.card-st{display:flex;gap:8px;font-size:12px}.card-st b{color:var(--bright)}
+.card-tg{display:flex;gap:3px;margin-top:3px;font-size:10px}
+.tg{padding:1px 4px;border-radius:3px}.tv{background:rgba(0,186,124,0.1);color:var(--green)}.tp{background:rgba(255,173,31,0.1);color:var(--amber)}.th{background:rgba(244,33,46,0.12);color:var(--red)}
 
-/* Modal */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;align-items:center;justify-content:center}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:1000;align-items:center;justify-content:center}
 .modal-bg.open{display:flex}
-.modal{background:var(--panel);border:1px solid var(--border);border-radius:12px;width:92%;max-width:700px;max-height:85vh;overflow-y:auto;padding:24px}
-.modal h2{color:var(--bright);font-size:18px;margin-bottom:6px}
-.modal-desc{font-size:12px;color:var(--text);margin-bottom:12px;line-height:1.5}
-.modal-close{position:absolute;top:12px;right:16px;background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer}
-.period-tabs{display:flex;gap:6px;margin-bottom:12px}
-.period-tab{background:var(--card);border:1px solid var(--border);color:var(--text);padding:4px 12px;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit}
-.period-tab.active{background:var(--blue);color:white;border-color:var(--blue)}
-.chart-wrap{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:12px;height:250px;position:relative}
-.modal-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
-.ms{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center}
-.ms-v{font-size:20px;font-weight:700;color:var(--bright)}.ms-l{font-size:10px;color:var(--muted);margin-top:2px}
+.modal{background:var(--panel);border:1px solid var(--border);border-radius:12px;width:92%;max-width:650px;max-height:85vh;overflow-y:auto;padding:20px;position:relative}
+.modal h2{color:var(--bright);font-size:17px;margin-bottom:6px}
+.modal-desc{font-size:12px;color:var(--text);margin-bottom:10px}
+.mcls{position:absolute;top:12px;right:16px;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer}
+.period-btns{display:flex;gap:6px;margin-bottom:10px}
+.pbtn{background:var(--card);border:1px solid var(--border);color:var(--text);padding:4px 12px;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit}
+.pbtn.active{background:var(--blue);color:white;border-color:var(--blue)}
+.chart-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px;height:280px;margin-bottom:12px}
+.msm{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.ms{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px;text-align:center}
+.ms-v{font-size:18px;font-weight:700;color:var(--bright)}.ms-l{font-size:10px;color:var(--muted);margin-top:1px}
 
-.ftr{background:var(--panel);border-top:1px solid var(--border);padding:5px 16px;font-size:10px;color:var(--muted);text-align:center}
-
-@media(max-width:900px){.content{grid-template-columns:1fr;grid-template-rows:45vh 1fr}.stats{grid-template-columns:repeat(3,1fr)}}
+.ftr{background:var(--panel);border-top:1px solid var(--border);padding:5px;font-size:10px;color:var(--muted);text-align:center}
+@media(max-width:900px){.main{grid-template-columns:1fr;height:auto}#map{height:45vh}.side{height:50vh}.stats{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
 <body>
 <div class="topbar">CDC is dead, we protect the people. — El pueblo unido jamás será vencido</div>
-<div class="header"><h1>🌍 GLOBAL EPIDEMIC TRACKER</h1><div class="header-r"><select class="sel" id="lang" onchange="setLang(this.value)"><option value="zh" selected>中文</option><option value="en">English</option><option value="es">Español</option><option value="ru">Русский</option><option value="ar">العربية</option><option value="fa">فارسی</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="pt">Português</option></select></div></div>
-<div class="breaking"><div class="breaking-lbl" id="blbl">BREAKING</div><div class="breaking-scroll"><div class="breaking-inner" id="bnews"></div></div></div>
-<div class="filters"><input id="q" placeholder="搜索疾病..." oninput="doFilter()"><select class="sel" id="csel" onchange="doFilter()" style="min-width:130px"><option value="">所有国家</option></select></div>
+<div class="header"><h1>🌍 GLOBAL EPIDEMIC TRACKER</h1><div class="hdr-r"><select class="sel" id="lang" onchange="setLang(this.value)"><option value="zh" selected>中文</option><option value="en">English</option><option value="es">Español</option><option value="ru">Русский</option><option value="ar">العربية</option><option value="fa">فارسی</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="pt">Português</option></select></div></div>
+<div class="news-bar"><div class="news-lbl" id="nlbl">BREAKING</div><div class="news-scroll"><div class="news-inner" id="news"></div></div></div>
+<div class="filters"><input id="q" placeholder="搜索疾病/国家..." oninput="doFilter()"><select class="sel" id="csel" onchange="doFilter()" style="min-width:140px"><option value="">所有国家</option></select></div>
 <div class="stats" id="stats"></div>
-<div class="content"><div class="map-box"><div id="map"></div></div><div class="side"><div class="side-scroll" id="list"></div></div></div>
-<div class="ftr">DATA: WHO DON · WHO GHO · OWID | VALIDATION: Bing · Google · Reddit</div>
-<div class="modal-bg" id="mbg" onclick="if(event.target===this)closeM()"><div class="modal" id="mcont"></div></div>
-
+<div class="main"><div id="map"></div><div class="side"><div class="side-body" id="list"></div></div></div>
+<div class="ftr">DATA: WHO DON · WHO GHO · OWID | CROSS-VALIDATION: Bing · Google · Reddit</div>
+<div class="modal-bg" id="mbg" onclick="if(event.target===this)closeM()"><div class="modal" id="mc"></div></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 <script>
-var map,cl,allData,chart,lang='zh';
+var map,cl,allData,myChart,lang='zh',curPeriod=30;
 var SC={very_high:'#f4212e',high:'#ffad1f',moderate:'#1d9bf0',low:'#00ba7c',unknown:'#657786'};
-var SL={very_high:'sev-crit',high:'sev-high',moderate:'sev-mod',low:'sev-low',unknown:'sev-low'};
-var SB={very_high:'b-c',high:'b-h',moderate:'b-m',low:'b-l',unknown:'b-l'};
+var SL={very_high:'sc',high:'sh',moderate:'sm',low:'sl',unknown:'sl'};
+var SB={very_high:'bc',high:'bh',moderate:'bm',low:'bl',unknown:'bl'};
 
-var T={zh:{active:'活跃疫情',cases:'病例',deaths:'死亡',cfr:'致死率',countries:'国家',search:'搜索疾病/国家...',allc:'所有国家',brk:'突发',v:'✓',p:'⏳',crit:'极高',high:'高',mod:'中等',low:'低',d7:'7天',d30:'30天',d180:'半年',total:'累计',close:'关闭'},en:{active:'ACTIVE',cases:'CASES',deaths:'DEATHS',cfr:'CFR',countries:'COUNTRIES',search:'Search disease/country...',allc:'All Countries',brk:'BREAKING',v:'✓',p:'⏳',crit:'Critical',high:'High',mod:'Moderate',low:'Low',d7:'7D',d30:'30D',d180:'6M',total:'Total',close:'Close'},es:{active:'ACTIVOS',cases:'CASOS',deaths:'MUERTES',cfr:'CFR',countries:'PAÍSES',search:'Buscar...',allc:'Todos',brk:'ÚLTIMAS',v:'✓',p:'⏳',crit:'Crítico',high:'Alto',mod:'Moderado',low:'Bajo',d7:'7D',d30:'30D',d180:'6M',total:'Total',close:'Cerrar'},ru:{active:'АКТИВНЫЕ',cases:'СЛУЧАИ',deaths:'СМЕРТИ',cfr:'ЛЕТАЛЬНОСТЬ',countries:'СТРАНЫ',search:'Поиск...',allc:'Все страны',brk:'СРОЧНО',v:'✓',p:'⏳',crit:'Крит.',high:'Выс.',mod:'Ум.',low:'Низ.',d7:'7Д',d30:'30Д',d180:'6М',total:'Всего',close:'Закрыть'},ar:{active:'نشط',cases:'حالات',deaths:'وفيات',cfr:'وفيات%',countries:'دول',search:'بحث...',allc:'كل الدول',brk:'عاجل',v:'✓',p:'⏳',crit:'حرج',high:'عالي',mod:'متوسط',low:'منخفض',d7:'7ي',d30:'30ي',d180:'6ش',total:'إجمالي',close:'إغلاق'},fa:{active:'فعال',cases:'موارد',deaths:'فوتی',cfr:'مرگ%',countries:'کشور',search:'جستجو...',allc:'همه',brk:'فوری',v:'✓',p:'⏳',crit:'بحرانی',high:'بالا',mod:'متوسط',low:'پایین',d7:'۷ر',d30:'۳۰ر',d180:'۶م',total:'کل',close:'بستن'},de:{active:'AKTIV',cases:'FÄLLE',deaths:'TODE',cfr:'CFR',countries:'LÄNDER',search:'Suchen...',allc:'Alle',brk:'EILMELDUNG',v:'✓',p:'⏳',crit:'Kritisch',high:'Hoch',mod:'Mäßig',low:'Niedrig',d7:'7T',d30:'30T',d180:'6M',total:'Gesamt',close:'Schließen'},fr:{active:'ACTIFS',cases:'CAS',deaths:'DÉCÈS',cfr:'LÉTALITÉ',countries:'PAYS',search:'Rechercher...',allc:'Tous',brk:'URGENT',v:'✓',p:'⏳',crit:'Critique',high:'Élevé',mod:'Modéré',low:'Faible',d7:'7J',d30:'30J',d180:'6M',total:'Total',close:'Fermer'},pt:{active:'ATIVOS',cases:'CASOS',deaths:'MORTES',cfr:'LETALIDADE',countries:'PAÍSES',search:'Buscar...',allc:'Todos',brk:'URGENTE',v:'✓',p:'⏳',crit:'Crítico',high:'Alto',mod:'Moderado',low:'Baixo',d7:'7D',d30:'30D',d180:'6M',total:'Total',close:'Fechar'}};
+var T={zh:{active:'活跃疫情',cases:'病例',deaths:'死亡',cfr:'致死率',countries:'国家',search:'搜索疾病/国家...',allc:'所有国家',brk:'突发',v:'✓',p:'⏳',crit:'极高',high:'高',mod:'中等',low:'低',d7:'7天',d30:'30天',d180:'半年',total:'累计'},en:{active:'ACTIVE',cases:'CASES',deaths:'DEATHS',cfr:'CFR',countries:'COUNTRIES',search:'Search disease/country...',allc:'All Countries',brk:'BREAKING',v:'✓',p:'⏳',crit:'Critical',high:'High',mod:'Moderate',low:'Low',d7:'7 Days',d30:'30 Days',d180:'6 Months',total:'Total'},es:{active:'ACTIVOS',cases:'CASOS',deaths:'MUERTES',cfr:'CFR',countries:'PAÍSES',search:'Buscar...',allc:'Todos los países',brk:'URGENTE',v:'✓',p:'⏳',crit:'Crítico',high:'Alto',mod:'Moderado',low:'Bajo',d7:'7 días',d30:'30 días',d180:'6 meses',total:'Total'},ru:{active:'АКТИВНЫЕ',cases:'СЛУЧАИ',deaths:'СМЕРТИ',cfr:'ЛЕТАЛЬНОСТЬ',countries:'СТРАНЫ',search:'Поиск...',allc:'Все страны',brk:'СРОЧНО',v:'✓',p:'⏳',crit:'Крит.',high:'Выс.',mod:'Ум.',low:'Низ.',d7:'7Д',d30:'30Д',d180:'6М',total:'Всего'},ar:{active:'نشط',cases:'حالات',deaths:'وفيات',cfr:'وفيات%',countries:'دول',search:'بحث...',allc:'كل الدول',brk:'عاجل',v:'✓',p:'⏳',crit:'حرج',high:'عالي',mod:'متوسط',low:'منخفض',d7:'7ي',d30:'30ي',d180:'6ش',total:'إجمالي'},fa:{active:'فعال',cases:'موارد',deaths:'فوتی',cfr:'مرگ%',countries:'کشور',search:'جستجو...',allc:'همه',brk:'فوری',v:'✓',p:'⏳',crit:'بحرانی',high:'بالا',mod:'متوسط',low:'پایین',d7:'۷ر',d30:'۳۰ر',d180:'۶م',total:'کل'},de:{active:'AKTIV',cases:'FÄLLE',deaths:'TODE',cfr:'CFR',countries:'LÄNDER',search:'Suchen...',allc:'Alle Länder',brk:'EILMELDUNG',v:'✓',p:'⏳',crit:'Kritisch',high:'Hoch',mod:'Mäßig',low:'Niedrig',d7:'7T',d30:'30T',d180:'6M',total:'Gesamt'},fr:{active:'ACTIFS',cases:'CAS',deaths:'DÉCÈS',cfr:'LÉTALITÉ',countries:'PAYS',search:'Rechercher...',allc:'Tous les pays',brk:'URGENT',v:'✓',p:'⏳',crit:'Critique',high:'Élevé',mod:'Modéré',low:'Faible',d7:'7J',d30:'30J',d180:'6M',total:'Total'},pt:{active:'ATIVOS',cases:'CASOS',deaths:'MORTES',cfr:'LETALIDADE',countries:'PAÍSES',search:'Buscar...',allc:'Todos os países',brk:'URGENTE',v:'✓',p:'⏳',crit:'Crítico',high:'Alto',mod:'Moderado',low:'Baixo',d7:'7D',d30:'30D',d180:'6M',total:'Total'}};
 
-var CN={zh:{USA:'美国',CHN:'中国',IND:'印度',BRA:'巴西',RUS:'俄罗斯',GBR:'英国',FRA:'法国',DEU:'德国',JPN:'日本',KOR:'韩国',PAK:'巴基斯坦',BGD:'孟加拉国',NGA:'尼日利亚',MEX:'墨西哥',IDN:'印尼',COD:'刚果(金)',ETH:'埃塞俄比亚',EGY:'埃及',ZAF:'南非',THA:'泰国',VNM:'越南',PHL:'菲律宾',TUR:'土耳其',IRN:'伊朗',AGO:'安哥拉',KEN:'肯尼亚',UGA:'乌干达',SDN:'苏丹',GHA:'加纳',CMR:'喀麦隆',NPL:'尼泊尔',AFG:'阿富汗',IRQ:'伊拉克',SOM:'索马里',TCD:'乍得',NER:'尼日尔',MLI:'马里',GIN:'几内亚',PER:'秘鲁',COL:'哥伦比亚',ARG:'阿根廷',CHL:'智利',ESP:'西班牙',ITA:'意大利',POL:'波兰'},es:{USA:'EE.UU.',CHN:'China',IND:'India',BRA:'Brasil',RUS:'Rusia',GBR:'Reino Unido',FRA:'Francia',DEU:'Alemania',NGA:'Nigeria',MEX:'México',COD:'RD Congo',ETH:'Etiopía',EGY:'Egipto',ZAF:'Sudáfrica'},ru:{USA:'США',CHN:'Китай',IND:'Индия',BRA:'Бразилия',RUS:'Россия',GBR:'Великобритания',FRA:'Франция',DEU:'Германия',NGA:'Нигерия',COD:'ДР Конго',EGY:'Египет'},ar:{USA:'الولايات المتحدة',CHN:'الصين',IND:'الهند',EGY:'مصر',IRQ:'العراق',SAU:'السعودية',SDN:'السودان'},de:{USA:'USA',GBR:'Großbritannien',FRA:'Frankreich',DEU:'Deutschland',CHN:'China',RUS:'Russland'},fr:{USA:'États-Unis',GBR:'Royaume-Uni',DEU:'Allemagne',CHN:'Chine',BRA:'Brésil'},pt:{USA:'EUA',GBR:'Reino Unido',DEU:'Alemanha',CHN:'China',BRA:'Brasil'}};
+// Full country names in each language
+var CNAMES={"AFG":{zh:"阿富汗",en:"Afghanistan",es:"Afganistán",ru:"Афганистан",ar:"أفغانستان",fa:"افغانستان",de:"Afghanistan",fr:"Afghanistan",pt:"Afeganistão"},"AGO":{zh:"安哥拉",en:"Angola",es:"Angola",ru:"Ангола",ar:"أنغولا",fa:"آنگولا",de:"Angola",fr:"Angola",pt:"Angola"},"ARG":{zh:"阿根廷",en:"Argentina",es:"Argentina",ru:"Аргентина",ar:"الأرجنتين",fa:"آرژانتین",de:"Argentinien",fr:"Argentine",pt:"Argentina"},"AUS":{zh:"澳大利亚",en:"Australia",es:"Australia",ru:"Австралия",ar:"أستراليا",fa:"استرالیا",de:"Australien",fr:"Australie",pt:"Austrália"},"BGD":{zh:"孟加拉国",en:"Bangladesh",es:"Bangladés",ru:"Бангладеш",ar:"بنغلاديش",fa:"بنگلادش",de:"Bangladesch",fr:"Bangladesh",pt:"Bangladesh"},"BRA":{zh:"巴西",en:"Brazil",es:"Brasil",ru:"Бразилия",ar:"البرازيل",fa:"برزیل",de:"Brasilien",fr:"Brésil",pt:"Brasil"},"CHN":{zh:"中国",en:"China",es:"China",ru:"Китай",ar:"الصين",fa:"چین",de:"China",fr:"Chine",pt:"China"},"COD":{zh:"刚果(金)",en:"DR Congo",es:"RD Congo",ru:"ДР Конго",ar:"الكونغو الديمقراطية",fa:"کنگو",de:"DR Kongo",fr:"RD Congo",pt:"RD Congo"},"COG":{zh:"刚果(布)",en:"Congo",es:"Congo",ru:"Конго",ar:"الكونغو",fa:"کنگو",de:"Kongo",fr:"Congo",pt:"Congo"},"EGY":{zh:"埃及",en:"Egypt",es:"Egipto",ru:"Египет",ar:"مصر",fa:"مصر",de:"Ägypten",fr:"Égypte",pt:"Egito"},"ETH":{zh:"埃塞俄比亚",en:"Ethiopia",es:"Etiopía",ru:"Эфиопия",ar:"إثيوبيا",fa:"اتیوپی",de:"Äthiopien",fr:"Éthiopie",pt:"Etiópia"},"FRA":{zh:"法国",en:"France",es:"Francia",ru:"Франция",ar:"فرنسا",fa:"فرانسه",de:"Frankreich",fr:"France",pt:"França"},"DEU":{zh:"德国",en:"Germany",es:"Alemania",ru:"Германия",ar:"ألمانيا",fa:"آلمان",de:"Deutschland",fr:"Allemagne",pt:"Alemanha"},"GBR":{zh:"英国",en:"United Kingdom",es:"Reino Unido",ru:"Великобритания",ar:"المملكة المتحدة",fa:"بریتانیا",de:"Großbritannien",fr:"Royaume-Uni",pt:"Reino Unido"},"GHA":{zh:"加纳",en:"Ghana",es:"Ghana",ru:"Гана",ar:"غانا",fa:"غنا",de:"Ghana",fr:"Ghana",pt:"Gana"},"GIN":{zh:"几内亚",en:"Guinea",es:"Guinea",ru:"Гвинея",ar:"غينيا",fa:"گینه",de:"Guinea",fr:"Guinée",pt:"Guiné"},"IND":{zh:"印度",en:"India",es:"India",ru:"Индия",ar:"الهند",fa:"هند",de:"Indien",fr:"Inde",pt:"Índia"},"IDN":{zh:"印尼",en:"Indonesia",es:"Indonesia",ru:"Индонезия",ar:"إندونيسيا",fa:"اندونزی",de:"Indonesien",fr:"Indonésie",pt:"Indonésia"},"IRN":{zh:"伊朗",en:"Iran",es:"Irán",ru:"Иран",ar:"إيران",fa:"ایران",de:"Iran",fr:"Iran",pt:"Irã"},"IRQ":{zh:"伊拉克",en:"Iraq",es:"Irak",ru:"Ирак",ar:"العراق",fa:"عراق",de:"Irak",fr:"Irak",pt:"Iraque"},"ISR":{zh:"以色列",en:"Israel",es:"Israel",ru:"Израиль",ar:"إسرائيل",fa:"اسرائیل",de:"Israel",fr:"Israël",pt:"Israel"},"ITA":{zh:"意大利",en:"Italy",es:"Italia",ru:"Италия",ar:"إيطاليا",fa:"ایتالیا",de:"Italien",fr:"Italie",pt:"Itália"},"JPN":{zh:"日本",en:"Japan",es:"Japón",ru:"Япония",ar:"اليابان",fa:"ژاپن",de:"Japan",fr:"Japon",pt:"Japão"},"KEN":{zh:"肯尼亚",en:"Kenya",es:"Kenia",ru:"Кения",ar:"كينيا",fa:"کنیا",de:"Kenia",fr:"Kenya",pt:"Quénia"},"KOR":{zh:"韩国",en:"South Korea",es:"Corea del Sur",ru:"Южная Корея",ar:"كوريا الجنوبية",fa:"کره جنوبی",de:"Südkorea",fr:"Corée du Sud",pt:"Coreia do Sul"},"MEX":{zh:"墨西哥",en:"Mexico",es:"México",ru:"Мексика",ar:"المكسيك",fa:"مکزیک",de:"Mexiko",fr:"Mexique",pt:"México"},"NGA":{zh:"尼日利亚",en:"Nigeria",es:"Nigeria",ru:"Нигерия",ar:"نيجيريا",fa:"نیجریه",de:"Nigeria",fr:"Nigéria",pt:"Nigéria"},"NER":{zh:"尼日尔",en:"Niger",es:"Níger",ru:"Нигер",ar:"النيجر",fa:"نیجر",de:"Niger",fr:"Niger",pt:"Níger"},"NPL":{zh:"尼泊尔",en:"Nepal",es:"Nepal",ru:"Непал",ar:"نيبال",fa:"نپال",de:"Nepal",fr:"Népal",pt:"Nepal"},"PAK":{zh:"巴基斯坦",en:"Pakistan",es:"Pakistán",ru:"Пакистан",ar:"باكستان",fa:"پاکستان",de:"Pakistan",fr:"Pakistan",pt:"Paquistão"},"PER":{zh:"秘鲁",en:"Peru",es:"Perú",ru:"Перу",ar:"بيرو",fa:"پرو",de:"Peru",fr:"Pérou",pt:"Peru"},"PHL":{zh:"菲律宾",en:"Philippines",es:"Filipinas",ru:"Филиппины",ar:"الفلبين",fa:"فیلیپین",de:"Philippinen",fr:"Philippines",pt:"Filipinas"},"POL":{zh:"波兰",en:"Poland",es:"Polonia",ru:"Польша",ar:"بولندا",fa:"لهستان",de:"Polen",fr:"Pologne",pt:"Polónia"},"RUS":{zh:"俄罗斯",en:"Russia",es:"Rusia",ru:"Россия",ar:"روسيا",fa:"روسیه",de:"Russland",fr:"Russie",pt:"Rússia"},"SAU":{zh:"沙特",en:"Saudi Arabia",es:"Arabia Saudita",ru:"Саудовская Аравия",ar:"السعودية",fa:"عربستان",de:"Saudi-Arabien",fr:"Arabie saoudite",pt:"Arábia Saudita"},"SDN":{zh:"苏丹",en:"Sudan",es:"Sudán",ru:"Судан",ar:"السودان",fa:"سودان",de:"Sudan",fr:"Soudan",pt:"Sudão"},"ZAF":{zh:"南非",en:"South Africa",es:"Sudáfrica",ru:"ЮАР",ar:"جنوب أفريقيا",fa:"آفریقای جنوبی",de:"Südafrika",fr:"Afrique du Sud",pt:"África do Sul"},"ESP":{zh:"西班牙",en:"Spain",es:"España",ru:"Испания",ar:"إسبانيا",fa:"اسپانیا",de:"Spanien",fr:"Espagne",pt:"Espanha"},"THA":{zh:"泰国",en:"Thailand",es:"Tailandia",ru:"Таиланд",ar:"تايلاند",fa:"تایلند",de:"Thailand",fr:"Thaïlande",pt:"Tailândia"},"TUR":{zh:"土耳其",en:"Turkey",es:"Turquía",ru:"Турция",ar:"تركيا",fa:"ترکیه",de:"Türkei",fr:"Turquie",pt:"Turquia"},"UGA":{zh:"乌干达",en:"Uganda",es:"Uganda",ru:"Уганда",ar:"أوغندا",fa:"اوگاندا",de:"Uganda",fr:"Ouganda",pt:"Uganda"},"UKR":{zh:"乌克兰",en:"Ukraine",es:"Ucrania",ru:"Украина",ar:"أوكرانيا",fa:"اوکراین",de:"Ukraine",fr:"Ukraine",pt:"Ucrânia"},"USA":{zh:"美国",en:"United States",es:"Estados Unidos",ru:"США",ar:"الولايات المتحدة",fa:"آمریکا",de:"USA",fr:"États-Unis",pt:"Estados Unidos"},"VNM":{zh:"越南",en:"Vietnam",es:"Vietnam",ru:"Вьетнам",ar:"فيتنام",fa:"ویتنام",de:"Vietnam",fr:"Vietnam",pt:"Vietnã"},"YEM":{zh:"也门",en:"Yemen",es:"Yemen",ru:"Йемен",ar:"اليمن",fa:"یمن",de:"Jemen",fr:"Yémen",pt:"Iémen"},"TCD":{zh:"乍得",en:"Chad",es:"Chad",ru:"Чад",ar:"تشاد",fa:"چاد",de:"Tschad",fr:"Tchad",pt:"Chade"},"CMR":{zh:"喀麦隆",en:"Cameroon",es:"Camerún",ru:"Камерун",ar:"الكاميرون",fa:"کامرون",de:"Kamerun",fr:"Cameroun",pt:"Camarões"},"COL":{zh:"哥伦比亚",en:"Colombia",es:"Colombia",ru:"Колумбия",ar:"كولومبيا",fa:"کلمبیا",de:"Kolumbien",fr:"Colombie",pt:"Colômbia"},"AFG_":{zh:"阿富汗",en:"Afghanistan"},"MLI":{zh:"马里",en:"Mali",es:"Malí",ru:"Мали",ar:"مالي",fa:"مالی",de:"Mali",fr:"Mali",pt:"Mali"},"SOM":{zh:"索马里",en:"Somalia",es:"Somalia",ru:"Сомали",ar:"الصومال",fa:"سومالی",de:"Somalia",fr:"Somalie",pt:"Somália"},"MOZ":{zh:"莫桑比克",en:"Mozambique",es:"Mozambique",ru:"Мозамбик",ar:"موزمبيق",fa:"موزامبیک",de:"Mosambik",fr:"Mozambique",pt:"Moçambique"},"LKA":{zh:"斯里兰卡",en:"Sri Lanka",es:"Sri Lanka",ru:"Шри-Ланка",ar:"سريلانكا",fa:"سریلانکا",de:"Sri Lanka",fr:"Sri Lanka",pt:"Sri Lanka"},"DZA":{zh:"阿尔及利亚",en:"Algeria",es:"Argelia",ru:"Алжир",ar:"الجزائر",fa:"الجزایر",de:"Algerien",fr:"Algérie",pt:"Argélia"},"RWA":{zh:"卢旺达",en:"Rwanda",es:"Ruanda",ru:"Руанда",ar:"رواندا",fa:"رواندا",de:"Ruanda",fr:"Rwanda",pt:"Ruanda"},"SEN":{zh:"塞内加尔",en:"Senegal",es:"Senegal",ru:"Сенегал",ar:"السنغال",fa:"سنگال",de:"Senegal",fr:"Sénégal",pt:"Senegal"},"SVK":{zh:"斯洛伐克",en:"Slovakia",es:"Eslovaquia",ru:"Словакия",ar:"سلوفاكيا",fa:"اسلواکی",de:"Slowakei",fr:"Slovaquie",pt:"Eslováquia"},"MMR":{zh:"缅甸",en:"Myanmar",es:"Myanmar",ru:"Мьянма",ar:"ميانمار",fa:"میانمار",de:"Myanmar",fr:"Myanmar",pt:"Mianmar"},"MUL":{zh:"多国",en:"Multi-country",es:"Multicountry",ru:"Мульти-страна",ar:"متعدد الدول",fa:"چند کشور",de:"Multinational",fr:"Multi-pays",pt:"Multipaís"},"BWA":{zh:"博茨瓦纳",en:"Botswana",es:"Botsuana",ru:"Ботсвана",ar:"بوتسوانا",fa:"بوتسوانا",de:"Botswana",fr:"Botswana",pt:"Botsuana"}};
 
-var DN={
-'Cholera':{zh:'霍乱',es:'Cólera',ru:'Холера',ar:'الكوليرا',de:'Cholera',fr:'Choléra',pt:'Cólera'},
-'Ebola Virus Disease':{zh:'埃博拉',es:'Ébola',ru:'Эбола',ar:'إيبولا',de:'Ebola',fr:'Ebola',pt:'Ébola'},
-'Dengue':{zh:'登革热',es:'Dengue',ru:'Денге',ar:'حمى الضنك',de:'Dengue',fr:'Dengue',pt:'Dengue'},
-'Measles':{zh:'麻疹',es:'Sarampión',ru:'Корь',ar:'الحصبة',de:'Masern',fr:'Rougeole',pt:'Sarampo'},
-'Hantavirus':{zh:'汉坦病毒',es:'Hantavirus',ru:'Хантавирус',ar:'هانتافيروس',de:'Hantavirus',fr:'Hantavirus',pt:'Hantavírus'},
-'Mpox':{zh:'猴痘',es:'Mpox',ru:'Мпокс',ar:'جدري القردة',de:'Mpox',fr:'Mpox',pt:'Mpox'},
-'Yellow Fever':{zh:'黄热病',es:'Fiebre amarilla',ru:'Жёлтая лихорадка',ar:'الحمى الصفراء',de:'Gelbfieber',fr:'Fièvre jaune',pt:'Febre amarela'},
-'Diphtheria':{zh:'白喉',es:'Difteria',ru:'Дифтерия',ar:'الدفتيريا',de:'Diphtherie',fr:'Diphtérie',pt:'Difteria'},
-'Influenza':{zh:'流感',es:'Gripe',ru:'Грипп',ar:'الإنفلوانزا',de:'Grippe',fr:'Grippe',pt:'Gripe'},
-'Poliomyelitis':{zh:'脊髓灰质炎',es:'Polio',ru:'Полиомиелит',ar:'شلل الأطفال',de:'Polio',fr:'Polio',pt:'Pólio'},
-'Lassa Fever':{zh:'拉沙热',es:'Fiebre de Lassa',ru:'Лихорадка Ласса',ar:'حمى لاسا',de:'Lassa-Fieber',fr:'Fièvre de Lassa',pt:'Febre de Lassa'},
-'Nipah Virus Infection':{zh:'尼帕病毒',es:'Nipah',ru:'Нипах',ar:'نيباه',de:'Nipah',fr:'Nipah',pt:'Nipah'},
-'Marburg Virus Disease':{zh:'马尔堡',es:'Marburgo',ru:'Марбург',ar:'ماربورگ',de:'Marburg',fr:'Marbourg',pt:'Marburg'},
-'Chikungunya':{zh:'基孔肯雅',es:'Chikungunya',ru:'Чикунгунья',ar:'شيكونغونيا',de:'Chikungunya',fr:'Chikungunya',pt:'Chikungunya'}
-};
+var DN={'Cholera':{zh:'霍乱',es:'Cólera',ru:'Холера',ar:'الكوليرا',de:'Cholera',fr:'Choléra',pt:'Cólera'},'Ebola Virus Disease':{zh:'埃博拉',es:'Ébola',ru:'Эбола',ar:'إيبولا',de:'Ebola',fr:'Ebola',pt:'Ébola'},'Dengue':{zh:'登革热',es:'Dengue',ru:'Денге',ar:'حمى الضنك',de:'Dengue',fr:'Dengue',pt:'Dengue'},'Measles':{zh:'麻疹',es:'Sarampión',ru:'Корь',ar:'الحصبة',de:'Masern',fr:'Rougeole',pt:'Sarampo'},'Hantavirus':{zh:'汉坦病毒',es:'Hantavirus',ru:'Хантавирус',ar:'هانتافيروس',de:'Hantavirus',fr:'Hantavirus',pt:'Hantavírus'},'Mpox':{zh:'猴痘',es:'Mpox',ru:'Мпокс',ar:'جدري القردة',de:'Mpox',fr:'Mpox',pt:'Mpox'},'Yellow Fever':{zh:'黄热病',es:'Fiebre amarilla',ru:'Жёлтая лихорадка',ar:'الحمى الصفراء',de:'Gelbfieber',fr:'Fièvre jaune',pt:'Febre amarela'},'Diphtheria':{zh:'白喉',es:'Difteria',ru:'Дифтерия',ar:'الدفتيريا',de:'Diphtherie',fr:'Diphtérie',pt:'Difteria'},'Influenza':{zh:'流感',es:'Gripe',ru:'Грипп',ar:'الإنفلوانزا',de:'Grippe',fr:'Grippe',pt:'Gripe'},'Lassa Fever':{zh:'拉沙热',es:'Fiebre de Lassa',ru:'Лихорадка Ласса',ar:'حمى لاسا',de:'Lassa-Fieber',fr:'Fièvre de Lassa',pt:'Febre de Lassa'},'Nipah Virus Infection':{zh:'尼帕病毒',es:'Nipah',ru:'Нипах',ar:'نيباه',de:'Nipah',fr:'Nipah',pt:'Nipah'},'Marburg Virus Disease':{zh:'马尔堡',es:'Marburgo',ru:'Марбург',ar:'ماربورگ',de:'Marburg',fr:'Marbourg',pt:'Marburg'},'Poliomyelitis':{zh:'脊髓灰质炎',es:'Polio',ru:'Полиомиелит',ar:'شلل الأطفال',de:'Polio',fr:'Polio',pt:'Pólio'},'Chikungunya':{zh:'基孔肯雅',es:'Chikungunya',ru:'Чикунгунья',ar:'شيكونغونيا',de:'Chikungunya',fr:'Chikungunya',pt:'Chikungunya'}};
 
-var TIP={
-'Cholera':{zh:'急性腹泻传染病，由霍乱弧菌引起，经污染水传播',en:'Acute diarrheal disease via contaminated water'},
-'Ebola Virus Disease':{zh:'高致死率出血热，CFR可达90%',en:'Severe hemorrhagic fever, CFR up to 90%'},
-'Dengue':{zh:'蚊媒病毒病，全球年感染约3.9亿',en:'Mosquito-borne, ~390M infections/year globally'},
-'Measles':{zh:'高传染性呼吸道病毒，可疫苗预防',en:'Highly contagious respiratory virus, vaccine-preventable'},
-'Hantavirus':{zh:'啮齿动物传播，安第斯病毒可人传人',en:'Rodent-borne, Andes virus can transmit H2H'},
-'Mpox':{zh:'密切接触传播病毒病，引起皮疹',en:'Close-contact viral disease causing rash'},
-'Diphtheria':{zh:'细菌性感染，可疫苗预防',en:'Bacterial infection, vaccine-preventable'},
-'Influenza':{zh:'呼吸道传染病，年重症300-500万',en:'Respiratory infection, 3-5M severe/year'},
-'Lassa Fever':{zh:'啮齿动物传播出血热',en:'Rodent-borne hemorrhagic fever'},
-'Nipah Virus Infection':{zh:'果蝠传播，可人传人，CFR 40-75%',en:'From fruit bats, H2H, CFR 40-75%'},
-'Marburg Virus Disease':{zh:'严重出血热，CFR高达88%',en:'Severe hemorrhagic fever, CFR up to 88%'}
-};
+var TIP={'Cholera':{zh:'急性腹泻传染病，经污染水传播',en:'Acute diarrheal disease via contaminated water'},'Ebola Virus Disease':{zh:'高致死率出血热，CFR可达90%',en:'Hemorrhagic fever, CFR up to 90%'},'Dengue':{zh:'蚊媒病毒病，年感染3.9亿',en:'Mosquito-borne, ~390M infections/year'},'Measles':{zh:'高传染性呼吸道病毒，可疫苗预防',en:'Highly contagious, vaccine-preventable'},'Hantavirus':{zh:'啮齿动物传播，安第斯病毒可人传人',en:'Rodent-borne, Andes virus H2H capable'},'Mpox':{zh:'密切接触传播，引起皮疹',en:'Close-contact, causes rash/fever'},'Diphtheria':{zh:'细菌感染，可疫苗预防',en:'Bacterial, vaccine-preventable'},'Lassa Fever':{zh:'啮齿动物传播出血热',en:'Rodent-borne hemorrhagic fever'},'Nipah Virus Infection':{zh:'果蝠传播，可人传人，CFR 40-75%',en:'Fruit bats, H2H, CFR 40-75%'},'Marburg Virus Disease':{zh:'严重出血热，CFR高达88%',en:'Hemorrhagic fever, CFR up to 88%'}};
 
 function i(k){return(T[lang]&&T[lang][k])||T.en[k]||k}
 function dn(n){return(lang==='en'||!DN[n])?n:(DN[n][lang]||n)}
-function cn(iso){return(CN[lang]&&CN[lang][iso])||iso}
+function cn(iso){return(CNAMES[iso]&&CNAMES[iso][lang])||((CNAMES[iso]&&CNAMES[iso].en)||iso)}
 function tip(n){var t=TIP[n];return t?(t[lang]||t.en||''):''}
-function fmt(n){if(!n)return'—';if(n>=1e6)return(n/1e6).toFixed(1)+'M';if(n>=1e3)return(n/1e3).toFixed(1)+'K';return String(n)}
+function fmt(n){if(!n||n===0)return'—';if(n>=1e6)return(n/1e6).toFixed(1)+'M';if(n>=1e3)return(n/1e3).toFixed(1)+'K';return String(n)}
 function pct(a,b){return b>0?((a/b)*100).toFixed(1)+'%':'—'}
+function fuzzy(t,q){if(!q)return true;var w=q.toLowerCase().split(/\s+/);var h=t.toLowerCase();return w.every(function(x){return h.indexOf(x)>=0})}
 
-// Fuzzy search
-function fuzzy(text,query){
-    if(!query)return true;
-    var words=query.toLowerCase().split(/\s+/);
-    var hay=text.toLowerCase();
-    return words.every(function(w){return hay.indexOf(w)>=0});
-}
-
-function setLang(l){lang=l;document.getElementById('q').placeholder=i('search');document.getElementById('blbl').textContent=i('brk');populateC();if(allData)render(allData)}
+function setLang(l){lang=l;document.getElementById('q').placeholder=i('search');document.getElementById('nlbl').textContent=i('brk');populateC();if(allData)render(allData)}
 function doFilter(){if(allData)render(allData)}
 function populateC(){
-    if(!allData)return;
-    var sel=document.getElementById('csel'),v=sel.value;
+    if(!allData)return;var sel=document.getElementById('csel'),v=sel.value;
     sel.innerHTML='<option value="">'+i('allc')+'</option>';
-    var seen={};
-    allData.outbreaks.forEach(function(o){if(o.country_iso3&&!seen[o.country_iso3])seen[o.country_iso3]=true});
+    var seen={};allData.outbreaks.forEach(function(o){if(o.country_iso3&&o.country_iso3!=='MUL')seen[o.country_iso3]=true});
     Object.keys(seen).sort(function(a,b){return cn(a).localeCompare(cn(b))}).forEach(function(iso){
-        var opt=document.createElement('option');opt.value=iso;opt.textContent=cn(iso);sel.appendChild(opt);
-    });
+        var opt=document.createElement('option');opt.value=iso;opt.textContent=cn(iso);sel.appendChild(opt)});
     sel.value=v;
 }
 
@@ -178,7 +125,6 @@ function init(){
     map.addLayer(cl);
     load();setInterval(load,600000);
     window.addEventListener('resize',function(){map.invalidateSize()});
-    setTimeout(function(){map.invalidateSize()},300);
 }
 
 function load(){fetch('data/epidemics.json').then(function(r){return r.json()}).then(function(d){allData=d;populateC();render(d)}).catch(function(e){console.error(e)})}
@@ -187,95 +133,87 @@ function render(d){
     var o=d.outbreaks.slice();
     var q=document.getElementById('q').value;
     var c=document.getElementById('csel').value;
-    if(q)o=o.filter(function(x){return fuzzy(x.disease+' '+x.location+' '+x.country+' '+(DN[x.disease]?Object.values(DN[x.disease]).join(' '):''),q)});
-    if(c)o=o.filter(function(x){return x.country_iso3===c});
+    if(q)o=o.filter(function(x){return fuzzy(x.disease+' '+x.location+' '+cn(x.country_iso3)+' '+(DN[x.disease]?Object.values(DN[x.disease]).join(' '):''),q)});
+    if(c){o=o.filter(function(x){return x.country_iso3===c});
+        // Fly to country
+        var pts=o.filter(function(x){return x.latitude&&x.longitude});
+        if(pts.length>0){var lat=pts.reduce(function(s,x){return s+x.latitude},0)/pts.length;var lng=pts.reduce(function(s,x){return s+x.longitude},0)/pts.length;map.flyTo([lat,lng],5,{duration:1})}
+    }else{map.flyTo([20,0],2,{duration:0.5})}
     o.sort(function(a,b){var s={very_high:0,high:1,moderate:2,low:3,unknown:4};return(s[a.severity]||9)-(s[b.severity]||9)||(b.cases||0)-(a.cases||0)});
-
     var tc=0,td=0;o.forEach(function(x){tc+=x.cases||0;td+=x.deaths||0});
-    document.getElementById('stats').innerHTML='<div class="st"><div class="st-v">'+o.length+'</div><div class="st-l">'+i('active')+'</div></div><div class="st"><div class="st-v">'+fmt(tc)+'</div><div class="st-l">'+i('cases')+'</div></div><div class="st"><div class="st-v">'+fmt(td)+'</div><div class="st-l">'+i('deaths')+'</div></div><div class="st"><div class="st-v">'+pct(td,tc)+'</div><div class="st-l">'+i('cfr')+'</div></div><div class="st"><div class="st-v">'+new Set(o.map(function(x){return x.country_iso3})).size+'</div><div class="st-l">'+i('countries')+'</div></div>';
-
-    renderMap(o);renderBreaking(d.outbreaks);renderList(o);
+    document.getElementById('stats').innerHTML='<div class="st"><div class="st-v">'+o.length+'</div><div class="st-l">'+i('active')+'</div></div><div class="st"><div class="st-v">'+fmt(tc||null)+'</div><div class="st-l">'+i('cases')+'</div></div><div class="st"><div class="st-v">'+fmt(td||null)+'</div><div class="st-l">'+i('deaths')+'</div></div><div class="st"><div class="st-v">'+pct(td,tc)+'</div><div class="st-l">'+i('cfr')+'</div></div><div class="st"><div class="st-v">'+new Set(o.map(function(x){return x.country_iso3})).size+'</div><div class="st-l">'+i('countries')+'</div></div>';
+    renderMap(o);renderNews(d.outbreaks);renderList(o);
 }
 
-function renderMap(o){cl.clearLayers();o.forEach(function(x){if(!x.latitude&&!x.longitude)return;var c=SC[x.severity]||'#657786',r=Math.max(4,Math.min(18,Math.sqrt(x.cases||1)*1.1));var m=L.circleMarker([x.latitude,x.longitude],{radius:r,color:c,fillColor:c,fillOpacity:0.4,weight:1.5});m.bindPopup('<b>'+dn(x.disease)+'</b>'+(x.h2h_transmission?' <b style="color:#f4212e">H2H</b>':'')+'<br>📍 '+x.location+'<br>'+i('cases')+': <b>'+fmt(x.cases)+'</b> · '+i('deaths')+': <b>'+fmt(x.deaths)+'</b>'+(x.source_url?'<br><a href="'+x.source_url+'" target="_blank">WHO →</a>':''));cl.addLayer(m)})}
+function renderMap(o){cl.clearLayers();o.forEach(function(x){if(!x.latitude&&!x.longitude)return;var c=SC[x.severity]||'#657786',r=Math.max(4,Math.min(18,Math.sqrt(x.cases||1)*1.1));var m=L.circleMarker([x.latitude,x.longitude],{radius:r,color:c,fillColor:c,fillOpacity:0.4,weight:1.5});m.bindPopup('<b>'+dn(x.disease)+'</b>'+(x.h2h_transmission?' <b style="color:#f4212e">H2H</b>':'')+'<br>📍 '+cn(x.country_iso3)+'<br>'+i('cases')+': <b>'+fmt(x.cases)+'</b> · '+i('deaths')+': <b>'+fmt(x.deaths)+'</b>'+(x.source_url?'<br><a href="'+x.source_url+'" target="_blank">WHO →</a>':''));cl.addLayer(m)})}
 
-function renderBreaking(o){
-    var top=o.filter(function(x){return x.cases>100&&x.severity!=='low'}).sort(function(a,b){return new Date(b.date_reported)-new Date(a.date_reported)}).slice(0,12);
-    var h='';
-    top.forEach(function(x){
-        var txt=dn(x.disease)+' — '+x.location+': '+fmt(x.cases)+' '+i('cases');
-        h+='<div class="breaking-item"><span class="bdot">●</span>'+txt+(x.source_url?' <a href="'+x.source_url+'" target="_blank">→</a>':'')+'</div>';
-    });
-    document.getElementById('bnews').innerHTML=h+h;
-}
+function renderNews(o){var top=o.filter(function(x){return x.description&&x.cases>0}).sort(function(a,b){return new Date(b.date_reported)-new Date(a.date_reported)}).slice(0,10);var h='';top.forEach(function(x){h+='<div class="ni"><span class="dot">●</span>'+x.description.substring(0,100)+(x.source_url?' <a href="'+x.source_url+'" target="_blank">→</a>':'')+'</div>'});document.getElementById('news').innerHTML=h+h}
 
-function renderList(o){
-    var h='';
-    o.forEach(function(x){
-        var cls=SL[x.severity]||'sev-low',bg=SB[x.severity]||'b-l';
-        var conf=x.confidence==='high'?'<span class="tg tg-v">'+i('v')+'</span>':x.confidence==='pending'?'<span class="tg tg-p">'+i('p')+'</span>':'';
-        var h2h=x.h2h_transmission?'<span class="tg tg-h">H2H</span>':'';
-        var t=tip(x.disease);
-        var thtml=t?'<span class="ttip">'+t+'</span>':'';
-        var sl=x.severity==='very_high'?i('crit'):x.severity==='high'?i('high'):x.severity==='moderate'?i('mod'):i('low');
-        h+='<div class="card '+cls+'" onclick="openM(\''+x.disease.replace(/'/g,"\\'")+'\')">';
-        h+='<div class="card-hd"><span class="card-name">'+dn(x.disease)+thtml+'</span><span class="badge '+bg+'">'+sl+'</span></div>';
-        h+='<div class="card-loc">📍 '+x.location+'</div>';
-        h+='<div class="card-stats"><span>'+i('cases')+': <b>'+fmt(x.cases)+'</b></span><span>'+i('deaths')+': <b>'+fmt(x.deaths)+'</b></span><span>CFR: '+pct(x.deaths,x.cases)+'</span></div>';
-        h+='<div class="card-tags">'+conf+h2h+(x.source_url?' <a href="'+x.source_url+'" target="_blank" onclick="event.stopPropagation()" style="font-size:10px">WHO→</a>':'')+'</div></div>';
-    });
-    document.getElementById('list').innerHTML=h;
-}
+function renderList(o){var h='';o.forEach(function(x){var cls=SL[x.severity]||'sl',bg=SB[x.severity]||'bl';var conf=x.confidence==='high'?'<span class="tg tv">'+i('v')+'</span>':x.confidence==='pending'?'<span class="tg tp">'+i('p')+'</span>':'';var h2h=x.h2h_transmission?'<span class="tg th">H2H</span>':'';var t=tip(x.disease);var tt=t?'<span class="tt">'+t+'</span>':'';var sl=x.severity==='very_high'?i('crit'):x.severity==='high'?i('high'):x.severity==='moderate'?i('mod'):i('low');h+='<div class="card '+cls+'" onclick="openM(\''+x.disease.replace(/'/g,"\\'")+'\')"><div class="card-hd"><span class="card-nm">'+dn(x.disease)+tt+'</span><span class="bge '+bg+'">'+sl+'</span></div><div class="card-loc">📍 '+cn(x.country_iso3)+'</div><div class="card-st"><span>'+i('cases')+': <b>'+fmt(x.cases)+'</b></span><span>'+i('deaths')+': <b>'+fmt(x.deaths)+'</b></span><span>CFR: '+pct(x.deaths,x.cases)+'</span></div><div class="card-tg">'+conf+h2h+(x.source_url?' <a href="'+x.source_url+'" target="_blank" onclick="event.stopPropagation()" style="font-size:10px">WHO→</a>':'')+'</div></div>'});document.getElementById('list').innerHTML=h}
 
 function openM(disease){
     var items=allData.outbreaks.filter(function(x){return x.disease===disease});
     var tc=0,td=0;items.forEach(function(x){tc+=x.cases||0;td+=x.deaths||0});
+    curPeriod=30;
+
+    // Fly to disease cluster
+    var pts=items.filter(function(x){return x.latitude&&x.longitude&&x.cases>0});
+    if(pts.length>0){var lat=pts.reduce(function(s,x){return s+x.latitude},0)/pts.length;var lng=pts.reduce(function(s,x){return s+x.longitude},0)/pts.length;map.flyTo([lat,lng],4,{duration:1})}
+
     var t=tip(disease);
-    var now=new Date();
-
-    // Time-based aggregation
-    var periods={7:0,30:0,180:0};
-    var monthly=new Array(6).fill(0);
-    items.forEach(function(x){
-        var d=new Date(x.date_reported);
-        var days=Math.floor((now-d)/86400000);
-        if(days<=7)periods[7]+=x.cases||0;
-        if(days<=30)periods[30]+=x.cases||0;
-        if(days<=180)periods[180]+=x.cases||0;
-        var m=Math.floor(days/30);
-        if(m>=0&&m<6)monthly[5-m]+=x.cases||0;
-    });
-
-    var h='<div style="position:relative"><button onclick="closeM()" style="position:absolute;top:-8px;right:-8px;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer">&times;</button>';
-    h+='<h2>'+dn(disease)+'</h2>';
+    var h='<button class="mcls" onclick="closeM()">&times;</button><h2>'+dn(disease)+'</h2>';
     if(t)h+='<p class="modal-desc">'+t+'</p>';
-    h+='<div style="font-size:12px;color:var(--muted);margin-bottom:12px">'+items.length+' outbreaks · '+new Set(items.map(function(x){return x.country_iso3})).size+' '+i('countries')+'</div>';
+    h+='<div style="font-size:12px;color:var(--muted);margin-bottom:8px">'+items.length+' outbreaks · '+new Set(items.map(function(x){return x.country_iso3})).size+' '+i('countries')+'</div>';
 
-    h+='<div class="modal-summary">';
-    h+='<div class="ms"><div class="ms-v" style="color:var(--red)">'+fmt(periods[7])+'</div><div class="ms-l">'+i('d7')+'</div></div>';
-    h+='<div class="ms"><div class="ms-v" style="color:var(--amber)">'+fmt(periods[30])+'</div><div class="ms-l">'+i('d30')+'</div></div>';
-    h+='<div class="ms"><div class="ms-v" style="color:var(--blue)">'+fmt(periods[180])+'</div><div class="ms-l">'+i('d180')+'</div></div>';
-    h+='</div>';
+    // Period summary
+    var now=new Date();
+    var p7=0,p30=0,p180=0;
+    items.forEach(function(x){var d=(now-new Date(x.date_reported))/86400000;if(d<=7)p7+=x.cases||0;if(d<=30)p30+=x.cases||0;if(d<=180)p180+=x.cases||0});
+    h+='<div class="msm"><div class="ms"><div class="ms-v" style="color:var(--red)">'+fmt(p7||null)+'</div><div class="ms-l">'+i('d7')+'</div></div><div class="ms"><div class="ms-v" style="color:var(--amber)">'+fmt(p30||null)+'</div><div class="ms-l">'+i('d30')+'</div></div><div class="ms"><div class="ms-v" style="color:var(--blue)">'+fmt(p180||null)+'</div><div class="ms-l">'+i('d180')+'</div></div></div>';
 
-    h+='<div class="chart-wrap"><canvas id="dchart"></canvas></div>';
-    h+='<div style="font-size:13px;color:var(--bright);font-weight:600">'+i('total')+': '+tc.toLocaleString()+' '+i('cases')+' · '+td.toLocaleString()+' '+i('deaths')+' · CFR '+pct(td,tc)+'</div>';
-    h+='</div>';
+    // Period selector
+    h+='<div class="period-btns"><button class="pbtn" onclick="setPeriod(7,\''+disease.replace(/'/g,"\\'")+'\')">'+i('d7')+'</button><button class="pbtn active" onclick="setPeriod(30,\''+disease.replace(/'/g,"\\'")+'\')">'+i('d30')+'</button><button class="pbtn" onclick="setPeriod(180,\''+disease.replace(/'/g,"\\'")+'\')">'+i('d180')+'</button></div>';
+    h+='<div class="chart-box"><canvas id="dchart"></canvas></div>';
+    h+='<div style="font-size:13px;color:var(--bright);font-weight:600">'+i('total')+': '+(tc>0?tc.toLocaleString():'—')+' '+i('cases')+' · '+(td>0?td.toLocaleString():'—')+' '+i('deaths')+' · CFR '+pct(td,tc)+'</div>';
 
-    document.getElementById('mcont').innerHTML=h;
+    document.getElementById('mc').innerHTML=h;
     document.getElementById('mbg').classList.add('open');
-
-    // Draw chart
-    setTimeout(function(){
-        var ctx=document.getElementById('dchart');
-        if(!ctx)return;
-        var labels=['M-5','M-4','M-3','M-2','M-1','Now'];
-        if(chart)chart.destroy();
-        chart=new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:i('cases'),data:monthly,borderColor:'#1d9bf0',backgroundColor:'rgba(29,155,240,0.1)',fill:true,tension:0.4,pointRadius:4,pointBackgroundColor:'#1d9bf0'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:'rgba(56,68,77,0.5)'},ticks:{color:'#8899a6'}},y:{grid:{color:'rgba(56,68,77,0.5)'},ticks:{color:'#8899a6'}}}}});
-    },100);
+    drawChart(disease,30);
 }
 
-function closeM(){document.getElementById('mbg').classList.remove('open');if(chart){chart.destroy();chart=null}}
+function setPeriod(days,disease){
+    curPeriod=days;
+    document.querySelectorAll('.pbtn').forEach(function(b){b.classList.remove('active')});
+    event.target.classList.add('active');
+    drawChart(disease,days);
+}
 
+function drawChart(disease,days){
+    var items=allData.outbreaks.filter(function(x){return x.disease===disease});
+    var now=new Date();
+    var buckets,labels;
+
+    if(days<=7){
+        buckets=new Array(7).fill(0);labels=[];
+        for(var d=6;d>=0;d--){var dt=new Date(now-d*86400000);labels.push((dt.getMonth()+1)+'/'+dt.getDate())}
+        items.forEach(function(x){var diff=Math.floor((now-new Date(x.date_reported))/86400000);if(diff>=0&&diff<7)buckets[6-diff]+=x.cases||0});
+    }else if(days<=30){
+        buckets=new Array(30).fill(0);labels=[];
+        for(var d=29;d>=0;d--){var dt=new Date(now-d*86400000);labels.push(d%5===0?(dt.getMonth()+1)+'/'+dt.getDate():'')}
+        items.forEach(function(x){var diff=Math.floor((now-new Date(x.date_reported))/86400000);if(diff>=0&&diff<30)buckets[29-diff]+=x.cases||0});
+    }else{
+        buckets=new Array(6).fill(0);labels=[];
+        for(var m=5;m>=0;m--){var dt=new Date(now.getFullYear(),now.getMonth()-m,1);labels.push(dt.getFullYear()+'/'+(dt.getMonth()+1))}
+        items.forEach(function(x){var dt=new Date(x.date_reported);var diff=Math.floor((now-dt)/86400000/30);if(diff>=0&&diff<6)buckets[5-diff]+=x.cases||0});
+    }
+
+    var ctx=document.getElementById('dchart');
+    if(!ctx)return;
+    if(myChart)myChart.destroy();
+    myChart=new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:i('cases'),data:buckets,borderColor:'#1d9bf0',backgroundColor:'rgba(29,155,240,0.08)',fill:true,tension:0.3,pointRadius:3,pointBackgroundColor:'#1d9bf0',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{color:'#8899a6',font:{size:11}}}},scales:{x:{title:{display:true,text:days<=30?'Date':'Month',color:'#8899a6'},grid:{color:'rgba(56,68,77,0.4)'},ticks:{color:'#8899a6',maxRotation:0,autoSkip:true,maxTicksLimit:8}},y:{title:{display:true,text:i('cases'),color:'#8899a6'},grid:{color:'rgba(56,68,77,0.4)'},ticks:{color:'#8899a6'},beginAtZero:true}}}});
+}
+
+function closeM(){document.getElementById('mbg').classList.remove('open');if(myChart){myChart.destroy();myChart=null}}
 window.addEventListener('load',init);
 </script>
 </body>
