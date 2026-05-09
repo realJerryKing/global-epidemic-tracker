@@ -139,13 +139,11 @@ function populateC(){
     Object.keys(countries).sort(function(a,b){return cn(a).localeCompare(cn(b))}).forEach(function(iso){var opt=document.createElement('option');opt.value=iso;opt.textContent=cn(iso);cs.appendChild(opt)});
     Object.keys(diseases).sort(function(a,b){return dn(a).localeCompare(dn(b))}).forEach(function(d){var opt=document.createElement('option');opt.value=d;opt.textContent=dn(d);ds.appendChild(opt)});
     cs.value=cv;ds.value=dv;
-    keys.forEach(function(iso){var opt=document.createElement('option');opt.value=iso;opt.textContent=cn(iso,seen[iso]);sel.appendChild(opt)});
-    sel.value=v;
 }
 
 function init(){
     map=L.map('map',{zoomControl:true,attributionControl:false}).setView([20,0],2);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:18}).addTo(map);
+    L.tileLayer('https://basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',{maxZoom:18}).addTo(map);
     cl=L.markerClusterGroup({maxClusterRadius:50,showCoverageOnHover:false,iconCreateFunction:function(c){var n=c.getChildCount(),r=n<5?18:n<15?26:n<50?34:42;return L.divIcon({html:'<div style="width:'+r+'px;height:'+r+'px;border-radius:50%;background:rgba(244,33,46,0.2);border:2px solid rgba(244,33,46,0.5);display:flex;align-items:center;justify-content:center;color:#f4212e;font-weight:700;font-size:'+(r<26?10:12)+'px">'+n+'</div>',className:'',iconSize:[r,r]})}});
     map.addLayer(cl);load();setInterval(load,600000);
     window.addEventListener('resize',function(){map.invalidateSize()});
@@ -155,9 +153,10 @@ function init(){
 function load(){fetch('data/epidemics.json').then(function(r){return r.json()}).then(function(d){allData=d;populateC();render(d)}).catch(function(e){console.error(e)})}
 
 function render(d){
-    var o=d.outbreaks.slice();var q=document.getElementById('q').value.toLowerCase();var c=document.getElementById('csel').value;
+    var o=d.outbreaks.slice();var q=document.getElementById('q').value.toLowerCase();var c=document.getElementById('csel').value;var dis=document.getElementById('dsel').value;
     if(q){o=o.filter(function(x){var hay=(x.disease+' '+dn(x.disease)+' '+x.location+' '+cn(x.country_iso3)).toLowerCase();if(hay.indexOf(q)>=0)return true;for(var k in ALIAS){if(q.indexOf(k)>=0){var found=false;ALIAS[k].forEach(function(a){if(x.disease===a)found=true});if(found)return true}}return false})}
-    if(c){o=o.filter(function(x){return x.country_iso3===c});var pts=o.filter(function(x){return x.latitude});if(pts.length){var lt=pts.reduce(function(s,x){return s+x.latitude},0)/pts.length;var ln=pts.reduce(function(s,x){return s+x.longitude},0)/pts.length;map.flyTo([lt,ln],5,{duration:1})}}
+    if(c)o=o.filter(function(x){return x.country_iso3===c});
+    if(dis)o=o.filter(function(x){return x.disease===dis});
     if(c||dis){var pts=o.filter(function(x){return x.latitude});if(pts.length){var lt=pts.reduce(function(s,x){return s+x.latitude},0)/pts.length;var ln=pts.reduce(function(s,x){return s+x.longitude},0)/pts.length;map.flyTo([lt,ln],dis?3:5,{duration:1})}}
     var tc=0,td=0;o.forEach(function(x){tc+=x.cases||0;td+=x.deaths||0});
     document.getElementById('stats').innerHTML='<div class="st"><div class="sv">'+o.length+'</div><div class="sl">'+i('active')+'</div></div><div class="st"><div class="sv">'+fmt(tc||null)+'</div><div class="sl">'+i('cases')+'</div></div><div class="st"><div class="sv">'+fmt(td||null)+'</div><div class="sl">'+i('deaths')+'</div></div><div class="st"><div class="sv">'+pct(td,tc)+'</div><div class="sl">'+i('cfr')+'</div></div><div class="st"><div class="sv">'+new Set(o.map(function(x){return x.country_iso3})).size+'</div><div class="sl">'+i('countries')+'</div></div>';
@@ -183,6 +182,7 @@ function renderSide(o){
 function openNews(){var o=allData.outbreaks.filter(function(x){return x.description&&x.cases>0}).sort(function(a,b){return new Date(b.date_reported)-new Date(a.date_reported)}).slice(0,30);var h='';o.forEach(function(x){h+='<div style="padding:8px 0;border-bottom:1px solid var(--border);font-size:12px"><span style="color:var(--red)">●</span> <b>'+dn(x.disease)+'</b> — '+cn(x.country_iso3)+'<br><span style="color:var(--text)">'+x.description.substring(0,120)+'</span>'+(x.source_url?' <a href="'+x.source_url+'" target="_blank">WHO→</a>':'')+'</div>'});document.getElementById('nall').innerHTML=h;document.getElementById('ntitle').textContent=i('brk');document.getElementById('nbg').classList.add('open')}
 
 function openD(disease){
+    document.getElementById('dsel').value=disease;doFilter();
     var items=allData.outbreaks.filter(function(x){return x.disease===disease});
     var tc=0,td=0;items.forEach(function(x){tc+=x.cases||0;td+=x.deaths||0});
     var pts=items.filter(function(x){return x.latitude&&x.cases>0});
