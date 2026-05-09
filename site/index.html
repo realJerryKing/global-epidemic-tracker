@@ -68,7 +68,7 @@ a{color:var(--blue);text-decoration:none}
 <div class="top">CDC is dead, we protect the people. — El pueblo unido jamás será vencido</div>
 <div class="hdr"><h1>🌍 GLOBAL EPIDEMIC TRACKER</h1><div style="display:flex;gap:8px"><select class="sel" id="lang" onchange="setLang(this.value)"><option value="zh" selected>中文</option><option value="en">English</option><option value="es">Español</option><option value="ru">Русский</option><option value="ar">العربية</option><option value="fa">فارسی</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="pt">Português</option></select></div></div>
 <div class="news" onclick="openNews()"><div class="news-lbl" id="nlbl">突发</div><div class="news-wrap"><div class="news-inner" id="nlist"></div></div></div>
-<div class="bar"><input id="q" placeholder="搜索疾病/国家..." oninput="onSearch()" autocomplete="off"><div id="sug"></div><select class="sel" id="csel" onchange="doFilter()" style="min-width:130px"><option value="">所有国家</option></select></div>
+<div class="bar"><input id="q" placeholder="搜索疾病/国家..." oninput="onSearch()" autocomplete="off"><div id="sug"></div><select class="sel" id="csel" onchange="doFilter()" style="min-width:130px"><option value="">所有国家</option></select><button class="sel" onclick="resetFilters()" style="cursor:pointer">✕</button></div>
 <div class="stats" id="stats"></div>
 <div class="main"><div id="map"></div><div class="side" id="side"></div></div>
 <div class="ftr">DATA: WHO DON · WHO GHO · OWID | CROSS-VALIDATION: Bing · Google · Reddit</div>
@@ -103,6 +103,7 @@ function gtip(n){var t=TIP[n];return t?(t[lang]||t.en||''):''}
 function sevLabel(s){return s==='very_high'?i('crit'):s==='high'?i('high'):s==='moderate'?i('mod'):i('low')}
 
 function setLang(l){lang=l;document.getElementById('q').placeholder=i('search');document.getElementById('nlbl').textContent=i('brk');populateC();if(allData)render(allData)}
+function resetFilters(){document.getElementById('q').value='';document.getElementById('csel').value='';document.getElementById('sug').style.display='none';if(allData){render(allData);map.flyTo([20,0],2,{duration:0.5})}}
 function doFilter(){document.getElementById('sug').style.display='none';if(allData)render(allData)}
 
 function onSearch(){
@@ -132,7 +133,7 @@ function populateC(){
     if(!allData)return;var sel=document.getElementById('csel'),v=sel.value;
     sel.innerHTML='<option value="">'+i('allc')+'</option>';
     var seen={};allData.outbreaks.forEach(function(o){if(o.country_iso3)seen[o.country_iso3]=o.location});
-    var keys=Object.keys(seen).filter(function(k){var name=cn(k,seen[k]);return name&&name.length>3});
+    var keys=Object.keys(seen);
     keys.sort(function(a,b){return cn(a,seen[a]).localeCompare(cn(b,seen[b]))});
     keys.forEach(function(iso){var opt=document.createElement('option');opt.value=iso;opt.textContent=cn(iso,seen[iso]);sel.appendChild(opt)});
     sel.value=v;
@@ -140,7 +141,7 @@ function populateC(){
 
 function init(){
     map=L.map('map',{zoomControl:true,attributionControl:false}).setView([20,0],2);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:18}).addTo(map);
+    L.tileLayer('https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',{maxZoom:18}).addTo(map);
     cl=L.markerClusterGroup({maxClusterRadius:50,showCoverageOnHover:false,iconCreateFunction:function(c){var n=c.getChildCount(),r=n<5?18:n<15?26:n<50?34:42;return L.divIcon({html:'<div style="width:'+r+'px;height:'+r+'px;border-radius:50%;background:rgba(244,33,46,0.2);border:2px solid rgba(244,33,46,0.5);display:flex;align-items:center;justify-content:center;color:#f4212e;font-weight:700;font-size:'+(r<26?10:12)+'px">'+n+'</div>',className:'',iconSize:[r,r]})}});
     map.addLayer(cl);load();setInterval(load,600000);
     window.addEventListener('resize',function(){map.invalidateSize()});
@@ -177,6 +178,16 @@ function renderSide(o){
 function openNews(){var o=allData.outbreaks.filter(function(x){return x.description&&x.cases>0}).sort(function(a,b){return new Date(b.date_reported)-new Date(a.date_reported)}).slice(0,30);var h='';o.forEach(function(x){h+='<div style="padding:8px 0;border-bottom:1px solid var(--border);font-size:12px"><span style="color:var(--red)">●</span> <b>'+dn(x.disease)+'</b> — '+cn(x.country_iso3,x.location)+'<br><span style="color:var(--text)">'+x.description.substring(0,120)+'</span>'+(x.source_url?' <a href="'+x.source_url+'" target="_blank">WHO→</a>':'')+'</div>'});document.getElementById('nall').innerHTML=h;document.getElementById('ntitle').textContent=i('brk');document.getElementById('nbg').classList.add('open')}
 
 function openD(disease){
+    // First: filter map to show only this disease
+    var items=allData.outbreaks.filter(function(x){return x.disease===disease});
+    cl.clearLayers();
+    items.forEach(function(x){if(!x.latitude)return;var c=SC[x.severity]||'#657786',r=Math.max(5,Math.min(20,Math.sqrt(x.cases||1)*1.5));var m=L.circleMarker([x.latitude,x.longitude],{radius:r,color:c,fillColor:c,fillOpacity:0.5,weight:2});m.bindPopup('<b>'+dn(x.disease)+'</b><br>📍 '+cn(x.country_iso3,x.location)+'<br>'+i('cases')+': <b>'+fmt(x.cases)+'</b>');cl.addLayer(m)});
+    var pts=items.filter(function(x){return x.latitude&&x.cases>0});
+    if(pts.length){var lt=pts.reduce(function(s,x){return s+x.latitude},0)/pts.length;var ln=pts.reduce(function(s,x){return s+x.longitude},0)/pts.length;map.flyTo([lt,ln],3,{duration:1})}
+    // Show detail modal
+    openDModal(disease);
+}
+function openDModal(disease){
     var items=allData.outbreaks.filter(function(x){return x.disease===disease});
     var tc=0,td=0;items.forEach(function(x){tc+=x.cases||0;td+=x.deaths||0});
     var pts=items.filter(function(x){return x.latitude&&x.cases>0});
