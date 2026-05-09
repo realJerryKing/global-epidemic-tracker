@@ -18,10 +18,10 @@
         "deaths": 0,
         "cfr": 0.0,
         "severity": "low",
-        "h2h": true,
+        "h2h": false,
         "verified": false,
-        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2026-DON599",
-        "date": "2026-05-04"
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2026-DON600",
+        "date": "2026-05-08"
       }
     },
     {
@@ -7290,29 +7290,6 @@
         "verified": false,
         "source_url": "https://www.who.int/emergencies/disease-outbreak-news/DON-389",
         "date": "2022-05-27"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0.0,
-          0.0
-        ]
-      },
-      "properties": {
-        "disease": "Dengue",
-        "location": "Multi-country",
-        "country": "MUL",
-        "cases": 0,
-        "deaths": 0,
-        "cfr": 0.0,
-        "severity": "low",
-        "h2h": false,
-        "verified": false,
-        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2022-DON387",
-        "date": "2022-05-26"
       }
     }
   ]
