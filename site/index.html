@@ -230,7 +230,7 @@ function rS(o){
         var st=x.severity;var stT=st==='very_high'?'\u6781\u9ad8: \u5927\u89c4\u6a21\u75ab\u60c5/\u9ad8\u81f4\u6b7b\u7387':st==='high'?'\u9ad8: \u6d3b\u8dc3\u75ab\u60c5':st==='moderate'?'\u4e2d\u7b49: \u5730\u65b9\u6027\u6d41\u884c':'\u4f4e: \u5c11\u91cf\u75c5\u4f8b';h+="<div class='ch'><span class='cn'>"+dn(x.disease)+tt+"</span><span class='bg "+bg+"' title='"+stT+"'>"+sL(x.severity)+"</span></div>";
         h+="<div class='ci'>"+x.countries.size+" "+i("co")+"</div>";
         h+="<div class='cn2'><span>"+i("ca")+": <b>"+fmt(x.cases)+"</b></span><span>"+i("de")+": <b>"+fmt(x.deaths)+"</b></span><span>CFR: "+pct(x.deaths,x.cases)+"</span></div>";
-        h+="<div class='ct'>"+h2h+"<button class='hide-btn' onclick='event.stopPropagation();hideDisease(\""+x.disease+"\")'>\u2715</button></div></div>";
+        h+="<div class='ct'>"+h2h+"<button class='vbtn' onclick='event.stopPropagation();opD(this.parentElement.parentElement.dataset.d)' style='background:var(--accent2);color:white;padding:2px 8px;border-radius:4px;font-size:10px;cursor:pointer;border:none;font-family:inherit;margin-right:4px'>📊 详细</button><button class='hide-btn' onclick='event.stopPropagation();hideDisease(\""+x.disease+"\")'>\u2715</button></div></div>";
     });
     document.getElementById("side").innerHTML=h;
 }
