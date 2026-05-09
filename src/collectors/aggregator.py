@@ -7,12 +7,16 @@ from typing import Optional
 
 from ..models import OutbreakReport, NewsValidation, GlobalSummary, Severity, SourceType
 from ..collectors.who_don import WHODONCollector
+from ..collectors.who_gho import WHOGHOCollector
+from ..collectors.owid import OWIDMpoxCollector
 from ..validation.news_validator import NewsValidator
 
 
 class EpidemicAggregator:
     def __init__(self, cache_dir: str = "data/cache"):
         self.who = WHODONCollector(cache_dir=cache_dir)
+        self.gho = WHOGHOCollector(cache_dir=cache_dir)
+        self.owid = OWIDMpoxCollector(cache_dir=cache_dir)
         self.validator = NewsValidator(cache_dir=cache_dir)
         self._outbreaks: list[OutbreakReport] = []
         self._validations: dict[str, NewsValidation] = {}
@@ -20,6 +24,8 @@ class EpidemicAggregator:
 
     def fetch_all(self, validate: bool = True, max_validations: int = 15) -> None:
         self._outbreaks = self.who.collect()
+        self._outbreaks.extend(self.gho.collect())
+        self._outbreaks.extend(self.owid.collect())
         self._deduplicate()
 
         if validate and self._outbreaks:

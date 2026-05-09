@@ -81,7 +81,7 @@ select{background:var(--card);color:var(--text);border:1px solid var(--border);p
 <select id="lang" onchange="setLang(this.value)"><option value="zh" selected>中文</option><option value="en">English</option><option value="es">Español</option><option value="ru">Русский</option><option value="ar">العربية</option><option value="fa">فارسی</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="pt">Português</option></select>
 </div>
 </div>
-<div class="search-bar"><input type="text" id="search" placeholder="搜索疾病 / Search disease..." oninput="doSearch(this.value)"></div>
+<div class="search-bar"><input type="text" id="search" placeholder="搜索疾病 / Search disease..." oninput="doSearch(this.value)"><select id="country-filter" onchange="doCountryFilter(this.value)" style="background:var(--card);border:1px solid var(--border);color:var(--bright);padding:8px;border-radius:8px;font-size:13px;min-width:120px"><option value="">All Countries</option></select></div>
 <div class="ticker"><div class="ticker-label" id="tk-lbl">最新</div><div class="ticker-scroll" id="tk"></div></div>
 <div class="stats" id="stats"></div>
 <div class="layout">
@@ -167,6 +167,8 @@ function getTooltip(name){var info=DIS_INFO[name];if(!info)return'';return info[
 function setLang(l){lang=l;document.getElementById('search').placeholder=i('search');document.getElementById('tk-lbl').textContent=i('tk');if(allData)render(allData)}
 function doSearch(v){searchTerm=v.toLowerCase();if(allData)render(allData)}
 
+var countryFilter='';
+function doCountryFilter(v){countryFilter=v;if(allData)render(allData)}
 function init(){
 map=L.map('map',{zoomControl:true,attributionControl:false}).setView([20,0],2);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',{maxZoom:18}).addTo(map);
@@ -180,8 +182,12 @@ function load(){fetch('data/epidemics.json').then(function(r){return r.json()}).
 function render(d){
 var s=d.summary,o=d.outbreaks;
 if(searchTerm){o=o.filter(function(x){return(x.disease+' '+x.location+' '+x.country+(DIS_NAME[x.disease]?Object.values(DIS_NAME[x.disease]).join(' '):'')).toLowerCase().indexOf(searchTerm)>=0})}
+if(countryFilter){o=o.filter(function(x){return x.country_iso3===countryFilter||x.location===countryFilter||x.country===countryFilter})}
 document.getElementById('stats').innerHTML='<div class="stat"><div class="stat-v">'+s.total_active_outbreaks+'</div><div class="stat-l">'+i('active')+'</div></div><div class="stat"><div class="stat-v">'+fmt(s.total_cases)+'</div><div class="stat-l">'+i('cases')+'</div></div><div class="stat"><div class="stat-v">'+fmt(s.total_deaths)+'</div><div class="stat-l">'+i('deaths')+'</div></div><div class="stat"><div class="stat-v">'+(s.global_cfr*100).toFixed(1)+'%</div><div class="stat-l">'+i('cfr')+'</div></div><div class="stat"><div class="stat-v">'+s.countries_affected+'</div><div class="stat-l">'+i('countries')+'</div></div>';
 renderMap(o);renderTicker(o);renderSide(o);
+// Populate country dropdown
+var sel=document.getElementById('country-filter');
+if(sel.options.length<=1){var countries=new Set();d.outbreaks.forEach(function(x){if(x.country_iso3)countries.add(x.country_iso3+'|'+x.location)});Array.from(countries).sort(function(a,b){return a.split('|')[1].localeCompare(b.split('|')[1])}).forEach(function(c){var parts=c.split('|');var opt=document.createElement('option');opt.value=parts[0];opt.textContent=parts[1];sel.appendChild(opt)})}
 }
 
 function renderMap(outbreaks){
@@ -207,12 +213,12 @@ var maxC=Math.max.apply(null,outbreaks.map(function(o){return o.cases||0}).conca
 var h='';
 sorted.forEach(function(o){
 var cls=SK[o.severity]||'low',sb=SB[o.severity]||'sev-l';
-var v=o.news_verified?'<span class="tag tag-v">'+i('v')+'</span>':'<span class="tag tag-u">'+i('u')+'</span>';
+var conf=o.confidence||'medium';var confTag=conf==='high'?'<span class="tag tag-v">✓ '+i('v')+'</span>':conf==='pending'?'<span class="tag" style="background:rgba(245,158,11,0.12);color:var(--amber)">⏳ pending</span>':'<span class="tag tag-u">'+i('u')+'</span>';var v=confTag;
 var h2h=o.h2h_transmission?'<span class="tag tag-h">H2H</span>':'';
 var barW=Math.max(2,Math.min(100,((o.cases||0)/maxC)*100));
 var tip=getTooltip(o.disease);
 var tipHtml=tip?'<span class="tooltip">'+tip+'</span>':'';
-h+='<div class="card '+cls+'" onclick="fly('+o.latitude+','+o.longitude+')"><div class="card-top"><span class="card-disease">'+dn(o.disease)+tipHtml+'</span><span class="sev '+sb+'">'+sl(o.severity)+'</span></div><div class="card-loc">📍 '+o.location+', '+o.country+'</div><div class="card-nums"><span>'+i('cases')+': <b>'+(o.cases||0).toLocaleString()+'</b></span><span>'+i('deaths')+': <b>'+(o.deaths||0).toLocaleString()+'</b></span><span>CFR: '+pct(o.deaths,o.cases)+'</span></div><div class="card-bar"><div class="card-bar-fill" style="width:'+barW+'%;background:'+(SC[o.severity]||'#64748b')+'"></div></div><div class="tags">'+v+' '+h2h+(o.source_url?' <a href="'+o.source_url+'" target="_blank" style="font-size:10px">WHO →</a>':'')+'</div></div>';
+h+='<div class="card '+cls+'" onclick="fly('+o.latitude+','+o.longitude+')"><div class="card-top"><span class="card-disease">'+dn(o.disease)+tipHtml+'</span><span class="sev '+sb+'">'+sl(o.severity)+'</span></div><div class="card-loc">📍 '+o.location+', '+o.country+'</div><div class="card-nums"><span>'+i('cases')+': <b>'+((o.cases||0)>0?(o.cases).toLocaleString():(o.confidence==='pending'?'—':'0'))+'</b></span><span>'+i('deaths')+': <b>'+(o.deaths||0).toLocaleString()+'</b></span><span>CFR: '+pct(o.deaths,o.cases)+'</span></div><div class="card-bar"><div class="card-bar-fill" style="width:'+barW+'%;background:'+(SC[o.severity]||'#64748b')+'"></div></div><div class="tags">'+v+' '+h2h+(o.source_url?' <a href="'+o.source_url+'" target="_blank" style="font-size:10px">WHO →</a>':'')+'</div></div>';
 });
 document.getElementById('side').innerHTML=h;
 }

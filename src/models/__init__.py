@@ -49,6 +49,7 @@ class OutbreakReport:
     news_verified: bool = False
     news_sources: list[str] = field(default_factory=list)
     news_summary: str = ""
+    confidence: str = "medium"
 
     def __post_init__(self):
         if self.cases > 0 and self.cfr == 0.0:

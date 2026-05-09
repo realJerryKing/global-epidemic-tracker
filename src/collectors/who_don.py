@@ -194,6 +194,7 @@ class WHODONCollector:
                 date_reported=date_reported,
                 h2h_transmission=h2h,
                 travel_associated=bool(re.search(r"cruise\s*ship|travel|imported", summary, re.I)),
+                confidence="high" if cases > 0 else "pending",
             ))
         return reports[0] if reports else None
 
@@ -233,11 +234,18 @@ class WHODONCollector:
 
         # Pattern: word number + cases: "seven cases", "eight cases"
         if cases == 0:
-            m = re.search(r"(\w+)\s+cases?\s*[,(]", text, re.I)
+            # Pattern: "one/two/three confirmed case(s)" or "a case of"
+            m = re.search(r"(\w+)\s+(?:confirmed\s+|suspected\s+|laboratory[- ]confirmed\s+)?cases?\s*[,(.:]", text, re.I)
             if m:
                 n = self._word_to_num(m.group(1))
                 if n > 0:
                     cases = n
+
+        # Pattern: "the Nth case" or "X human cases"
+        if cases == 0:
+            m = re.search(r"(\d+)(?:st|nd|rd|th)\s+(?:confirmed\s+)?(?:human\s+)?case", text, re.I)
+            if m:
+                cases = int(m.group(1))
 
         # Deaths: "including X deaths"
         m = re.search(r"including\s+(\w+|\d[\d,]*)\s+deaths?", text, re.I)
