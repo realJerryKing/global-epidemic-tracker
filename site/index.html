@@ -72,6 +72,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 <div class="bar">
 <div class="ms"><div class="mb" id="cbtn" onclick="togD('c')">所有国家</div><div class="md" id="cdd"><div id="copts"></div></div></div>
 <div class="ms"><div class="mb" id="dbtn" onclick="togD('d')">所有疾病</div><div class="md" id="ddd"><div id="dopts"></div></div></div>
+<div class="ms"><div class="mb" id="vbtn" onclick="togD('v')">所有风险等级</div><div class="md" id="vdd"><div id="vopts"></div></div></div>
 <button class="rb" onclick="resetAll()">✕ 重置</button>
 </div>
 <div class="st" id="stats"></div>
@@ -82,7 +83,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 <script>
-var map,cl,allData,myChart,sC=new Set(),sD=new Set(),pC=new Set(),pD=new Set(),hiddenD=new Set();
+var map,cl,allData,myChart,sC=new Set(),sD=new Set(),sV=new Set(),pC=new Set(),pD=new Set(),pV=new Set(),hiddenD=new Set();
 var SC={very_high:"#ff4757",high:"#ffa502",moderate:"#3b82f6",low:"#2ed573",unknown:"#657786"};
 var SO={very_high:0,high:1,moderate:2,low:3,unknown:4};
 
@@ -164,14 +165,14 @@ function sL(s){return s==="very_high"?"极高":s==="high"?"高":s==="moderate"?"
 
 function cloN(){document.getElementById("nbg").classList.remove("op")}
 function cloD(){document.getElementById("dbg").classList.remove("op")}
-function resetAll(){sC.clear();sD.clear();pC.clear();pD.clear();hiddenD.clear();updateDropUI();uB();closD();if(allData)render(allData);if(map)map.flyTo([20,0],2,{duration:0.5})}
-function togD(t){var dd=document.getElementById(t==="c"?"cdd":"ddd");var o=dd.classList.contains("op");closD();if(!o)dd.classList.add("op")}
-function closD(){document.getElementById("cdd").classList.remove("op");document.getElementById("ddd").classList.remove("op")}
+function resetAll(){sC.clear();sD.clear();sV.clear();pC.clear();pD.clear();pV.clear();hiddenD.clear();updateDropUI();uB();closD();if(allData)render(allData);if(map)map.flyTo([20,0],2,{duration:0.5})}
+function togD(t){var dd=document.getElementById(t==="c"?"cdd":t==="d"?"ddd":"vdd");var o=dd.classList.contains("op");closD();if(!o)dd.classList.add("op")}
+function closD(){document.getElementById("cdd").classList.remove("op");document.getElementById("ddd").classList.remove("op");document.getElementById("vdd").classList.remove("op")}
 function hideDisease(d){hiddenD.add(d);if(allData)render(allData)}
 
 function popD(){
     if(!allData)return;
-    pC=new Set(sC);pD=new Set(sD);
+    pC=new Set(sC);pD=new Set(sD);pV=new Set(sV);
     var co={},di={};
     allData.outbreaks.forEach(function(x){if(x.country_iso3)co[x.country_iso3]=1;di[x.disease]=1});
     var ch="";
@@ -186,14 +187,26 @@ function popD(){
     });
     dh="<div style='padding:6px;position:sticky;top:0;background:var(--card);z-index:1'><input type='text' id='dsearch' placeholder='输入疾病名称或别名...' oninput='filterDOptions(this.value)' style='width:100%;padding:6px 8px;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--bright);font-size:12px;font-family:inherit;outline:none'></div>"+dh;dh+="<div style='padding:8px;display:flex;gap:6px;border-top:1px solid var(--border);position:sticky;bottom:0;background:var(--card)'><button class='rb' onclick='cancelD()' style='flex:1'>✕</button><button onclick='confirmD()' style='flex:1;background:var(--accent);color:var(--bg);border:none;padding:4px 8px;border-radius:4px;font-size:11px;cursor:pointer;font-family:inherit'>✓</button></div>";
     document.getElementById("dopts").innerHTML=dh;
+    var vh="";
+    var sevOpts=[{k:"very_high",l:"极高"},{k:"high",l:"高"},{k:"moderate",l:"中等"},{k:"low",l:"低"},{k:"h2h",l:"H2H 人传人"}];
+    sevOpts.forEach(function(s){
+        vh+="<div class='o"+(pV.has(s.k)?" sl":"")+"' data-sev='"+s.k+"' onclick='tSV(this.dataset.sev)'><span class='c'></span>"+s.l+"</div>";
+    });
+    vh+="<div style='padding:8px;display:flex;gap:6px;border-top:1px solid var(--border);position:sticky;bottom:0;background:var(--card)'><button class='rb' onclick='cancelV()' style='flex:1'>✕</button><button onclick='confirmV()' style='flex:1;background:var(--accent);color:var(--bg);border:none;padding:4px 8px;border-radius:4px;font-size:11px;cursor:pointer;font-family:inherit'>✓</button></div>";
+    document.getElementById("vopts").innerHTML=vh;
     uB();
 }
 
 function tSC(iso){pC.has(iso)?pC.delete(iso):pC.add(iso);updateDropUI()}
 function confirmC(){sC=new Set(pC);uB();closD();if(allData)render(allData)}
 function cancelC(){pC=new Set(sC);updateDropUI();uB();closD()}
+function tSV(v){pV.has(v)?pV.delete(v):pV.add(v);updateDropUI()}
+function confirmV(){sV=new Set(pV);uB();closD();if(allData)render(allData)}
+function cancelV(){pV=new Set(sV);updateDropUI();uB();closD()}
 function tSD(d){pD.has(d)?pD.delete(d):pD.add(d);updateDropUI()}
 function updateDropUI(){
+    var vo=document.getElementById("vopts");
+    if(vo)vo.querySelectorAll(".o").forEach(function(o){var v=o.dataset.sev;if(v&&pV.has(v))o.classList.add("sl");else o.classList.remove("sl")});
     var co=document.getElementById("copts");
     if(co)co.querySelectorAll(".o").forEach(function(o){var i=o.dataset.iso;if(i&&pC.has(i))o.classList.add("sl");else o.classList.remove("sl")});
     var dd=document.getElementById("dopts");
@@ -207,6 +220,9 @@ function uB(){
     var cb=document.getElementById("cbtn"),db=document.getElementById("dbtn");
     if(sC.size===0){cb.textContent="所有国家"}else if(sC.size===1){cb.textContent=cn(Array.from(sC)[0])}else{cb.textContent=sC.size+" 国家"}
     if(sD.size===0){db.textContent="所有疾病"}else if(sD.size===1){db.textContent=dn(Array.from(sD)[0])}else{db.textContent=sD.size+" 疾病"}
+    var vb=document.getElementById("vbtn");
+    var sevLabels={"very_high":"极高","high":"高","moderate":"中等","low":"低","h2h":"H2H"};
+    if(sV.size===0){vb.textContent="所有风险等级"}else if(sV.size===1){vb.textContent=sevLabels[Array.from(sV)[0]]||Array.from(sV)[0]}else{vb.textContent=sV.size+" 风险等级"}
 }
 
 function doF(){closD();if(allData)render(allData)}
@@ -257,6 +273,11 @@ function render(d){
     var o=d.outbreaks.slice();
     if(sC.size>0)o=o.filter(function(x){return sC.has(x.country_iso3)});
     if(sD.size>0)o=o.filter(function(x){return sD.has(x.disease)});
+    if(sV.size>0)o=o.filter(function(x){
+        if(sV.has(x.severity))return true;
+        if(sV.has("h2h")&&x.h2h_transmission)return true;
+        return false;
+    });
     o=o.filter(function(x){return !hiddenD.has(x.disease)});
     if(sC.size>0||sD.size>0){
         var pts=o.filter(function(x){return x.latitude});
