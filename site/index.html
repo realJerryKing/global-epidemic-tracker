@@ -13,7 +13,7 @@
 body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;font-size:14px}
 .top{background:linear-gradient(90deg,#ff4757,#ff6b81);color:white;text-align:center;padding:5px;font-size:11px;font-weight:700}
 .hdr{background:var(--panel);border-bottom:1px solid var(--border);padding:8px 16px;display:flex;align-items:center;justify-content:space-between}
-.hdr h1{font-size:15px;font-weight:700;color:var(--accent)}
+.hdr h1{font-size:15px;font-weight:700;color:white}
 .news{background:var(--panel);border-bottom:1px solid var(--border);height:30px;overflow:hidden;display:flex;align-items:center;cursor:pointer;justify-content:center}
 .nlbl{background:var(--red);color:white;padding:0 10px;font-size:10px;font-weight:700;height:100%;display:flex;align-items:center;flex-shrink:0;min-width:60px;justify-content:center}
 .nwrap{flex:1;height:100%;overflow:hidden;position:relative}
@@ -115,13 +115,13 @@ function popD(){
     allData.outbreaks.forEach(function(x){if(x.country_iso3)co[x.country_iso3]=1;di[x.disease]=1});
     var ch="";
     Object.keys(co).sort(function(a,b){return cn(a).localeCompare(cn(b))}).forEach(function(iso){
-        ch+="<div class='o"+(pC.has(iso)?" sl":"")+"' onclick='tSC(\""+iso+"\")'><span class='c'></span>"+cn(iso)+"</div>";
+        ch+="<div class='o"+(pC.has(iso)?" sl":"")+"' data-iso='"+iso+"' onclick='tSC(this.dataset.iso)'><span class='c'></span>"+cn(iso)+"</div>";
     });
     ch+="<div style='padding:8px;display:flex;gap:6px;border-top:1px solid var(--border);position:sticky;bottom:0;background:var(--card)'><button class='rb' onclick='cancelC()' style='flex:1'>✕</button><button onclick='confirmC()' style='flex:1;background:var(--accent);color:var(--bg);border:none;padding:4px 8px;border-radius:4px;font-size:11px;cursor:pointer;font-family:inherit'>✓</button></div>";
     document.getElementById("copts").innerHTML=ch;
     var dh="";
     Object.keys(di).sort(function(a,b){return dn(a).localeCompare(dn(b))}).forEach(function(d){
-        dh+="<div class='o"+(pD.has(d)?" sl":"")+"' onclick='tSD(\""+d+"\")'><span class='c'></span>"+dn(d)+"</div>";
+        dh+="<div class='o"+(pD.has(d)?" sl":"")+"' data-dis='"+d+"' onclick='tSD(this.dataset.dis)'><span class='c'></span>"+dn(d)+"</div>";
     });
     dh+="<div style='padding:8px;display:flex;gap:6px;border-top:1px solid var(--border);position:sticky;bottom:0;background:var(--card)'><button class='rb' onclick='cancelD()' style='flex:1'>✕</button><button onclick='confirmD()' style='flex:1;background:var(--accent);color:var(--bg);border:none;padding:4px 8px;border-radius:4px;font-size:11px;cursor:pointer;font-family:inherit'>✓</button></div>";
     document.getElementById("dopts").innerHTML=dh;
@@ -153,7 +153,7 @@ function init(){
     map.addLayer(cl);
     ld();setInterval(ld,600000);
     window.addEventListener("resize",function(){map.invalidateSize()});
-    document.addEventListener("click",function(e){if(!e.target.closest(".ms"))closD()});
+    document.addEventListener("click",function(e){if(!e.target.closest(".ms")&&!e.target.closest(".md"))closD()});
 }
 
 function ld(){fetch("data/epidemics.json?t="+Date.now()).then(function(r){return r.json()}).then(function(d){allData=d;popD();render(d)}).catch(function(e){console.error(e)})}
