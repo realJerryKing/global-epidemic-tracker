@@ -273,11 +273,7 @@ function render(d){
     var o=d.outbreaks.slice();
     if(sC.size>0)o=o.filter(function(x){return sC.has(x.country_iso3)});
     if(sD.size>0)o=o.filter(function(x){return sD.has(x.disease)});
-    if(sV.size>0)o=o.filter(function(x){
-        if(sV.has(x.severity))return true;
-        if(sV.has("h2h")&&x.h2h_transmission)return true;
-        return false;
-    });
+    
     o=o.filter(function(x){return !hiddenD.has(x.disease)});
     if(sC.size>0||sD.size>0){
         var pts=o.filter(function(x){return x.latitude});
@@ -319,6 +315,16 @@ function rS(o){
         if(x.h2h_transmission)d.h2h=true;
         if((SO[x.severity]||9)<(SO[d.severity]||9))d.severity=x.severity;
     });
+    // Apply severity filter after aggregation
+    if(sV.size>0){
+        var filtered={};
+        Object.keys(g).forEach(function(k){
+            var x=g[k];
+            if(sV.has(x.severity))filtered[k]=x;
+            else if(sV.has("h2h")&&x.h2h)filtered[k]=x;
+        });
+        g=filtered;
+    }
     var list=Object.values(g).sort(function(a,b){return(SO[a.severity]||9)-(SO[b.severity]||9)});
     var h="";
     list.forEach(function(x){
