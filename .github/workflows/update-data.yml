@@ -23,35 +23,18 @@ jobs:
 
       - name: Fetch and validate epidemic data
         run: |
-          mkdir -p data/processed data/cache site/data
+          mkdir -p data/processed data/cache docs/data
           python scripts/fetch_data.py --fetch --validate --max-validations 20 --export-json --export-geojson --summary
 
       - name: Commit updated data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/processed/ site/data/ -f
+          git add data/processed/ docs/data/ -f
           if git diff --staged --quiet; then
             echo "No data changes to commit"
           else
             TIMESTAMP=$(date -u '+%Y-%m-%d %H:%M UTC')
             git commit -m "data: auto-update ($TIMESTAMP)"
             git push
-          fi
-
-      - name: Sync to gh-pages
-        run: |
-          git fetch origin gh-pages
-          git checkout gh-pages
-          git checkout main -- data/processed/ site/data/
-          mkdir -p data
-          cp -r data/processed/* data/ 2>/dev/null || true
-          cp -r site/data/* data/ 2>/dev/null || true
-          git add data/ -f
-          if git diff --staged --quiet; then
-            echo "No data changes to sync"
-          else
-            TIMESTAMP=$(date -u '+%Y-%m-%d %H:%M UTC')
-            git commit -m "data: auto-sync ($TIMESTAMP)"
-            git push origin gh-pages
           fi

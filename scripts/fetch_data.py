@@ -89,7 +89,7 @@ def main():
         print(f"  GeoJSON: {path}")
 
     import shutil
-    site_data = Path(__file__).parent.parent / "site" / "data"
+    site_data = Path(__file__).parent.parent / "docs" / "data"
     site_data.mkdir(parents=True, exist_ok=True)
     if Path(f"{args.output_dir}/epidemics.json").exists():
         shutil.copy2(f"{args.output_dir}/epidemics.json", site_data / "epidemics.json")
