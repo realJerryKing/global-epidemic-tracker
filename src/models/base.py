@@ -16,7 +16,7 @@ from ..models import OutbreakReport, SourceType
 class BaseCollector:
     SOURCE: SourceType = SourceType.WHO_DON
     DEFAULT_TIMEOUT = 30
-    USER_AGENT = "EpidemicTracker/1.0 (https://github.com/MRLMRML/epidemic-tracker)"
+    USER_AGENT = "GlobalEpidemicTracker/1.0 (https://github.com/MRLMRML/global-epidemic-tracker)"
 
     def __init__(self, cache_dir: str = "data/cache", cache_ttl_hours: int = 6):
         self.cache_dir = Path(cache_dir)

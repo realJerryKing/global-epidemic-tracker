@@ -28,7 +28,7 @@ class NewsValidator:
         self.cache_dir = Path(cache_dir)
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         self._session = requests.Session()
-        self._session.headers.update({"User-Agent": "EpidemicTracker/1.0"})
+        self._session.headers.update({"User-Agent": "GlobalEpidemicTracker/1.0"})
 
     def validate_outbreak(self, outbreak: OutbreakReport) -> NewsValidation:
         query = self._build_query(outbreak)
@@ -135,7 +135,7 @@ class NewsValidator:
     def _search_reddit(self, query: str) -> list[dict]:
         url = "https://www.reddit.com/search.json"
         params = {"q": query, "sort": "new", "limit": 5, "t": "week"}
-        headers = {"User-Agent": "EpidemicTracker/1.0"}
+        headers = {"User-Agent": "GlobalEpidemicTracker/1.0"}
         resp = self._session.get(url, params=params, headers=headers, timeout=15)
         articles = []
         if resp.status_code == 200:

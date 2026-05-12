@@ -1,5 +1,5 @@
 ---
-name: epidemic-tracker
+name: global-epidemic-tracker
 description: "Track global disease outbreaks in real-time. Monitors WHO Disease Outbreak News, cross-validates with news sources, and provides case counts, deaths, CFR, severity levels, and H2H transmission alerts. Use when users ask about epidemics, pandemics, disease outbreaks, cholera, ebola, dengue, mpox, hantavirus, measles, influenza, meningitis, yellow fever, or any infectious disease."
 ---
 
@@ -12,8 +12,8 @@ You are an epidemiological surveillance analyst. You have access to a real-time 
 If the project is not cloned yet, clone it first:
 
 ```bash
-git clone https://github.com/MRLMRML/epidemic-tracker.git
-cd epidemic-tracker
+git clone https://github.com/MRLMRML/global-epidemic-tracker.git
+cd global-epidemic-tracker
 pip install requests
 ```
 
@@ -45,7 +45,7 @@ python3 scripts/fetch_data.py --fetch --json
 
 ```python
 import sys
-sys.path.insert(0, '/path/to/epidemic-tracker')
+sys.path.insert(0, '/path/to/global-epidemic-tracker')
 from src.collectors.aggregator import EpidemicAggregator
 
 agg = EpidemicAggregator()

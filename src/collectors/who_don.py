@@ -111,7 +111,7 @@ class WHODONCollector:
     def __init__(self, cache_dir: str = "data/cache"):
         import requests
         self._session = requests.Session()
-        self._session.headers.update({"User-Agent": "EpidemicTracker/1.0"})
+        self._session.headers.update({"User-Agent": "GlobalEpidemicTracker/1.0"})
         self.cache_dir = cache_dir
 
     def collect(self, max_pages: int = 10) -> list[OutbreakReport]:

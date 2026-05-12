@@ -4,8 +4,8 @@
 >
 > **El pueblo unido jamás será vencido.**
 
-[![Live Dashboard](https://img.shields.io/badge/Live-Dashboard-00d4aa?style=for-the-badge&logo=googlechrome&logoColor=white)](https://mrlmrml.github.io/epidemic-tracker/)
-[![Auto Update](https://github.com/MRLMRML/epidemic-tracker/actions/workflows/update-data.yml/badge.svg)](https://github.com/MRLMRML/epidemic-tracker/actions)
+[![Live Dashboard](https://img.shields.io/badge/Live-Dashboard-00d4aa?style=for-the-badge&logo=googlechrome&logoColor=white)](https://mrlmrml.github.io/global-epidemic-tracker/)
+[![Auto Update](https://github.com/MRLMRML/global-epidemic-tracker/actions/workflows/update-data.yml/badge.svg)](https://github.com/MRLMRML/global-epidemic-tracker/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 Real-time global disease outbreak monitoring with news cross-validation. Data sourced from WHO Disease Outbreak News API, validated against independent news outlets, and presented through an interactive multilingual dashboard.
@@ -27,7 +27,7 @@ WHO DON API  →  Data Collector  →  News Cross-Validation  →  Dashboard
 
 ## Dashboard
 
-**[→ Open Dashboard](https://mrlmrml.github.io/epidemic-tracker/)**
+**[→ Open Dashboard](https://mrlmrml.github.io/global-epidemic-tracker/)**
 
 | Feature | Description |
 |---------|------------|
@@ -42,8 +42,8 @@ WHO DON API  →  Data Collector  →  News Cross-Validation  →  Dashboard
 ## Quick Start
 
 ```bash
-git clone https://github.com/MRLMRML/epidemic-tracker.git
-cd epidemic-tracker
+git clone https://github.com/MRLMRML/global-epidemic-tracker.git
+cd global-epidemic-tracker
 pip install requests
 
 # Fetch latest data + news validation
@@ -84,7 +84,7 @@ risk = agg.get_risk_assessment("JPN")
 
 The `SKILL.md` file makes this project usable as an AI agent skill. Compatible with:
 
-- **OpenCode** — `load_skills=["epidemic-tracker"]`
+- **OpenCode** — `load_skills=["global-epidemic-tracker"]`
 - **Claude Code** — Reference `SKILL.md` in context
 - **OpenClaw** / **Hermes** — Include `SKILL.md` in agent context
 
@@ -96,7 +96,7 @@ Example agent queries:
 ## Architecture
 
 ```
-epidemic-tracker/
+global-epidemic-tracker/
 ├── SKILL.md                          # Agent skill definition
 ├── scripts/fetch_data.py             # CLI data pipeline
 ├── src/
