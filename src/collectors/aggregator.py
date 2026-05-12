@@ -198,11 +198,17 @@ class EpidemicAggregator:
 
     def to_json(self, output_path: str = "data/processed/epidemics.json") -> str:
         Path(output_path).parent.mkdir(parents=True, exist_ok=True)
+        outbreaks_enriched = []
+        for o in self._outbreaks:
+            d = o.to_dict()
+            d["continent"] = CONTINENT_MAP.get(o.country_iso3, "Unknown")
+            d["pathogen_type"] = PATHOGEN_TYPES.get(o.disease, "Unknown")
+            outbreaks_enriched.append(d)
         data = {
             "last_update": datetime.utcnow().isoformat(),
             "summary": self.get_global_summary().to_dict(),
             "diseases": self.get_disease_summary(),
-            "outbreaks": [o.to_dict() for o in self._outbreaks],
+            "outbreaks": outbreaks_enriched,
             "validations": self.get_validation_summary(),
         }
         with open(output_path, "w") as f:

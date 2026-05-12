@@ -8,7 +8,7 @@
 [![Auto Update](https://github.com/MRLMRML/global-epidemic-tracker/actions/workflows/update-data.yml/badge.svg)](https://github.com/MRLMRML/global-epidemic-tracker/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-Real-time global disease outbreak monitoring with news cross-validation. Data sourced from WHO Disease Outbreak News API, validated against independent news outlets, and presented through an interactive multilingual dashboard.
+Real-time global disease outbreak monitoring with news cross-validation. Data sourced from WHO Disease Outbreak News API, validated against independent news outlets, and presented through an interactive Chinese-language dashboard.
 
 ---
 
@@ -16,13 +16,14 @@ Real-time global disease outbreak monitoring with news cross-validation. Data so
 
 ```
 WHO DON API  →  Data Collector  →  News Cross-Validation  →  Dashboard
-(all diseases)    (53 diseases)     (Bing/Google/Reddit)       (9 languages)
+(all diseases)    (53 diseases)     (Bing/Google/Reddit)       (中文)
 ```
 
 - **581 active outbreaks** across **151 countries**
 - **53 diseases** tracked including Cholera, Ebola, Dengue, Measles, Hantavirus, Mpox, and more
 - **2.97M cases** and **13,677 deaths** monitored globally
 - **News cross-validation**: every outbreak verified against Bing, Google News, and Reddit
+- **Data source & credibility labels**: each disease card shows data source and verification status
 - **Auto-updates every 6 hours** via GitHub Actions
 
 ## Dashboard
@@ -32,12 +33,14 @@ WHO DON API  →  Data Collector  →  News Cross-Validation  →  Dashboard
 | Feature | Description |
 |---------|------------|
 | Interactive map | Dark theme, cluster markers, severity colors |
-| Multi-filter | Country + Disease + Severity multi-select dropdowns |
+| Hierarchical filters | Continent → Country, Pathogen Type → Disease |
+| Data source labels | WHO, OWID, news cross-validation badges per disease |
+| Credibility indicators | Verified / Partial / Pending status for each outbreak |
 | Disease tooltips | Hover to see disease description |
 | Risk alerts | H2H transmission warnings, severity ranking |
 | News ticker | Scrolling latest outbreak news |
 | Disease detail | Click for 7-day/30-day/6-month trend charts |
-| 9 languages | 中文 · English · Español · Русский · العربية · فارسی · Deutsch · Français · Português |
+| Language | 中文（简体） |
 
 ## Quick Start
 
@@ -74,6 +77,10 @@ summary = agg.get_global_summary()
 cholera = agg.get_outbreaks(disease="Cholera")
 japan = agg.get_outbreaks(country="JPN")
 critical = agg.get_outbreaks(severity="very_high")
+
+# Filter by continent and pathogen type
+asia_outbreaks = agg.get_outbreaks(continent="Asia")
+virus_outbreaks = agg.get_outbreaks(pathogen_type="Virus")
 
 # Risk assessment
 risk = agg.get_risk_assessment("JPN")
