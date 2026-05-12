@@ -4,113 +4,149 @@
 >
 > **El pueblo unido jamás será vencido.**
 
-[![Live Dashboard](https://img.shields.io/badge/Live-Dashboard-00c9db?style=for-the-badge&logo=googlechrome&logoColor=white)](https://mrlmrml.github.io/epidemic-tracker/)
+[![Live Dashboard](https://img.shields.io/badge/Live-Dashboard-00d4aa?style=for-the-badge&logo=googlechrome&logoColor=white)](https://mrlmrml.github.io/epidemic-tracker/)
 [![Auto Update](https://github.com/MRLMRML/epidemic-tracker/actions/workflows/update-data.yml/badge.svg)](https://github.com/MRLMRML/epidemic-tracker/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-Real-time global disease outbreak monitoring. WHO Disease Outbreak News + news cross-validation. 53 diseases, 151 countries, 9 languages.
+Real-time global disease outbreak monitoring with news cross-validation. Data sourced from WHO Disease Outbreak News API, validated against independent news outlets, and presented through an interactive multilingual dashboard.
 
 ---
 
-## 📊 Current Data
+## What It Does
 
-| Metric | Value |
-|--------|-------|
-| Active Outbreaks | 581 |
-| Diseases | 53 |
-| Countries | 151 |
-| Total Cases | 2,970,802 |
-| Total Deaths | 13,677 |
-| Auto-Update | Every 6 hours |
+```
+WHO DON API  →  Data Collector  →  News Cross-Validation  →  Dashboard
+(all diseases)    (53 diseases)     (Bing/Google/Reddit)       (9 languages)
+```
 
----
+- **581 active outbreaks** across **151 countries**
+- **53 diseases** tracked including Cholera, Ebola, Dengue, Measles, Hantavirus, Mpox, and more
+- **2.97M cases** and **13,677 deaths** monitored globally
+- **News cross-validation**: every outbreak verified against Bing, Google News, and Reddit
+- **Auto-updates every 6 hours** via GitHub Actions
 
-## 🚀 Local Dashboard Setup
+## Dashboard
+
+**[→ Open Dashboard](https://mrlmrml.github.io/epidemic-tracker/)**
+
+| Feature | Description |
+|---------|------------|
+| Interactive map | Dark theme, cluster markers, severity colors |
+| Multi-filter | Country + Disease + Severity multi-select dropdowns |
+| Disease tooltips | Hover to see disease description |
+| Risk alerts | H2H transmission warnings, severity ranking |
+| News ticker | Scrolling latest outbreak news |
+| Disease detail | Click for 7-day/30-day/6-month trend charts |
+| 9 languages | 中文 · English · Español · Русский · العربية · فارسی · Deutsch · Français · Português |
+
+## Quick Start
 
 ```bash
 git clone https://github.com/MRLMRML/epidemic-tracker.git
 cd epidemic-tracker
 pip install requests
 
-# Fetch latest data
-python3 scripts/fetch_data.py --fetch --export-json --export-geojson --no-validate
+# Fetch latest data + news validation
+python3 scripts/fetch_data.py --fetch --validate --summary
 
-# Copy to dashboard
-cp data/processed/epidemics.json site/data/
-cp data/processed/epidemics.geojson site/data/
+# Export for dashboard
+python3 scripts/fetch_data.py --fetch --export-json --export-geojson
 
-# Open dashboard
+# Open dashboard locally
 open site/index.html          # macOS
 xdg-open site/index.html      # Linux
 start site/index.html          # Windows
 ```
 
-No server needed — single HTML file loads `site/data/epidemics.json`.
+## Python API
 
----
+```python
+from src.collectors.aggregator import EpidemicAggregator
 
-## 🤖 Agent Integration
+agg = EpidemicAggregator()
+agg.fetch_all(validate=True)
 
-Load `SKILL.md` as a skill in any AI agent tool:
+# Global summary
+summary = agg.get_global_summary()
+# → 581 outbreaks, 2,970,802 cases, 13,677 deaths
 
-| Tool | How |
-|------|-----|
-| **OpenCode** | `load_skills=["epidemic-tracker"]` |
-| **Claude Code** | Reference `SKILL.md` in system prompt |
-| **OpenClaw / Hermes** | Include in agent context |
+# Filter by disease, country, severity
+cholera = agg.get_outbreaks(disease="Cholera")
+japan = agg.get_outbreaks(country="JPN")
+critical = agg.get_outbreaks(severity="very_high")
 
----
-
-## 🏗️ Architecture
-
-```
-WHO DON API  ──→  who_don.py   ──┐
-WHO GHO API  ──→  who_gho.py   ──┼──→ aggregator.py
-OWID CSV     ──→  owid.py      ──┘        ↓
-                               news_validator.py
-                               (Bing/Google/Reddit)
-                                      ↓
-                               epidemics.json
-                                      ↓
-                    ┌────────────────┼────────────────┐
-                    ▼                ▼                ▼
-             site/index.html   SKILL.md         fetch_data.py
-             (Dashboard)       (Agent)           (CLI)
+# Risk assessment
+risk = agg.get_risk_assessment("JPN")
+# → {"level": "low", "total_cases": 0, ...}
 ```
 
----
+## Agent Integration
 
-## 🌐 Dashboard Features
+The `SKILL.md` file makes this project usable as an AI agent skill. Compatible with:
 
-| Feature | Description |
-|---------|------------|
-| **Hierarchical filters** | Continent→Country, Pathogen Type→Disease |
-| **Severity filters** | 极高/高/中等/低/H2H multi-select |
-| **Map** | Dark theme, cluster markers, severity colors |
-| **Disease cards** | Severity badge, data source tags, confidence level, H2H flag |
-| **Disease detail** | 7d/30d/6m trend charts (Chart.js) |
-| **News ticker** | Scrolling latest outbreak news |
-| **9 languages** | 中文 · English · Español · Русский · العربية · فارسی · Deutsch · Français · Português |
+- **OpenCode** — `load_skills=["epidemic-tracker"]`
+- **Claude Code** — Reference `SKILL.md` in context
+- **OpenClaw** / **Hermes** — Include `SKILL.md` in agent context
 
----
+Example agent queries:
+- "What cholera outbreaks are active right now?"
+- "What's the most dangerous outbreak in Asia?"
+- "What diseases have H2H transmission?"
 
-## 📡 Data Sources
+## Architecture
 
-| Source | What | Method |
-|--------|------|--------|
-| WHO DON API | Outbreak alerts | REST API |
-| WHO GHO | Annual disease stats | REST API |
-| OWID | Mpox daily data | CSV |
-| Bing/Google/Reddit | Cross-validation | RSS/API |
+```
+epidemic-tracker/
+├── SKILL.md                          # Agent skill definition
+├── scripts/fetch_data.py             # CLI data pipeline
+├── src/
+│   ├── collectors/
+│   │   ├── who_don.py                # WHO Disease Outbreak News API
+│   │   ├── who_gho.py                # WHO Global Health Observatory
+│   │   ├── owid.py                   # Our World in Data (Mpox)
+│   │   └── aggregator.py             # Multi-source aggregation
+│   ├── validation/
+│   │   └── news_validator.py         # Bing/Google/Reddit cross-validation
+│   └── models/
+│       └── __init__.py               # Data models (Outbreak, Country, etc.)
+├── site/
+│   ├── index.html                    # Dashboard (single-file, no server needed)
+│   └── data/                         # Live data (JSON/GeoJSON)
+├── data/
+│   └── processed/                    # Exported data
+├── .github/workflows/
+│   └── update-data.yml               # Auto-update every 6 hours
+└── SKILL.md                          # Agent skill
+```
 
----
+## Data Sources
 
-## 🦠 Diseases (53)
+| Source | What | Method | Frequency |
+|--------|------|--------|-----------|
+| **WHO DON API** | Global outbreak alerts | REST API | Event-driven |
+| **WHO GHO** | Annual disease statistics | REST API | Annual |
+| **OWID** | Mpox daily data | CSV | Daily |
+| **Bing News** | Cross-validation | RSS | Per-run |
+| **Google News** | Cross-validation | RSS | Per-run |
+| **Reddit** | Community reports | API | Per-run |
 
-Cholera · Ebola · Marburg · Mpox · Dengue · Measles · Influenza · Hantavirus · Yellow Fever · Meningitis · Polio · MERS · Nipah · Rift Valley Fever · West Nile · Lassa · CCHF · Plague · Anthrax · Chikungunya · Diphtheria · Hepatitis E · Rabies · Zika · COVID-19 · Malaria · Avian Influenza · and more.
+## Diseases Tracked
 
----
+Cholera · Ebola · Marburg · Mpox · Dengue · Measles · Influenza · Hantavirus · Yellow Fever · Meningitis · Polio · MERS · Nipah · Rift Valley Fever · West Nile · Oropouche · Lassa Fever · CCHF · Plague · Anthrax · Chikungunya · Diphtheria · Hepatitis E · Rabies · Zika · COVID-19 · and more (53 total)
 
-## 📜 License
+## Contributing
 
-MIT — The people's data belongs to the people.
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+Areas to contribute:
+- New data source collectors
+- Disease name translations
+- Dashboard improvements
+- Data accuracy fixes
+
+## License
+
+MIT — Use it, fork it, deploy it. The people's data belongs to the people.
