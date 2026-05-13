@@ -342,13 +342,21 @@ function renderTrendChart(){
             responsive:true,
             maintainAspectRatio:false,
             interaction:{mode:'index',intersect:false},
+            onClick:function(){trendChart.tooltip.setActiveElements([],{x:0,y:0})},
             plugins:{
                 legend:{display:false},
-                tooltip:{backgroundColor:'#1c2733',titleColor:'#e7e9ea',bodyColor:'#8899a6',borderColor:'#2d3b50',borderWidth:1}
+                tooltip:{
+                    backgroundColor:'#1c2733',
+                    titleColor:'#e7e9ea',
+                    bodyColor:'#8899a6',
+                    borderColor:'#2d3b50',
+                    borderWidth:1,
+                    callbacks:{label:function(ctx){return ctx.dataset.label+': '+fmt(ctx.parsed.y)}}
+                }
             },
             scales:{
                 x:{grid:{color:'rgba(45,59,80,0.5)'},ticks:{color:'#8899a6'}},
-                y:{grid:{color:'rgba(45,59,80,0.5)'},ticks:{color:'#8899a6'},beginAtZero:true,title:{display:true,text:'病例数',color:'#8899a6'}}
+                y:{grid:{color:'rgba(45,59,80,0.5)'},ticks:{color:'#8899a6',callback:function(v){return fmt(v)}},beginAtZero:true,title:{display:true,text:'病例数',color:'#8899a6'}}
             }
         }
     });
