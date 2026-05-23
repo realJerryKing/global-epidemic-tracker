@@ -14,14 +14,14 @@
         "disease": "Ebola Virus Disease",
         "location": "Congo",
         "country": "COG",
-        "cases": 0,
-        "deaths": 0,
-        "cfr": 0.0,
-        "severity": "low",
+        "cases": 746,
+        "deaths": 176,
+        "cfr": 0.2359,
+        "severity": "high",
         "h2h": false,
         "verified": false,
-        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2026-DON602",
-        "date": "2026-05-17"
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2026-DON603",
+        "date": "2026-05-22"
       }
     },
     {
@@ -7152,29 +7152,6 @@
         "verified": false,
         "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2022-DON391",
         "date": "2022-06-17"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          21.8,
-          -4.0
-        ]
-      },
-      "properties": {
-        "disease": "Crimean-Congo Hemorrhagic Fever",
-        "location": "Congo",
-        "country": "COG",
-        "cases": 27,
-        "deaths": 27,
-        "cfr": 1.0,
-        "severity": "very_high",
-        "h2h": false,
-        "verified": false,
-        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2022-DON386",
-        "date": "2022-06-01"
       }
     },
     {
