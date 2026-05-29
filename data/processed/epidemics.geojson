@@ -847,7 +847,7 @@
         "cfr": 0.0385,
         "severity": "very_high",
         "h2h": false,
-        "verified": true,
+        "verified": false,
         "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2025-DON562",
         "date": "2025-03-28"
       }
@@ -1445,7 +1445,7 @@
         "cfr": 0.0002,
         "severity": "very_high",
         "h2h": false,
-        "verified": true,
+        "verified": false,
         "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2024-DON530",
         "date": "2024-08-23"
       }
@@ -7175,6 +7175,880 @@
         "verified": false,
         "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2022-DON391",
         "date": "2022-06-17"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.1,
+          51.9
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "Poland",
+        "country": "POL",
+        "cases": 272,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "moderate",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.3,
+          14.1
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "Vietnam",
+        "country": "VNM",
+        "cases": 7854,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          133.8,
+          -25.3
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "Australia",
+        "country": "AUS",
+        "cases": 57,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.7,
+          48.7
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "Slovakia",
+        "country": "SVK",
+        "cases": 4,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "BWA",
+        "country": "BWA",
+        "cases": 3,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.2,
+          12.9
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "Sudan",
+        "country": "SDN",
+        "cases": 1337,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.8,
+          -4.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "DR Congo",
+        "country": "COD",
+        "cases": 311500,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "very_high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "ALB",
+        "country": "ALB",
+        "cases": 212,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "moderate",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "WB_LI",
+        "country": "WB_LI",
+        "cases": 356423,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "very_high",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "GNQ",
+        "country": "GNQ",
+        "cases": 463,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "moderate",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "SGP",
+        "country": "SGP",
+        "cases": 12,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          17.9,
+          -11.2
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "Angola",
+        "country": "AGO",
+        "cases": 619,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "moderate",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "OMN",
+        "country": "OMN",
+        "cases": 13,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "DZA",
+        "country": "DZA",
+        "cases": 488,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "moderate",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "MLT",
+        "country": "MLT",
+        "cases": 10,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          48.5,
+          15.6
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "Yemen",
+        "country": "YEM",
+        "cases": 5992,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "SWE",
+        "country": "SWE",
+        "cases": 38,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "CZE",
+        "country": "CZE",
+        "cases": 35,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          43.7,
+          33.2
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "Iraq",
+        "country": "IRQ",
+        "cases": 32494,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "very_high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "MYS",
+        "country": "MYS",
+        "cases": 3791,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "SYR",
+        "country": "SYR",
+        "cases": 128,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "moderate",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "LUX",
+        "country": "LUX",
+        "cases": 3,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.6,
+          41.9
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "Italy",
+        "country": "ITA",
+        "cases": 1045,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "EMR",
+        "country": "EMR",
+        "cases": 78765,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "very_high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "QAT",
+        "country": "QAT",
+        "cases": 55,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "GLOBAL",
+        "country": "GLOBAL",
+        "cases": 675533,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "very_high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "PRT",
+        "country": "PRT",
+        "cases": 35,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "MDA",
+        "country": "MDA",
+        "cases": 216,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "moderate",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.3,
+          1.4
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "Uganda",
+        "country": "UGA",
+        "cases": 2180,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "BEN",
+        "country": "BEN",
+        "cases": 785,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "moderate",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -51.9,
+          -14.2
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "Brazil",
+        "country": "BRA",
+        "cases": 5,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "GEO",
+        "country": "GEO",
+        "cases": 350,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "moderate",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "NER",
+        "country": "NER",
+        "cases": 2362,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "LBR",
+        "country": "LBR",
+        "cases": 1053,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.0,
+          -9.2
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "Peru",
+        "country": "PER",
+        "cases": 2,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "BGR",
+        "country": "BGR",
+        "cases": 27,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "AMR",
+        "country": "AMR",
+        "cases": 165,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "moderate",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "JOR",
+        "country": "JOR",
+        "cases": 14,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
+        "date": "2024-12-31"
       }
     },
     {
