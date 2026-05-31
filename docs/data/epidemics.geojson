@@ -410,7 +410,7 @@
         "cfr": 0.0003,
         "severity": "very_high",
         "h2h": false,
-        "verified": false,
+        "verified": true,
         "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2025-DON581",
         "date": "2025-10-03"
       }
