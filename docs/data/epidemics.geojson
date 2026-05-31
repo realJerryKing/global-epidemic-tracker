@@ -11220,7 +11220,7 @@
         "cfr": 0.0013,
         "severity": "very_high",
         "h2h": false,
-        "verified": true,
+        "verified": false,
         "source_url": "https://ourworldindata.org/monkeypox",
         "date": "2026-04-27"
       }
