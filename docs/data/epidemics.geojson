@@ -7333,7 +7333,7 @@
         "cfr": 0.0,
         "severity": "very_high",
         "h2h": false,
-        "verified": true,
+        "verified": false,
         "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
         "date": "2024-12-31"
       }
