@@ -14,6 +14,29 @@
         "disease": "Ebola Virus Disease",
         "location": "Congo",
         "country": "COG",
+        "cases": 515,
+        "deaths": 2,
+        "cfr": 0.0039,
+        "severity": "high",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2026-DON606",
+        "date": "2026-06-08"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.8,
+          -4.0
+        ]
+      },
+      "properties": {
+        "disease": "Ebola Virus Disease",
+        "location": "Congo",
+        "country": "COG",
         "cases": 906,
         "deaths": 223,
         "cfr": 0.2461,
@@ -7152,29 +7175,6 @@
         "verified": false,
         "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2022-DON395",
         "date": "2022-06-23"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          69.3,
-          30.4
-        ]
-      },
-      "properties": {
-        "disease": "Cholera",
-        "location": "Pakistan",
-        "country": "PAK",
-        "cases": 25,
-        "deaths": 0,
-        "cfr": 0.0,
-        "severity": "moderate",
-        "h2h": false,
-        "verified": false,
-        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2022-DON391",
-        "date": "2022-06-17"
       }
     },
     {
