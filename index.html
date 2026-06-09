@@ -43,8 +43,19 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .si{background:var(--panel);padding:10px 8px;text-align:center;border-right:1px solid var(--border)}.si:last-child{border-right:none}
 .sv{font-size:20px;font-weight:700}.sl{font-size:10px;color:var(--muted);text-transform:uppercase;margin-top:2px}
 .si:nth-child(1) .sv{color:var(--red)}.si:nth-child(2) .sv{color:var(--amber)}.si:nth-child(3) .sv{color:var(--blue)}.si:nth-child(4) .sv{color:var(--purple)}.si:nth-child(5) .sv{color:var(--green)}
-.main{display:grid;grid-template-columns:1fr 350px;height:calc(100vh - 200px)}
+.main{display:grid;grid-template-columns:1fr 350px;height:calc(100vh - 200px);position:relative}
 #map{width:100%;height:100%}.leaflet-container{background:var(--bg)!important}
+#chartView{width:100%;height:100%;display:none;background:var(--panel);padding:16px;position:relative}
+#chartView.active{display:block}
+#map.hidden{display:none}
+.view-toggle{position:absolute;top:10px;right:10px;z-index:1000;background:var(--card);border:1px solid var(--border);color:var(--text);width:36px;height:36px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all 0.2s}
+.view-toggle:hover{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.chart-title{color:var(--bright);font-size:16px;font-weight:700;margin-bottom:12px;padding-right:50px}
+.chart-legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;font-size:11px}
+.chart-legend-item{display:flex;align-items:center;gap:4px;cursor:pointer;opacity:1;transition:opacity 0.2s}
+.chart-legend-item.disabled{opacity:0.3}
+.chart-legend-color{width:12px;height:12px;border-radius:3px}
+.chart-container{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;height:calc(100% - 80px)}
 .side{border-left:1px solid var(--border);overflow-y:auto;background:var(--panel);padding:6px}
 .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 36px 10px 10px;margin-bottom:5px;cursor:pointer;border-left:3px solid transparent;transition:all 0.15s;position:relative}
 .card:hover{transform:translateX(2px);border-color:var(--accent)}
@@ -78,7 +89,22 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .pbtn.on{background:var(--accent);color:var(--bg);border-color:var(--accent);font-weight:700}
 .cbox{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;height:280px;margin-bottom:14px}
 .ftr{background:var(--panel);border-top:1px solid var(--border);padding:6px;font-size:10px;color:var(--muted);text-align:center}
-@media(max-width:900px){.main{grid-template-columns:1fr;height:auto}#map{height:40vh}.bar{flex-direction:column}.ms{min-width:100%}.rb{width:100%}}
+@media(max-width:900px){
+body{overflow-y:auto;-webkit-overflow-scrolling:touch}
+.main{display:block;height:auto;min-height:auto}
+.side{display:block;height:auto;max-height:none;overflow-y:visible;border-left:none;border-top:1px solid var(--border);padding:8px}
+#map{height:45vh;width:100%;display:block;position:relative;z-index:1}
+#chartView{height:auto;min-height:50vh;width:100%;display:none;padding:10px}
+#chartView.active{display:block}
+.chart-container{height:300px}
+.bar{flex-direction:column;gap:4px;padding:6px 10px}
+.ms{min-width:100%}
+.rb{width:100%}
+.st{display:flex;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.si{flex:1;min-width:80px;padding:8px 4px}
+.sv{font-size:16px}
+.sl{font-size:9px}
+}
 </style>
 </head>
 <body>
@@ -92,7 +118,18 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 <button class="rb" onclick="resetAll()">✕ 重置</button>
 </div>
 <div class="st" id="stats"></div>
-<div class="main"><div id="map"></div><div class="side" id="side"></div></div>
+<div class="main">
+<div id="map" style="position:relative">
+  <button class="view-toggle" onclick="toggleView()" title="切换到趋势图" style="position:absolute;top:10px;right:10px;z-index:1000">📊</button>
+</div>
+<div id="chartView">
+  <button class="view-toggle" onclick="toggleView()" title="切换到地图">🗺️</button>
+  <div class="chart-title" id="chartTitle">全球疫情趋势（近一年）</div>
+  <div class="chart-legend" id="chartLegend"></div>
+  <div class="chart-container"><canvas id="trendChart"></canvas></div>
+</div>
+<div class="side" id="side"></div>
+</div>
 <div class="ftr"><a href="https://github.com/realJerryKing/global-epidemic-tracker" target="_blank" style="color:var(--accent)">GitHub</a> · 数据来源: WHO疾病暴发新闻 · WHO全球卫生观测 · OWID | 交叉验证: 必应 · 谷歌 · Reddit</div>
 <div class="mbg" id="nbg" onclick="if(event.target===this)this.classList.remove('op')"><div class="mod"><button class="mcl" onclick="cloN()">&times;</button><h2 id="nt">突发新闻</h2><div id="na" style="max-height:60vh;overflow-y:auto"></div></div></div>
 <div class="mbg" id="dbg" onclick="if(event.target===this)this.classList.remove('op')"><div class="mod" id="dm"></div></div>
@@ -186,7 +223,162 @@ function sL(s){return s==="very_high"?"极高":s==="high"?"高":s==="moderate"?"
 
 function cloN(){document.getElementById("nbg").classList.remove("op")}
 function cloD(){document.getElementById("dbg").classList.remove("op")}
-function resetAll(){sC.clear();sD.clear();sV.clear();pC.clear();pD.clear();pV.clear();sCont.clear();sPath.clear();pCont.clear();pPath.clear();hiddenD.clear();updateDropUI();uB();closD();if(allData)render(allData);if(map)map.flyTo([20,0],2,{duration:0.5})}
+function resetAll(){
+    sC.clear();sD.clear();sV.clear();pC.clear();pD.clear();pV.clear();
+    sCont.clear();sPath.clear();pCont.clear();pPath.clear();hiddenD.clear();
+    updateDropUI();uB();closD();
+    if(allData)render(allData);
+    if(map)map.flyTo([20,0],2,{duration:0.5});
+    // Reset chart if in chart view
+    if(viewMode==='chart')renderTrendChart();
+}
+var viewMode='map',trendChart=null;
+
+function toggleView(){
+    var mapView=document.getElementById('map');
+    var chartView=document.getElementById('chartView');
+    var btn=chartView.querySelector('.view-toggle');
+    if(viewMode==='map'){
+        viewMode='chart';
+        mapView.classList.add('hidden');
+        chartView.classList.add('active');
+        btn.innerHTML='🗺️';btn.title='切换到地图';
+        renderTrendChart();
+    }else{
+        viewMode='map';
+        mapView.classList.remove('hidden');
+        chartView.classList.remove('active');
+        btn.innerHTML='📊';btn.title='切换到趋势图';
+        if(map)map.invalidateSize();
+    }
+}
+
+function getFilteredOutbreaks(){
+    if(!allData)return[];
+    var o=allData.outbreaks.slice();
+    if(sC.size>0)o=o.filter(function(x){return sC.has(x.country_iso3)});
+    if(sD.size>0)o=o.filter(function(x){return sD.has(x.disease)});
+    if(sCont.size>0&&sC.size===0){
+        var contC=new Set();
+        allData.outbreaks.forEach(function(x){if(sCont.has(x.continent)&&x.country_iso3)contC.add(x.country_iso3)});
+        if(contC.size>0)o=o.filter(function(x){return contC.has(x.country_iso3)});
+    }
+    if(sPath.size>0&&sD.size===0){
+        var pathD=new Set();
+        allData.outbreaks.forEach(function(x){if(sPath.has(x.pathogen_type)&&x.disease)pathD.add(x.disease)});
+        if(pathD.size>0)o=o.filter(function(x){return pathD.has(x.disease)});
+    }
+    o=o.filter(function(x){return !hiddenD.has(x.disease)});
+    if(sV.size>0){
+        o=o.filter(function(x){
+            if(sV.has(x.severity))return true;
+            if(sV.has("h2h")&&x.h2h_transmission)return true;
+            return false;
+        });
+    }
+    return o;
+}
+
+function renderTrendChart(){
+    var o=getFilteredOutbreaks();
+    var now=new Date();
+    var months=[];var labels=[];
+    for(var m=11;m>=0;m--){
+        var dt=new Date(now.getFullYear(),now.getMonth()-m,1);
+        months.push({y:dt.getFullYear(),m:dt.getMonth()});
+        labels.push((dt.getMonth()+1)+'月');
+    }
+    // Aggregate by disease and month
+    var diseaseData={};
+    o.forEach(function(x){
+        var d=new Date(x.date_reported);
+        var disease=x.disease;
+        if(!diseaseData[disease])diseaseData[disease]=new Array(12).fill(0);
+        for(var i=0;i<12;i++){
+            if(d.getFullYear()===months[i].y&&d.getMonth()===months[i].m){
+                diseaseData[disease][i]+=x.cases||0;break;
+            }
+        }
+    });
+    // Limit to top 10 diseases by total cases
+    var sorted=Object.entries(diseaseData).sort(function(a,b){
+        return b[1].reduce(function(s,v){return s+v},0)-a[1].reduce(function(s,v){return s+v},0);
+    }).slice(0,10);
+    // Colors for diseases
+    var colors=['#00d4aa','#ff4757','#ffa502','#3b82f6','#a855f7','#2ed573','#ff6b81','#1e90ff','#ffd700','#00ced1'];
+    var datasets=sorted.map(function(entry,i){
+        return{
+            label:dn(entry[0]),
+            data:entry[1],
+            borderColor:colors[i%colors.length],
+            backgroundColor:colors[i%colors.length]+'20',
+            fill:false,
+            tension:0.3,
+            pointRadius:4,
+            pointBackgroundColor:colors[i%colors.length],
+            pointBorderColor:'#0f1419',
+            pointBorderWidth:2,
+            borderWidth:2
+        };
+    });
+    // Update title
+    var title=sD.size===1?dn(Array.from(sD)[0])+' — 近一年趋势':'全球疫情趋势（近一年）';
+    document.getElementById('chartTitle').textContent=title;
+    // Update legend
+    var legendHtml='';
+    sorted.forEach(function(entry,i){
+        legendHtml+='<div class="chart-legend-item" onclick="toggleDiseaseLegend(\''+entry[0]+'\')">';
+        legendHtml+='<div class="chart-legend-color" style="background:'+colors[i%colors.length]+'"></div>';
+        legendHtml+='<span>'+dn(entry[0])+'</span></div>';
+    });
+    document.getElementById('chartLegend').innerHTML=legendHtml;
+    // Create/update chart
+    var ctx=document.getElementById('trendChart');
+    if(trendChart)trendChart.destroy();
+    trendChart=new Chart(ctx,{
+        type:'line',
+        data:{labels:labels,datasets:datasets},
+        options:{
+            responsive:true,
+            maintainAspectRatio:false,
+            interaction:{mode:'index',intersect:false},
+            onClick:function(){trendChart.tooltip.setActiveElements([],{x:0,y:0})},
+            plugins:{
+                legend:{display:false},
+                tooltip:{
+                    backgroundColor:'#1c2733',
+                    titleColor:'#e7e9ea',
+                    bodyColor:'#8899a6',
+                    borderColor:'#2d3b50',
+                    borderWidth:1,
+                    callbacks:{label:function(ctx){return ctx.dataset.label+': '+fmt(ctx.parsed.y)}}
+                }
+            },
+            scales:{
+                x:{grid:{color:'rgba(45,59,80,0.5)'},ticks:{color:'#8899a6'}},
+                y:{grid:{color:'rgba(45,59,80,0.5)'},ticks:{color:'#8899a6',callback:function(v){return fmt(v)}},beginAtZero:true,title:{display:true,text:'病例数',color:'#8899a6'}}
+            }
+        }
+    });
+}
+
+function toggleDiseaseLegend(disease){
+    if(sD.has(disease)){
+        sD.clear();
+    }else{
+        sD.clear();
+        sD.add(disease);
+    }
+    updateDropUI();uB();
+    renderTrendChart();
+}
+
+function filterDiseaseFromCard(d){
+    sD.clear();sD.add(d);
+    updateDropUI();uB();
+    // Always call render to update sidebar cards, it will sync chart if needed
+    if(allData)render(allData);
+}
 function togD(t){var dd=document.getElementById(t==="c"?"cdd":t==="d"?"ddd":"vdd");var o=dd.classList.contains("op");closD();if(!o)dd.classList.add("op")}
 function closD(){document.getElementById("cdd").classList.remove("op");document.getElementById("ddd").classList.remove("op");document.getElementById("vdd").classList.remove("op")}
 function hideDisease(d){hiddenD.add(d);if(allData)render(allData)}
@@ -257,7 +449,7 @@ function togContGroup(el){
 }
 function togPathGroup(el){
     var path=el.dataset.path;
-    var chld=document.querySelector("[data-path-ch='"+path+""]');
+    var chld=document.querySelector("[data-path-ch='"+path+"']");
     if(!chld)return;
     var isOpen=chld.classList.contains("hidden");
     if(isOpen){chld.classList.remove("hidden");el.classList.add("open");pPath.add(path)}
@@ -373,6 +565,8 @@ function render(d){
     var tc=0,td=0;o.forEach(function(x){tc+=x.cases||0;td+=x.deaths||0});
     document.getElementById("stats").innerHTML='<div class="si"><div class="sv">'+o.length+'</div><div class="sl">活跃疫情</div></div><div class="si"><div class="sv">'+fmt(tc||null)+'</div><div class="sl">病例</div></div><div class="si"><div class="sv">'+fmt(td||null)+'</div><div class="sl">死亡</div></div><div class="si"><div class="sv">'+pct(td,tc)+'</div><div class="sl">致死率</div></div><div class="si"><div class="sv">'+new Set(o.map(function(x){return x.country_iso3})).size+'</div><div class="sl">国家</div></div>';
     rM(o);rN(d.outbreaks);rS(o,d);
+    // Sync chart view if active
+    if(viewMode==='chart')renderTrendChart();
 }
 
 function rM(o){
@@ -445,7 +639,7 @@ function rS(o,allOutbreaks){
             else if(rate>0)credBadge="<span class='cred-badge cred-partial'>◐ 部分验证</span>";
             else credBadge="<span class='cred-badge cred-unverified'>○ 待验证</span>";
         }
-        h+="<div class='card "+cls+"' data-d='"+x.disease+"' onclick='filterDisease(this.dataset.d)'>";
+        h+="<div class='card "+cls+"' data-d='"+x.disease+"' onclick='filterDiseaseFromCard(this.dataset.d)'>";
         h+="<div class='ch'><span class='cn'>"+dn(x.disease)+tt+"</span></div>";
         h+="<div class='ci'>"+x.countries.size+" 国家</div>";
         h+="<div class='cn2'><span>病例: <b>"+fmt(x.cases)+"</b></span><span>死亡: <b>"+fmt(x.deaths)+"</b></span><span>CFR: "+pct(x.deaths,x.cases)+"</span></div>";
