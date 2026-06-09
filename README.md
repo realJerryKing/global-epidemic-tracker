@@ -4,10 +4,10 @@
 >
 > **El pueblo unido jamás será vencido.**
 
-[![收录于 JerryKing's Trove](https://img.shields.io/badge/收录于-JerryKing's%20Trove-blue)](https://github.com/MRLMRML/JerryKing-s-Trove)
+[![收录于 JerryKing's Trove](https://img.shields.io/badge/收录于-JerryKing's%20Trove-blue)](https://github.com/realJerryKing/JerryKing-s-Trove)
 
-[![Live Dashboard](https://img.shields.io/badge/Live-Dashboard-00d4aa?style=for-the-badge&logo=googlechrome&logoColor=white)](https://mrlmrml.github.io/global-epidemic-tracker/)
-[![Auto Update](https://github.com/MRLMRML/global-epidemic-tracker/actions/workflows/update-data.yml/badge.svg)](https://github.com/MRLMRML/global-epidemic-tracker/actions)
+[![Live Dashboard](https://img.shields.io/badge/Live-Dashboard-00d4aa?style=for-the-badge&logo=googlechrome&logoColor=white)](https://realJerryKing.github.io/global-epidemic-tracker/)
+[![Auto Update](https://github.com/realJerryKing/global-epidemic-tracker/actions/workflows/update-data.yml/badge.svg)](https://github.com/realJerryKing/global-epidemic-tracker/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 实时全球疫情监控，支持新闻交叉验证。数据来源于 WHO 疾病暴发新闻 API，经独立新闻媒体验证，通过中文交互式仪表板呈现。
@@ -30,7 +30,7 @@ WHO DON API  →  数据采集器  →  新闻交叉验证  →  仪表板
 
 ## 仪表板
 
-**[→ 打开仪表板](https://mrlmrml.github.io/global-epidemic-tracker/)**
+**[→ 打开仪表板](https://realJerryKing.github.io/global-epidemic-tracker/)**
 
 | 功能 | 说明 |
 |------|------|
@@ -49,7 +49,7 @@ WHO DON API  →  数据采集器  →  新闻交叉验证  →  仪表板
 ## 快速开始
 
 ```bash
-git clone https://github.com/MRLMRML/global-epidemic-tracker.git
+git clone https://github.com/realJerryKing/global-epidemic-tracker.git
 cd global-epidemic-tracker
 pip install requests
 

@@ -12,7 +12,7 @@ description: "实时全球疫情监控，支持新闻交叉验证。数据来源
 如果项目尚未克隆，先克隆：
 
 ```bash
-git clone https://github.com/MRLMRML/global-epidemic-tracker.git
+git clone https://github.com/realJerryKing/global-epidemic-tracker.git
 cd global-epidemic-tracker
 pip install requests
 ```
