@@ -6,6 +6,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Ebola Virus Disease",
+        "location": "Multi-country",
+        "country": "MUL",
+        "cases": 676,
+        "deaths": 136,
+        "cfr": 0.2012,
+        "severity": "high",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2026-DON607",
+        "date": "2026-06-13"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           21.8,
           -4.0
         ]
