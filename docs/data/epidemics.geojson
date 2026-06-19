@@ -14,14 +14,14 @@
         "disease": "Ebola Virus Disease",
         "location": "Multi-country",
         "country": "MUL",
-        "cases": 676,
-        "deaths": 136,
-        "cfr": 0.2012,
-        "severity": "high",
+        "cases": 896,
+        "deaths": 232,
+        "cfr": 0.2589,
+        "severity": "very_high",
         "h2h": false,
         "verified": false,
-        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2026-DON607",
-        "date": "2026-06-13"
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2026-DON608",
+        "date": "2026-06-19"
       }
     },
     {
@@ -387,7 +387,7 @@
         "cfr": 0.0123,
         "severity": "very_high",
         "h2h": false,
-        "verified": true,
+        "verified": false,
         "source_url": "https://www.who.int/emergencies/disease-outbreak-news/DON588",
         "date": "2025-11-21"
       }
@@ -456,7 +456,7 @@
         "cfr": 0.0003,
         "severity": "very_high",
         "h2h": false,
-        "verified": true,
+        "verified": false,
         "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2025-DON581",
         "date": "2025-10-03"
       }
@@ -525,7 +525,7 @@
         "cfr": 0.0116,
         "severity": "very_high",
         "h2h": false,
-        "verified": true,
+        "verified": false,
         "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2025-DON579",
         "date": "2025-08-29"
       }
@@ -7182,29 +7182,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          34.3,
-          -13.3
-        ]
-      },
-      "properties": {
-        "disease": "Poliomyelitis",
-        "location": "Malawi",
-        "country": "MWI",
-        "cases": 0,
-        "deaths": 0,
-        "cfr": 0.0,
-        "severity": "low",
-        "h2h": false,
-        "verified": false,
-        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2022-DON395",
-        "date": "2022-06-23"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           19.1,
           51.9
         ]
@@ -7356,7 +7333,7 @@
         "cfr": 0.0,
         "severity": "very_high",
         "h2h": false,
-        "verified": true,
+        "verified": false,
         "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
         "date": "2024-12-31"
       }
@@ -7632,7 +7609,7 @@
         "cfr": 0.0,
         "severity": "very_high",
         "h2h": false,
-        "verified": true,
+        "verified": false,
         "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
         "date": "2024-12-31"
       }
@@ -7747,7 +7724,7 @@
         "cfr": 0.0,
         "severity": "very_high",
         "h2h": false,
-        "verified": true,
+        "verified": false,
         "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/measles",
         "date": "2024-12-31"
       }
@@ -8161,7 +8138,7 @@
         "cfr": 0.0,
         "severity": "very_high",
         "h2h": false,
-        "verified": true,
+        "verified": false,
         "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/diphtheria",
         "date": "2024-12-31"
       }
@@ -10461,7 +10438,7 @@
         "cfr": 0.0,
         "severity": "very_high",
         "h2h": false,
-        "verified": true,
+        "verified": false,
         "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/mumps",
         "date": "2024-12-31"
       }
@@ -11243,7 +11220,7 @@
         "cfr": 0.0013,
         "severity": "very_high",
         "h2h": false,
-        "verified": true,
+        "verified": false,
         "source_url": "https://ourworldindata.org/monkeypox",
         "date": "2026-04-27"
       }
@@ -12485,7 +12462,7 @@
         "cfr": 0.0024,
         "severity": "very_high",
         "h2h": false,
-        "verified": true,
+        "verified": false,
         "source_url": "https://ourworldindata.org/monkeypox",
         "date": "2026-04-27"
       }
@@ -12945,7 +12922,7 @@
         "cfr": 0.0019,
         "severity": "very_high",
         "h2h": false,
-        "verified": true,
+        "verified": false,
         "source_url": "https://ourworldindata.org/monkeypox",
         "date": "2026-04-27"
       }
