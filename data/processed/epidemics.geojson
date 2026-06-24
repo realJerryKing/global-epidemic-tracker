@@ -11,6 +11,29 @@
         ]
       },
       "properties": {
+        "disease": "Yellow Fever",
+        "location": "Multi-country",
+        "country": "MUL",
+        "cases": 16,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "moderate",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2026-DON610",
+        "date": "2026-06-24"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
         "disease": "Ebola Virus Disease",
         "location": "Multi-country",
         "country": "MUL",
@@ -7152,29 +7175,6 @@
         "verified": false,
         "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2022-DON396",
         "date": "2022-06-27"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0.0,
-          0.0
-        ]
-      },
-      "properties": {
-        "disease": "Acute Unknown Illness",
-        "location": "Multi-country",
-        "country": "MUL",
-        "cases": 0,
-        "deaths": 0,
-        "cfr": 0.0,
-        "severity": "low",
-        "h2h": false,
-        "verified": false,
-        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2022-DON394",
-        "date": "2022-06-24"
       }
     },
     {
