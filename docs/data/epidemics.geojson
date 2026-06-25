@@ -6,6 +6,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          79.0,
+          20.6
+        ]
+      },
+      "properties": {
+        "disease": "Nipah Virus Infection",
+        "location": "India",
+        "country": "IND",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2026-DON609",
+        "date": "2026-06-25"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           0.0,
           0.0
         ]
@@ -7152,29 +7175,6 @@
         "verified": false,
         "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2022-DON400",
         "date": "2022-07-12"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0.0,
-          0.0
-        ]
-      },
-      "properties": {
-        "disease": "Mpox",
-        "location": "Multi-country",
-        "country": "MUL",
-        "cases": 0,
-        "deaths": 0,
-        "cfr": 0.0,
-        "severity": "low",
-        "h2h": false,
-        "verified": false,
-        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2022-DON396",
-        "date": "2022-06-27"
       }
     },
     {
