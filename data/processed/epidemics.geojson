@@ -6676,6 +6676,512 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -1.0,
+          7.9
+        ]
+      },
+      "properties": {
+        "disease": "Poliomyelitis",
+        "location": "Ghana",
+        "country": "GHA",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2019-DON186",
+        "date": "2022-07-28"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.7,
+          40.5
+        ]
+      },
+      "properties": {
+        "disease": "Listeriosis",
+        "location": "Spain",
+        "country": "ESP",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2019-DON256",
+        "date": "2022-07-28"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.9,
+          -6.4
+        ]
+      },
+      "properties": {
+        "disease": "Cases of Undiagnosed Febrile Illness",
+        "location": "Tanzania",
+        "country": "TZA",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2019-DON188",
+        "date": "2022-07-28"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          122.0,
+          12.9
+        ]
+      },
+      "properties": {
+        "disease": "Poliomyelitis",
+        "location": "Philippines",
+        "country": "PHL",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2019-DON190",
+        "date": "2022-07-28"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.2,
+          12.9
+        ]
+      },
+      "properties": {
+        "disease": "Cholera",
+        "location": "Sudan",
+        "country": "SDN",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2019-DON192",
+        "date": "2022-07-28"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.9,
+          33.9
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "Lebanon",
+        "country": "LBN",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2019-DON195",
+        "date": "2022-07-28"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          53.8,
+          23.4
+        ]
+      },
+      "properties": {
+        "disease": "MERS",
+        "location": "United Arab Emirates",
+        "country": "ARE",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2019-DON200",
+        "date": "2022-07-28"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.2,
+          46.2
+        ]
+      },
+      "properties": {
+        "disease": "Zika virus disease",
+        "location": "France",
+        "country": "FRA",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2019-DON201",
+        "date": "2022-07-28"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.2,
+          12.9
+        ]
+      },
+      "properties": {
+        "disease": "Rift Valley Fever",
+        "location": "Sudan",
+        "country": "SDN",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2019-DON205",
+        "date": "2022-07-28"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          69.3,
+          30.4
+        ]
+      },
+      "properties": {
+        "disease": "Dengue",
+        "location": "Pakistan",
+        "country": "PAK",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2019-DON206",
+        "date": "2022-07-28"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.6,
+          6.4
+        ]
+      },
+      "properties": {
+        "disease": "Yellow Fever",
+        "location": "Venezuela",
+        "country": "VEN",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2019-DON208",
+        "date": "2022-07-28"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.2,
+          12.9
+        ]
+      },
+      "properties": {
+        "disease": "Dengue",
+        "location": "Sudan",
+        "country": "SDN",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2019-DON207",
+        "date": "2022-07-28"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Measles",
+        "location": "Multi-country",
+        "country": "MUL",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2019-DON211",
+        "date": "2022-07-28"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          69.3,
+          30.4
+        ]
+      },
+      "properties": {
+        "disease": "Poliomyelitis",
+        "location": "Pakistan",
+        "country": "PAK",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2019-DON210",
+        "date": "2022-07-28"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.7,
+          40.5
+        ]
+      },
+      "properties": {
+        "disease": "Dengue",
+        "location": "Spain",
+        "country": "ESP",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2019-DON214",
+        "date": "2022-07-28"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -11.8,
+          8.5
+        ]
+      },
+      "properties": {
+        "disease": "Lassa Fever",
+        "location": "Sierra Leone",
+        "country": "SLE",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2019-DON213",
+        "date": "2022-07-28"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          67.7,
+          33.9
+        ]
+      },
+      "properties": {
+        "disease": "Dengue",
+        "location": "Afghanistan",
+        "country": "AFG",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2019-DON218",
+        "date": "2022-07-28"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.2,
+          25.4
+        ]
+      },
+      "properties": {
+        "disease": "MERS",
+        "location": "Qatar",
+        "country": "QAT",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2019-DON227",
+        "date": "2022-07-28"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.0,
+          17.6
+        ]
+      },
+      "properties": {
+        "disease": "Yellow Fever",
+        "location": "Mali",
+        "country": "MLI",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2019-DON223",
+        "date": "2022-07-28"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.0,
+          7.9
+        ]
+      },
+      "properties": {
+        "disease": "Marburg Virus Disease",
+        "location": "Ghana",
+        "country": "GHA",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2022-DON402",
+        "date": "2022-07-22"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.0,
+          17.6
+        ]
+      },
+      "properties": {
+        "disease": "Cholera",
+        "location": "Mali",
+        "country": "MLI",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2022-DON398_1",
+        "date": "2022-07-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Acute Unknown Illness",
+        "location": "Multi-country",
+        "country": "MUL",
+        "cases": 22,
+        "deaths": 22,
+        "cfr": 1.0,
+        "severity": "very_high",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2022-DON400",
+        "date": "2022-07-12"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           19.1,
           51.9
         ]
