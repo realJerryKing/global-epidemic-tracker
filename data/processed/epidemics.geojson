@@ -6,6 +6,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -3.4,
+          55.4
+        ]
+      },
+      "properties": {
+        "disease": "Hantavirus",
+        "location": "United Kingdom",
+        "country": "GBR",
+        "cases": 13,
+        "deaths": 3,
+        "cfr": 0.2308,
+        "severity": "high",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2026-DON611",
+        "date": "2026-07-02"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           79.0,
           20.6
         ]
