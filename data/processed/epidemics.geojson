@@ -6,6 +6,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Ebola Virus Disease",
+        "location": "Multi-country",
+        "country": "MUL",
+        "cases": 1460,
+        "deaths": 452,
+        "cfr": 0.3096,
+        "severity": "very_high",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2026-DON612",
+        "date": "2026-07-03"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -3.4,
           55.4
         ]
@@ -7175,29 +7198,6 @@
         "verified": false,
         "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2022-DON398_1",
         "date": "2022-07-20"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0.0,
-          0.0
-        ]
-      },
-      "properties": {
-        "disease": "Acute Unknown Illness",
-        "location": "Multi-country",
-        "country": "MUL",
-        "cases": 22,
-        "deaths": 22,
-        "cfr": 1.0,
-        "severity": "very_high",
-        "h2h": false,
-        "verified": false,
-        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2022-DON400",
-        "date": "2022-07-12"
       }
     },
     {
