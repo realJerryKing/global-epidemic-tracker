@@ -14,14 +14,14 @@
         "disease": "Ebola Virus Disease",
         "location": "Multi-country",
         "country": "MUL",
-        "cases": 1460,
-        "deaths": 452,
-        "cfr": 0.3096,
+        "cases": 2124,
+        "deaths": 828,
+        "cfr": 0.3898,
         "severity": "very_high",
         "h2h": false,
         "verified": false,
-        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2026-DON612",
-        "date": "2026-07-03"
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2026-DON613",
+        "date": "2026-07-17"
       }
     },
     {
@@ -7175,29 +7175,6 @@
         "verified": false,
         "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2022-DON402",
         "date": "2022-07-22"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -4.0,
-          17.6
-        ]
-      },
-      "properties": {
-        "disease": "Cholera",
-        "location": "Mali",
-        "country": "MLI",
-        "cases": 0,
-        "deaths": 0,
-        "cfr": 0.0,
-        "severity": "low",
-        "h2h": false,
-        "verified": false,
-        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2022-DON398_1",
-        "date": "2022-07-20"
       }
     },
     {
