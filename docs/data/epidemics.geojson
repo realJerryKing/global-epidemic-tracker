@@ -14,14 +14,14 @@
         "disease": "Ebola Virus Disease",
         "location": "Multi-country",
         "country": "MUL",
-        "cases": 3605,
-        "deaths": 1587,
-        "cfr": 0.4402,
+        "cases": 4665,
+        "deaths": 2184,
+        "cfr": 0.4682,
         "severity": "very_high",
         "h2h": false,
         "verified": false,
-        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2026-DON614",
-        "date": "2026-08-01"
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2026-DON615",
+        "date": "2026-08-14"
       }
     },
     {
@@ -965,29 +965,6 @@
         "verified": false,
         "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2025-DON564",
         "date": "2025-04-17"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0.0,
-          0.0
-        ]
-      },
-      "properties": {
-        "disease": "Meningococcal Meningitis",
-        "location": "Multi-country",
-        "country": "MUL",
-        "cases": 0,
-        "deaths": 0,
-        "cfr": 0.0,
-        "severity": "low",
-        "h2h": false,
-        "verified": false,
-        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2025-DON563",
-        "date": "2025-04-11"
       }
     },
     {
