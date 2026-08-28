@@ -6,6 +6,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          21.8,
+          -4.0
+        ]
+      },
+      "properties": {
+        "disease": "Ebola Virus Disease",
+        "location": "Congo",
+        "country": "COG",
+        "cases": 5794,
+        "deaths": 2786,
+        "cfr": 0.4808,
+        "severity": "very_high",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2026-DON616",
+        "date": "2026-08-28"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           0.0,
           0.0
         ]
