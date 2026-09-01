@@ -8153,6 +8153,489 @@
         ]
       },
       "properties": {
+        "disease": "Diphtheria",
+        "location": "WB_HI",
+        "country": "WB_HI",
+        "cases": 235,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "moderate",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/diphtheria",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Diphtheria",
+        "location": "WB_LI",
+        "country": "WB_LI",
+        "cases": 7814,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/diphtheria",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Diphtheria",
+        "location": "WB_LMI",
+        "country": "WB_LMI",
+        "cases": 20601,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "very_high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/diphtheria",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Diphtheria",
+        "location": "WB_UMI",
+        "country": "WB_UMI",
+        "cases": 1556,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/diphtheria",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Diphtheria",
+        "location": "AFR",
+        "country": "AFR",
+        "cases": 20261,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "very_high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/diphtheria",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Diphtheria",
+        "location": "AMR",
+        "country": "AMR",
+        "cases": 72,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/diphtheria",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Diphtheria",
+        "location": "EMR",
+        "country": "EMR",
+        "cases": 5830,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/diphtheria",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Diphtheria",
+        "location": "EUR",
+        "country": "EUR",
+        "cases": 199,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "moderate",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/diphtheria",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Diphtheria",
+        "location": "GLOBAL",
+        "country": "GLOBAL",
+        "cases": 30206,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "very_high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/diphtheria",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Diphtheria",
+        "location": "SEAR",
+        "country": "SEAR",
+        "cases": 3416,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/diphtheria",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Diphtheria",
+        "location": "WPR",
+        "country": "WPR",
+        "cases": 428,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "moderate",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/diphtheria",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          67.7,
+          33.9
+        ]
+      },
+      "properties": {
+        "disease": "Diphtheria",
+        "location": "Afghanistan",
+        "country": "AFG",
+        "cases": 5,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/diphtheria",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          133.8,
+          -25.3
+        ]
+      },
+      "properties": {
+        "disease": "Diphtheria",
+        "location": "Australia",
+        "country": "AUS",
+        "cases": 26,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/diphtheria",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Diphtheria",
+        "location": "AUT",
+        "country": "AUT",
+        "cases": 3,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/diphtheria",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Diphtheria",
+        "location": "BEL",
+        "country": "BEL",
+        "cases": 18,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/diphtheria",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Diphtheria",
+        "location": "BFA",
+        "country": "BFA",
+        "cases": 2,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/diphtheria",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -51.9,
+          -14.2
+        ]
+      },
+      "properties": {
+        "disease": "Diphtheria",
+        "location": "Brazil",
+        "country": "BRA",
+        "cases": 4,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/diphtheria",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Diphtheria",
+        "location": "CAF",
+        "country": "CAF",
+        "cases": 66,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/diphtheria",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Diphtheria",
+        "location": "CAN",
+        "country": "CAN",
+        "cases": 5,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/diphtheria",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Diphtheria",
+        "location": "CHE",
+        "country": "CHE",
+        "cases": 24,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/diphtheria",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.8,
+          -4.0
+        ]
+      },
+      "properties": {
+        "disease": "Diphtheria",
+        "location": "DR Congo",
+        "country": "COD",
+        "cases": 61,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/diphtheria",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
         "disease": "Yellow Fever",
         "location": "WB_HI",
         "country": "WB_HI",
@@ -8508,6 +8991,489 @@
         "h2h": false,
         "verified": true,
         "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/yellow-fever",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Neonatal Tetanus",
+        "location": "WB_HI",
+        "country": "WB_HI",
+        "cases": 2,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/neonatal-tetanus",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Neonatal Tetanus",
+        "location": "WB_LI",
+        "country": "WB_LI",
+        "cases": 1406,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/neonatal-tetanus",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Neonatal Tetanus",
+        "location": "WB_LMI",
+        "country": "WB_LMI",
+        "cases": 838,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "moderate",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/neonatal-tetanus",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Neonatal Tetanus",
+        "location": "WB_UMI",
+        "country": "WB_UMI",
+        "cases": 212,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "moderate",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/neonatal-tetanus",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Neonatal Tetanus",
+        "location": "AFR",
+        "country": "AFR",
+        "cases": 1654,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/neonatal-tetanus",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Neonatal Tetanus",
+        "location": "AMR",
+        "country": "AMR",
+        "cases": 23,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/neonatal-tetanus",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Neonatal Tetanus",
+        "location": "EMR",
+        "country": "EMR",
+        "cases": 482,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "moderate",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/neonatal-tetanus",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Neonatal Tetanus",
+        "location": "EUR",
+        "country": "EUR",
+        "cases": 1,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/neonatal-tetanus",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Neonatal Tetanus",
+        "location": "GLOBAL",
+        "country": "GLOBAL",
+        "cases": 2458,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/neonatal-tetanus",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Neonatal Tetanus",
+        "location": "SEAR",
+        "country": "SEAR",
+        "cases": 84,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/neonatal-tetanus",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Neonatal Tetanus",
+        "location": "WPR",
+        "country": "WPR",
+        "cases": 214,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "moderate",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/neonatal-tetanus",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          67.7,
+          33.9
+        ]
+      },
+      "properties": {
+        "disease": "Neonatal Tetanus",
+        "location": "Afghanistan",
+        "country": "AFG",
+        "cases": 19,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/neonatal-tetanus",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          17.9,
+          -11.2
+        ]
+      },
+      "properties": {
+        "disease": "Neonatal Tetanus",
+        "location": "Angola",
+        "country": "AGO",
+        "cases": 79,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/neonatal-tetanus",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Neonatal Tetanus",
+        "location": "BDI",
+        "country": "BDI",
+        "cases": 26,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/neonatal-tetanus",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Neonatal Tetanus",
+        "location": "BEN",
+        "country": "BEN",
+        "cases": 21,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/neonatal-tetanus",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Neonatal Tetanus",
+        "location": "BFA",
+        "country": "BFA",
+        "cases": 4,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/neonatal-tetanus",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          90.4,
+          23.7
+        ]
+      },
+      "properties": {
+        "disease": "Neonatal Tetanus",
+        "location": "Bangladesh",
+        "country": "BGD",
+        "cases": 35,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/neonatal-tetanus",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.2,
+          35.9
+        ]
+      },
+      "properties": {
+        "disease": "Neonatal Tetanus",
+        "location": "China",
+        "country": "CHN",
+        "cases": 10,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/neonatal-tetanus",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Neonatal Tetanus",
+        "location": "CIV",
+        "country": "CIV",
+        "cases": 12,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/neonatal-tetanus",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Neonatal Tetanus",
+        "location": "CMR",
+        "country": "CMR",
+        "cases": 17,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/neonatal-tetanus",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.8,
+          -4.0
+        ]
+      },
+      "properties": {
+        "disease": "Neonatal Tetanus",
+        "location": "DR Congo",
+        "country": "COD",
+        "cases": 390,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "moderate",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/neonatal-tetanus",
         "date": "2025-12-31"
       }
     },
@@ -9842,6 +10808,328 @@
         "h2h": false,
         "verified": true,
         "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/mumps",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Japanese Encephalitis",
+        "location": "WB_HI",
+        "country": "WB_HI",
+        "cases": 21,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/japanese-encephalitis",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Japanese Encephalitis",
+        "location": "WB_LMI",
+        "country": "WB_LMI",
+        "cases": 1666,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/japanese-encephalitis",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Japanese Encephalitis",
+        "location": "WB_UMI",
+        "country": "WB_UMI",
+        "cases": 424,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "moderate",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/japanese-encephalitis",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Japanese Encephalitis",
+        "location": "GLOBAL",
+        "country": "GLOBAL",
+        "cases": 2110,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/japanese-encephalitis",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Japanese Encephalitis",
+        "location": "SEAR",
+        "country": "SEAR",
+        "cases": 1659,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/japanese-encephalitis",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Japanese Encephalitis",
+        "location": "WPR",
+        "country": "WPR",
+        "cases": 451,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "moderate",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/japanese-encephalitis",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          133.8,
+          -25.3
+        ]
+      },
+      "properties": {
+        "disease": "Japanese Encephalitis",
+        "location": "Australia",
+        "country": "AUS",
+        "cases": 9,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/japanese-encephalitis",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          90.4,
+          23.7
+        ]
+      },
+      "properties": {
+        "disease": "Japanese Encephalitis",
+        "location": "Bangladesh",
+        "country": "BGD",
+        "cases": 37,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/japanese-encephalitis",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Japanese Encephalitis",
+        "location": "BTN",
+        "country": "BTN",
+        "cases": 6,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/japanese-encephalitis",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.2,
+          35.9
+        ]
+      },
+      "properties": {
+        "disease": "Japanese Encephalitis",
+        "location": "China",
+        "country": "CHN",
+        "cases": 127,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "moderate",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/japanese-encephalitis",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Japanese Encephalitis",
+        "location": "HKG",
+        "country": "HKG",
+        "cases": 1,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/japanese-encephalitis",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.9,
+          -0.8
+        ]
+      },
+      "properties": {
+        "disease": "Japanese Encephalitis",
+        "location": "Indonesia",
+        "country": "IDN",
+        "cases": 10,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/japanese-encephalitis",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.0,
+          20.6
+        ]
+      },
+      "properties": {
+        "disease": "Japanese Encephalitis",
+        "location": "India",
+        "country": "IND",
+        "cases": 1414,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "high",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/japanese-encephalitis",
+        "date": "2025-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.3,
+          36.2
+        ]
+      },
+      "properties": {
+        "disease": "Japanese Encephalitis",
+        "location": "Japan",
+        "country": "JPN",
+        "cases": 4,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": true,
+        "source_url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/japanese-encephalitis",
         "date": "2025-12-31"
       }
     },
