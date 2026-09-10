@@ -14,6 +14,29 @@
         "disease": "Ebola Virus Disease",
         "location": "Congo",
         "country": "COG",
+        "cases": 6757,
+        "deaths": 3267,
+        "cfr": 0.4835,
+        "severity": "very_high",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2026-DON617",
+        "date": "2026-09-10"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.8,
+          -4.0
+        ]
+      },
+      "properties": {
+        "disease": "Ebola Virus Disease",
+        "location": "Congo",
+        "country": "COG",
         "cases": 5794,
         "deaths": 2786,
         "cfr": 0.4808,
@@ -7174,29 +7197,6 @@
         "h2h": false,
         "verified": false,
         "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2019-DON227",
-        "date": "2022-07-28"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -4.0,
-          17.6
-        ]
-      },
-      "properties": {
-        "disease": "Yellow Fever",
-        "location": "Mali",
-        "country": "MLI",
-        "cases": 0,
-        "deaths": 0,
-        "cfr": 0.0,
-        "severity": "low",
-        "h2h": false,
-        "verified": false,
-        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2019-DON223",
         "date": "2022-07-28"
       }
     },
