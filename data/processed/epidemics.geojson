@@ -6,6 +6,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          21.8,
+          -4.0
+        ]
+      },
+      "properties": {
+        "disease": "Ebola Virus Disease",
+        "location": "Congo",
+        "country": "COG",
+        "cases": 9704,
+        "deaths": 4687,
+        "cfr": 0.483,
+        "severity": "very_high",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2026-DON622",
+        "date": "2026-10-23"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           45.1,
           23.9
         ]
@@ -45,29 +68,6 @@
         "verified": false,
         "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2026-DON620",
         "date": "2026-10-10"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          21.8,
-          -4.0
-        ]
-      },
-      "properties": {
-        "disease": "Ebola Virus Disease",
-        "location": "Congo",
-        "country": "COG",
-        "cases": 8728,
-        "deaths": 0,
-        "cfr": 0.0,
-        "severity": "very_high",
-        "h2h": false,
-        "verified": false,
-        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2026-DON619",
-        "date": "2026-10-08"
       }
     },
     {
