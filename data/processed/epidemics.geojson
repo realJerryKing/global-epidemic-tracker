@@ -6,6 +6,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          2.2,
+          46.2
+        ]
+      },
+      "properties": {
+        "disease": "Shamonda virus in human",
+        "location": "France",
+        "country": "FRA",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/shamonda-virus-in-human---france",
+        "date": "2026-11-02"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           21.8,
           -4.0
         ]
@@ -4192,29 +4215,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          17.9,
-          -11.2
-        ]
-      },
-      "properties": {
-        "disease": "Poliomyelitis",
-        "location": "Angola",
-        "country": "AGO",
-        "cases": 0,
-        "deaths": 0,
-        "cfr": 0.0,
-        "severity": "low",
-        "h2h": false,
-        "verified": false,
-        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2010DON043",
-        "date": "2024-03-05"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           10.4,
           51.2
         ]
@@ -7220,29 +7220,6 @@
         "h2h": false,
         "verified": false,
         "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2019-DON213",
-        "date": "2022-07-28"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          67.7,
-          33.9
-        ]
-      },
-      "properties": {
-        "disease": "Dengue",
-        "location": "Afghanistan",
-        "country": "AFG",
-        "cases": 0,
-        "deaths": 0,
-        "cfr": 0.0,
-        "severity": "low",
-        "h2h": false,
-        "verified": false,
-        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2019-DON218",
         "date": "2022-07-28"
       }
     },
