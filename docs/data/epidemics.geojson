@@ -20,7 +20,7 @@
         "severity": "low",
         "h2h": false,
         "verified": false,
-        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/shamonda-virus-in-human---france",
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2026-DON623",
         "date": "2026-11-02"
       }
     },
@@ -4207,6 +4207,29 @@
         "h2h": false,
         "verified": false,
         "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2010DON044",
+        "date": "2024-03-05"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          17.9,
+          -11.2
+        ]
+      },
+      "properties": {
+        "disease": "Poliomyelitis",
+        "location": "Angola",
+        "country": "AGO",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2010DON043",
         "date": "2024-03-05"
       }
     },
