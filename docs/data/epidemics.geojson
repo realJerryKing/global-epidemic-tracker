@@ -1915,29 +1915,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -77.8,
-          21.5
-        ]
-      },
-      "properties": {
-        "disease": "Oropouche Virus Disease",
-        "location": "Cuba",
-        "country": "CUB",
-        "cases": 0,
-        "deaths": 0,
-        "cfr": 0.0,
-        "severity": "low",
-        "h2h": true,
-        "verified": false,
-        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2024-DON521",
-        "date": "2024-06-11"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           133.8,
           -25.3
         ]
