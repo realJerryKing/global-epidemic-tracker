@@ -6,6 +6,52 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          21.8,
+          -4.0
+        ]
+      },
+      "properties": {
+        "disease": "Ebola Virus Disease",
+        "location": "Congo",
+        "country": "COG",
+        "cases": 668,
+        "deaths": 668,
+        "cfr": 1.0,
+        "severity": "very_high",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2026-DON625",
+        "date": "2026-11-06"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Yellow Fever",
+        "location": "Multi-country",
+        "country": "MUL",
+        "cases": 67,
+        "deaths": 18,
+        "cfr": 0.2687,
+        "severity": "very_high",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2026-DON624",
+        "date": "2026-11-06"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           2.2,
           46.2
         ]
@@ -1915,6 +1961,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -77.8,
+          21.5
+        ]
+      },
+      "properties": {
+        "disease": "Oropouche Virus Disease",
+        "location": "Cuba",
+        "country": "CUB",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": true,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2024-DON521",
+        "date": "2024-06-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           133.8,
           -25.3
         ]
@@ -3333,29 +3402,6 @@
         "h2h": false,
         "verified": false,
         "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2003DON151",
-        "date": "2024-03-13"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0.0,
-          0.0
-        ]
-      },
-      "properties": {
-        "disease": "Cholera",
-        "location": "Multi-country",
-        "country": "MUL",
-        "cases": 0,
-        "deaths": 0,
-        "cfr": 0.0,
-        "severity": "low",
-        "h2h": false,
-        "verified": false,
-        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2003DON148",
         "date": "2024-03-13"
       }
     },
