@@ -5802,6 +5802,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          0.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "disease": "Marburg Virus Disease",
+        "location": "Multi-country",
+        "country": "MUL",
+        "cases": 8,
+        "deaths": 5,
+        "cfr": 0.625,
+        "severity": "very_high",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2023-DON451",
+        "date": "2023-03-24"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           10.4,
           51.2
         ]
@@ -5841,29 +5864,6 @@
         "verified": false,
         "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2023-DON448",
         "date": "2023-03-23"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0.0,
-          0.0
-        ]
-      },
-      "properties": {
-        "disease": "Marburg Virus Disease",
-        "location": "Multi-country",
-        "country": "MUL",
-        "cases": 0,
-        "deaths": 0,
-        "cfr": 0.0,
-        "severity": "low",
-        "h2h": false,
-        "verified": false,
-        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2023-DON449",
-        "date": "2023-03-22"
       }
     },
     {
