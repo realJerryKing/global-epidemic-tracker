@@ -4721,6 +4721,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -55.8,
+          -32.5
+        ]
+      },
+      "properties": {
+        "disease": "Western Equine Encephalitis",
+        "location": "Uruguay",
+        "country": "URY",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": false,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2024-DON505",
+        "date": "2024-02-08"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           105.0,
           12.6
         ]
