@@ -6,6 +6,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          38.0,
+          34.8
+        ]
+      },
+      "properties": {
+        "disease": "Poliomyelitis",
+        "location": "Syria",
+        "country": "SYR",
+        "cases": 0,
+        "deaths": 0,
+        "cfr": 0.0,
+        "severity": "low",
+        "h2h": true,
+        "verified": false,
+        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2026-DON628",
+        "date": "2026-11-23"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           21.8,
           -4.0
         ]
@@ -7266,29 +7289,6 @@
         "h2h": false,
         "verified": false,
         "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2019-DON211",
-        "date": "2022-07-28"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          69.3,
-          30.4
-        ]
-      },
-      "properties": {
-        "disease": "Poliomyelitis",
-        "location": "Pakistan",
-        "country": "PAK",
-        "cases": 0,
-        "deaths": 0,
-        "cfr": 0.0,
-        "severity": "low",
-        "h2h": false,
-        "verified": false,
-        "source_url": "https://www.who.int/emergencies/disease-outbreak-news/2019-DON210",
         "date": "2022-07-28"
       }
     },
