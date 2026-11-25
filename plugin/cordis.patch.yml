@@ -1,0 +1,3 @@
+- insert:
+    - id: epidemic-tracker
+      name: '@local/dsh-epidemic-tracker'
