@@ -5,3 +5,11 @@ data/processed/
 *.log
 .DS_Store
 .env
+.env.*
+!.env.example
+*.sqlite*
+*.db
+*.db-*
+.venv/
+node_modules/
+*.tgz

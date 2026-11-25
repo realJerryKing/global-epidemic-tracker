@@ -1,0 +1,11 @@
+[Unit]
+Description=Maintain private community pilot after week closure
+
+[Timer]
+OnCalendar=Mon *-*-* 00:15:00 Asia/Shanghai
+Persistent=true
+AccuracySec=1min
+Unit=community-weekly.service
+
+[Install]
+WantedBy=timers.target

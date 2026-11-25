@@ -1,0 +1,20 @@
+[Unit]
+Description=Private community check-in API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=community
+Group=community
+WorkingDirectory=/opt/community
+EnvironmentFile=/etc/community/api.env
+ExecStart=/opt/community/.venv/bin/uvicorn backend.api:create_app --factory --host 127.0.0.1 --port 8765 --no-access-log --no-proxy-headers
+Restart=on-failure
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

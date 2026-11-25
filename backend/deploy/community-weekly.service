@@ -1,0 +1,17 @@
+[Unit]
+Description=Prune private entries and publish closed community week
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=community
+Group=community
+WorkingDirectory=/opt/community
+EnvironmentFile=/etc/community/worker.env
+ExecStart=/opt/community/.venv/bin/python -B -m backend.cli maintain
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
