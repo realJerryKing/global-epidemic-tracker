@@ -16,13 +16,21 @@ class WHOGHOCollector:
 
     def collect(self):
         reports = []
+        self.indicator_metadata = {}
         for code, disease in GHO_INDICATORS.items():
             rows = fetch_rows(f'{self.BASE_URL}/{code}', {
                 '$filter': "SpatialDimType eq 'COUNTRY' and TimeDim ge 2023 and NumericValue ne null",
                 '$orderby': 'TimeDim desc,SpatialDim asc', '$top': 250})
             group = [r for row in rows if (r := self._parse_row(row, disease, code))]
-            if not group:
+            if rows and not group:
                 raise ValueError(f'no usable country-year records for {code}')
+            self.indicator_metadata[code] = {
+                'record_count': len(group),
+                'period_start': min((r.period_label for r in group), default=None),
+                'period_end': max((r.period_label for r in group), default=None),
+                'status': 'success' if group else 'empty',
+            }
+            # An HTTP-successful empty collection means no observations, not zero cases.
             reports.extend(group)
         return reports
 

@@ -21,4 +21,8 @@ git show e4e5875b4ef0d233e18c632b68dbc1b04dab96e0:docs/data/epidemics.json > leg
 python scripts/normalize_legacy.py legacy-input.json --output-dir /tmp/normalized-reports
 ```
 
-For a fresh capture run `python scripts/fetch_data.py --fetch --export-json --summary`. Both formats are generated from one in-memory snapshot; the workflow publishes only after every required feed (including every configured GHO indicator) succeeds. No community data is part of this artifact.
+For a fresh capture run `python scripts/fetch_data.py --fetch --export-json --summary`. Both formats are generated from one in-memory snapshot and validated before publication. The `summary.sources` object records each source URL, collected record count, period type/range, and whether the source has records (`success` or `empty`); archived data is labeled `archived`. Empty GHO indicator results are allowed because indicators can have no country-year observations in the requested window; transport, schema, and parsing errors still fail the refresh and preserve the prior pair. No community data is part of this artifact.
+
+## Live refresh diagnostic (2026-11-26)
+
+A network run collected 500 WHO DON notices and 144 OWID country observations. WHO GHO returned 250 rows each for measles, diphtheria, yellow fever, neonatal tetanus, rubella and mumps, and 169 for Japanese encephalitis, with usable reporting years 2023–2025. Its poliomyelitis indicator `WHS3_49` returned zero rows; this empty result is now represented in per-source metadata rather than treating the entire feed as failed. The complete fetch was rerun after this behavior change to verify the temporary artifacts.

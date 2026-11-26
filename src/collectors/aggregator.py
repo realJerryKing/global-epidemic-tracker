@@ -8,7 +8,14 @@ from .owid import OWIDMpoxCollector
 from ..validation.news_validator import NewsValidator
 
 
-def snapshot(reports, timestamp, *, legacy=False):
+SOURCE_URLS = {
+    'who_don': WHODONCollector.API_URL,
+    'who_gho': WHOGHOCollector.BASE_URL,
+    'owid': OWIDMpoxCollector.CSV_URL,
+}
+
+
+def snapshot(reports, timestamp, *, legacy=False, gho_indicators=None):
     unique = {}
     for report in reports:
         key = report.source, report.outbreak_id
@@ -16,10 +23,22 @@ def snapshot(reports, timestamp, *, legacy=False):
             raise ValueError(f'conflicting records with identifier {key}')
         unique[key] = report
     rows = [r.to_dict() for r in sorted(unique.values(), key=lambda r: (r.source.value, r.outbreak_id))]
+    counts = Counter(r['source'] for r in rows)
+    provenance = {}
+    for source, url in SOURCE_URLS.items():
+        source_rows = [r for r in rows if r['source'] == source]
+        periods = [r['period_label'] for r in source_rows if r['period_label']]
+        provenance[source] = {'url': url, 'record_count': len(source_rows),
+                              'period_type': source_rows[0]['period_type'] if source_rows else None,
+                              'period_start': min(periods) if periods else None,
+                              'period_end': max(periods) if periods else None,
+                              'status': 'archived' if legacy else ('success' if source_rows else 'empty')}
+        if source == 'who_gho' and not legacy:
+            provenance[source]['indicators'] = gho_indicators or {}
     return {'schema_version': 2, 'legacy': legacy, 'last_update': timestamp,
             'coverage': ('Normalized from an archived export; not independently re-fetched. Legacy DON classifications are approximate; location and extracted counts withheld. Legacy OWID zero deaths may represent missing data and are withheld.' if legacy else
                          'Bounded sample: up to 500 latest WHO DON notices, up to 250 country-year observations since 2023 per WHO GHO indicator, latest available cumulative WHO/OWID mpox observation per country.'),
-            'summary': {'report_count': len(rows), 'by_source': dict(Counter(r['source'] for r in rows))},
+            'summary': {'report_count': len(rows), 'by_source': dict(counts), 'sources': provenance},
             'outbreaks': rows}
 
 
@@ -51,4 +70,5 @@ class EpidemicAggregator:
                     r.news_evidence = search.search(r)
                 except (URLError, OSError, ParseError, ValueError):
                     pass  # Optional discovery failure is not evidence against a report.
-        return snapshot(rows, datetime.now(timezone.utc).isoformat(timespec='seconds'))
+        return snapshot(rows, datetime.now(timezone.utc).isoformat(timespec='seconds'),
+                        gho_indicators=self.collectors[1].indicator_metadata)

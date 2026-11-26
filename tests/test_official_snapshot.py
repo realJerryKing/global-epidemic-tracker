@@ -12,6 +12,7 @@ from src.collectors.who_don import WHODONCollector
 from src.collectors.who_gho import WHOGHOCollector
 from src.collectors.owid import OWIDMpoxCollector
 from src.models import count
+from src.models.base import fetch_rows
 from src.validation.news_validator import NewsValidator
 
 
@@ -34,7 +35,12 @@ class OfficialTests(unittest.TestCase):
         a = self.notice()
         b = self.notice(UrlName='2024-DON2')
         data = snapshot([a, b, a], '2024-01-04')
-        self.assertEqual(data['summary'], {'report_count':2, 'by_source':{'who_don':2}})
+        self.assertEqual(data['summary']['report_count'], 2)
+        self.assertEqual(data['summary']['by_source'], {'who_don':2})
+        self.assertEqual(data['summary']['sources']['who_don']['record_count'], 2)
+        self.assertEqual(data['summary']['sources']['who_don']['period_start'], '2024-01-03')
+        self.assertEqual(data['summary']['sources']['who_don']['status'], 'success')
+        self.assertEqual(data['summary']['sources']['who_gho']['status'], 'empty')
         with self.assertRaisesRegex(ValueError, 'conflicting'):
             snapshot([a, replace(a, description='different')], '2024-01-04')
 
@@ -48,8 +54,11 @@ class OfficialTests(unittest.TestCase):
         self.assertIsNone(parse({**row,'spatialDimType':'REGION'}))
         self.assertIsNone(parse({**row,'numericValue':None}))
         self.assertIsNone(parse({**row,'dim1':'SEX_FEMALE'}))
-        with patch('src.collectors.who_gho.fetch_rows', return_value=[]), self.assertRaisesRegex(ValueError,'WHS3_62'):
-            WHOGHOCollector().collect()
+        with patch('src.collectors.who_gho.fetch_rows', return_value=[]):
+            collector = WHOGHOCollector()
+            self.assertEqual(collector.collect(), [])
+            self.assertEqual(collector.indicator_metadata['WHS3_62'], {
+                'record_count': 0, 'period_start': None, 'period_end': None, 'status': 'empty'})
 
     def test_latest_cumulative_per_country(self):
         csv = ('location,iso_code,date,total_cases,total_deaths\nChina,CHN,2024-01-03,2,\n'
@@ -73,7 +82,7 @@ class OfficialTests(unittest.TestCase):
     def test_missing_required_source_preserves_both_outputs(self):
         directory = Path(__file__).resolve().parents[1] / 'docs/data'
         before = {p:p.read_bytes() for p in directory.glob('epidemics.*json')}
-        with patch.object(WHODONCollector,'collect',return_value=[self.notice()]), patch.object(WHOGHOCollector,'collect',return_value=[]), patch.object(fetch_data,'publish') as publish, redirect_stderr(io.StringIO()) as err:
+        with patch.object(WHODONCollector,'collect',return_value=[self.notice()]), patch.object(WHOGHOCollector,'collect',side_effect=ValueError('source unavailable')), patch.object(fetch_data,'publish') as publish, redirect_stderr(io.StringIO()) as err:
             self.assertEqual(fetch_data.main(['--export-json']), 1)
         self.assertIn('who_gho',err.getvalue())
         publish.assert_not_called()
@@ -88,6 +97,13 @@ class OfficialTests(unittest.TestCase):
         self.assertEqual(len(rows), len({(r['source'],r['outbreak_id']) for r in rows}))
         self.assertEqual(data['summary']['report_count'],len(rows))
         self.assertEqual(set(data['summary']['by_source']), {'who_gho','who_don','owid'})
+        if 'sources' in data['summary']:
+            self.assertEqual(set(data['summary']['sources']), {'who_gho','who_don','owid'})
+            if data['legacy']:
+                self.assertTrue(all(s['status'] == 'archived' for s in data['summary']['sources'].values()))
+            else:
+                self.assertTrue(all(s['status'] in ('success', 'empty') for s in data['summary']['sources'].values()))
+                self.assertEqual(data['summary']['sources']['who_gho']['indicators']['WHS3_49']['status'], 'empty')
         self.assertTrue(all(r['legacy'] == data['legacy'] and 'cfr' not in r for r in rows))
         self.assertTrue(all(f['geometry']['coordinates'] != [0,0] for f in geo['features']))
         self.assertTrue(all(r['deaths'] is None and r['cases'] is None for r in rows if r['source']=='who_don'))

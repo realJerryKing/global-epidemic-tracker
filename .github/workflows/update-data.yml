@@ -18,13 +18,17 @@ jobs:
           python-version: '3.12'
       - name: Test source and publication semantics offline
         run: python -m unittest discover -s tests -p 'test_official*.py'
-      - name: Refresh all required sources
-        run: python scripts/fetch_data.py --fetch --export-json --summary
+      - name: Refresh all configured sources
+        run: python scripts/fetch_data.py --fetch --export-json --summary --output-dir "$RUNNER_TEMP/official-snapshot"
+      - name: Publish validated staged snapshot
+        run: cp "$RUNNER_TEMP/official-snapshot/epidemics.json" docs/data/epidemics.json && cp "$RUNNER_TEMP/official-snapshot/epidemics.geojson" docs/data/epidemics.geojson
+      - name: Regenerate plugin snapshot assets
+        run: node plugin/build.mjs
       - name: Publish matched snapshot artifacts
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git add -- docs/data/epidemics.json docs/data/epidemics.geojson
+          git add -- docs/data/epidemics.json docs/data/epidemics.geojson plugin/client.js plugin/public-data.js
           if ! git diff --cached --quiet; then
             git commit -m 'data: refresh official report snapshot'
             git push

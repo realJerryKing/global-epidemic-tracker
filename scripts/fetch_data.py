@@ -21,6 +21,12 @@ def publish(data, directory):
                 staged[directory / filename] = Path(tmp.name)
                 json.dump(value, tmp, ensure_ascii=False, indent=2, allow_nan=False)
                 tmp.write('\n')
+        for tmp in staged.values():
+            with tmp.open(encoding='utf-8') as stream:
+                json.load(stream)
+        # Validate both artifacts before publishing either one.
+        if json.loads(staged[directory / 'epidemics.geojson'].read_text(encoding='utf-8')) != geojson(json.loads(staged[directory / 'epidemics.json'].read_text(encoding='utf-8'))):
+            raise ValueError('staged GeoJSON does not match JSON snapshot')
         for target, tmp in staged.items():
             tmp.replace(target)
     finally:
