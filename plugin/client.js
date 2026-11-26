@@ -21,12 +21,13 @@ function panelDescriptors(z) {
 const R=require('react'),h=R.createElement;
 return {inject:['slots','remote','locale','sidebarRightTabs'],async apply(ctx){
   await ctx.remote.$mount({package:pkg,descriptors:panelDescriptors(require('zod'))});
+  ctx.inject(['remote.epidemicTracker'], ctx => {
   const t=(zh,en)=>ctx.locale.resolveText({zh,en});
-  async function call(action,p={}){const wire=await ctx.remote.epidemicTracker.panel({action,...p});if(!wire.ok)throw new Error(t('无法连接宿主','Host unavailable'));const result=wire.value;if(!result.ok)throw new Error(result.error);return result.value;}
+  async function call(action,p={}){const wire=await ctx.remote.epidemicTracker.panel({action,...p});if(!wire.ok)throw new Error(t('无法连接宿主','Host unavailable')+' ('+(wire.error?.code||'gateway')+')');const result=wire.value;if(!result.ok)throw new Error(result.error);return result.value;}
   const label=()=>t('地区疫情周报','Regional health reports');
   function Panel(){const [setup,S]=R.useState(null),[regions,C]=R.useState([]),[code,G]=R.useState('000000'),[snap,V]=R.useState(null),[tick,T]=R.useState(0),[date,D]=R.useState(''),[place,P]=R.useState(''),[sym,Y]=R.useState(''),[obs,O]=R.useState(''),[consent,A]=R.useState(false),[invite,I]=R.useState(''),[busy,B]=R.useState(false),[message,M]=R.useState(''),[confirm,F]=R.useState(false);
     const clear=()=>{Y('');O('');A(false);F(false);};
-    R.useEffect(()=>{let live=true;call('setup').then(s=>{if(!live)return;S(s);G(s.region);D(s.week);if(s.backend)call('regions').then(rs=>{if(live)C(rs)}).catch(()=>{if(live)M(t('地区目录暂不可用','Region catalog unavailable'))});}).catch(()=>{if(live)M(t('宿主连接失败，请重开面板','Cannot reach Host; reopen the panel.'))});return()=>{live=false;};},[]);
+    R.useEffect(()=>{let live=true;call('setup').then(s=>{if(!live)return;S(s);G(s.region);D(s.week);if(s.backend)call('regions').then(rs=>{if(live)C(rs)}).catch(()=>{if(live)M(t('地区目录暂不可用','Region catalog unavailable'))});}).catch(e=>{if(live)M(e.message)});return()=>{live=false;};},[]);
     R.useEffect(()=>{if(!setup)return;let live=true;V(null);call('snapshot',{region_code:code}).then(v=>{if(live)V(v)}).catch(()=>{if(live)M(t('摘要加载失败','Summary unavailable'))});return()=>{live=false;};},[setup,code,tick]);
     async function run(fn){if(busy)return;B(true);M('');try{await fn();}catch(e){M(e.message);}finally{B(false);}}
     const name=c=>{const n=regions.find(r=>r.code===c)?.name;return n?`${n} (${c})`:c;};
@@ -46,6 +47,7 @@ return {inject:['slots','remote','locale','sidebarRightTabs'],async apply(ctx){
     h('label',null,h('input',{type:'checkbox',checked:consent,disabled:busy,onChange:e=>A(e.target.checked)}),t('我同意将以上选项发送至所示服务。','I consent to sending these selections to the displayed service.')),btn(t('提交 / 保存修改','Submit / save changes'),()=>run(async()=>{await call('save',{date,region_code:place,symptom:sym,observation:obs||null,consent});clear();M(t('已保存；同一周只保留一份。','Saved; one entry per week.'));}),!consent||!place||!sym),btn(t('撤回该周…','Withdraw this week…'),()=>F(true)),confirm&&h('div',null,t('确定删除所选周的签到？','Delete the selected week’s entry?'),btn(t('确认撤回','Confirm withdrawal'),()=>run(async()=>{await call('withdraw',{date,confirm:true});clear();M(t('已撤回','Withdrawn'));})),btn(t('取消','Cancel'),()=>F(false)))))),h('p',{role:'status','aria-live':'polite'},message)));
   }
   const id=pkg;ctx.effect(()=>ctx.sidebarRightTabs.register({id,kind:'epidemic-tracker',title:label,guide:[{id:'report',order:25,title:label,description:()=>t('周趋势、地图与自愿签到','Weekly trends, map and voluntary check-in'),icon:()=>h('span',{'aria-hidden':true},'◎')}]}),'epidemic-tracker.tab');ctx.slots.inject('sidebar.right.pane.tab',()=>ctx.slots.register({name:'sidebar.right.pane.tab',key:id},Panel));
+  });
 }};
 
 }});
