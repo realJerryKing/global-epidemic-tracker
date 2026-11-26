@@ -1,6 +1,7 @@
 // Host-only data boundary. No session, transcript, telemetry or UI storage dependencies.
 import {bundledOfficial, publicRegions} from './public-data.js';
-export const SITE = 'https://realJerryKing.github.io/global-epidemic-tracker/';
+import {SITE, OFFICIAL_URL, summarizeOfficial} from './official.js';
+export {SITE, OFFICIAL_URL} from './official.js';
 const isoDate = /^\d{4}-\d{2}-\d{2}$/;
 const codePattern = /^\d{6}$/;
 const symptoms = ['new','ongoing','none'];
@@ -45,22 +46,49 @@ function releasedReport(data,code) {
 export class Tracker {
   constructor({backend='',region='000000',fetcher=fetch,store}){this.base=endpoint(backend);this.region=isCode(region)?region:'000000';this.fetcher=fetcher;this.store=store;this.cache=new Map();this.officialCache=null;}
   async api(path,{method='GET',body,token,signal}={}){requireValue(this.base,'尚未配置服务');return jsonRequest(this.fetcher,this.base+path,{method,signal,headers:{Accept:'application/json',...(body?{'Content-Type':'application/json'}:{}),...(token?{Authorization:'Bearer '+token}:{})},...(body?{body:JSON.stringify(body)}:{})});}
-  async official(signal){if(this.officialCache?.until>Date.now())return this.officialCache.value;
-    const raw=await jsonRequest(this.fetcher,SITE+'data/epidemics.json',{signal},12*1024*1024);
-    requireValue(raw.schema_version===2 && Array.isArray(raw.outbreaks) && Number.isSafeInteger(raw.summary?.report_count) && raw.summary.report_count>=0);
-    const allowed=['who_don','who_gho','owid'];const sources=allowed.filter(s=>raw.outbreaks.some(r=>r.source===s));
-    requireValue(typeof raw.last_update==='string' && Number.isFinite(Date.parse(raw.last_update)));
-    const value={status:'available',scope:'global',provenance:'published',source_url:SITE+'data/epidemics.json',snapshot_time:new Date(raw.last_update).toISOString(),legacy:raw.legacy===true,report_count:raw.summary.report_count,sources};
+  async official(signal, {refresh=false}={}) {
+    signal?.throwIfAborted();
+    if (!refresh && this.officialCache?.until>Date.now()) {
+      return {...this.officialCache.value, provenance:'cached', fallback_reason:null};
+    }
+    let raw;
+    try {
+      raw=await jsonRequest(this.fetcher,OFFICIAL_URL,{signal,headers:{Accept:'application/json'}},12*1024*1024);
+    } catch (error) {
+      signal?.throwIfAborted();
+      this.expireOfficialCache();
+      return this.fallbackOfficial(error instanceof SyntaxError?'invalid_publication':'publication_unavailable');
+    }
+    signal?.throwIfAborted();
+    let value;
+    try { value=summarizeOfficial(raw,'published'); }
+    catch {
+      this.expireOfficialCache();
+      return this.fallbackOfficial('invalid_publication');
+    }
     const previous=this.fallbackOfficial();
-    const selected=previous.snapshot_time>value.snapshot_time?previous:value;
-    this.officialCache={value:selected,until:Date.now()+5*60000};return selected;}
-  fallbackOfficial(){const cached=this.officialCache?.value;return cached && cached.snapshot_time>bundledOfficial.snapshot_time?{...cached,provenance:'cached'}:bundledOfficial;}
-  async snapshot(code=this.region,signal){requireValue(isCode(code));signal?.throwIfAborted();
-    const old=this.cache.get(code); if(old?.until>Date.now())return old.value;
-    const [official,community]=await Promise.all([this.official(signal).catch(()=>this.fallbackOfficial()),this.base?this.api('/v1/reports/latest?region_code='+code,{signal}).then(d=>releasedReport(d,code)).catch(()=>({status:'offline',requested_region_code:code,metrics:null})):Promise.resolve({status:'not_configured',requested_region_code:code,metrics:null})]);signal?.throwIfAborted();
+    if (value.snapshot_time < previous.snapshot_time) {
+      this.expireOfficialCache();
+      return this.fallbackOfficial('older_publication');
+    }
+    this.officialCache={value,until:Date.now()+5*60000};
+    return {...value,fallback_reason:null};
+  }
+  expireOfficialCache(){if(this.officialCache)this.officialCache.until=0;}
+  fallbackOfficial(reason=null){const cached=this.officialCache?.value;return cached?{...cached,provenance:'cached',fallback_reason:reason}:{...bundledOfficial,fallback_reason:reason};}
+  async snapshot(code=this.region,signal,{refresh=false}={}){requireValue(isCode(code));signal?.throwIfAborted();
+    const [official,community]=await Promise.all([this.official(signal,{refresh}),this.community(code,signal,refresh)]);signal?.throwIfAborted();
     const guidance=community.status!=='available'?'无可用于本区判断的周报；请参阅当地疾控部门公告，不能把缺失视为零。':community.region_code!==code?'仅说明所示上级地区自选样本趋势，不能推断请求地区正在上升。请结合当地疾控公告。':community.metrics.trend==='possible_rise'?'本区自选样本提示可能上升，不是疫情预警；可关注当地疾控公告。':'未建立明确上升证据不代表没有传播；可关注当地疾控公告。';
-    const value={requested_region_code:code,community,official,guidance,prevention:[{advice:community.status==='available'&&community.metrics.trend==='possible_rise'?'在拥挤或通风不佳的室内，尤其与高风险人群接触时，可佩戴贴合面部的优质口罩。':'在拥挤的室内交通工具或照护患病家人时，可考虑佩戴贴合的口罩。',source:'CDC · Masks and respiratory viruses',url:'https://www.cdc.gov/respiratory-viruses/prevention/masks.html'},{advice:'擤鼻涕、咳嗽或打喷嚏后清洁双手；咳嗽时用纸巾或肘部遮挡。',source:'CDC · Hygiene and respiratory viruses',url:'https://www.cdc.gov/respiratory-viruses/prevention/hygiene.html'}],map_url:SITE+'?region='+code,interpretation:'社区自报样本不是确诊病例、发病率或个人风险。全球官方背景不能替代地区周报。'};
-    if(this.cache.size>=100)this.cache.delete(this.cache.keys().next().value);this.cache.set(code,{value,until:Date.now()+60000});return value;}
+    const value={requested_region_code:code,community,official,guidance,prevention:[{advice:community.status==='available'&&community.metrics.trend==='possible_rise'?'在拥挤或通风不佳的室内，尤其与高风险人群接触时，可佩戴贴合面部的优质口罩。':'在拥挤的室内交通工具或照护患病家人时，可考虑佩戴贴合的口罩。',source:'CDC · Masks and respiratory viruses',url:'https://www.cdc.gov/respiratory-viruses/prevention/masks.html'},{advice:'擤鼻涕、咳嗽或打喷嚏后清洁双手；咳嗽时用纸巾或肘部遮挡。',source:'CDC · Hygiene and respiratory viruses',url:'https://www.cdc.gov/respiratory-viruses/prevention/hygiene.html'}],map_url:SITE+'docs/index.html?region='+code,interpretation:'社区自报样本不是确诊病例、发病率或个人风险。全球官方背景不能替代地区周报。'};
+    return value;
+  }
+  async community(code,signal,refresh){
+    if(!this.base)return {status:'not_configured',requested_region_code:code,metrics:null};
+    const old=this.cache.get(code);if(!refresh&&old?.until>Date.now())return old.value;
+    const value=await this.api('/v1/reports/latest?region_code='+code,{signal}).then(d=>releasedReport(d,code)).catch(()=>({status:'offline',requested_region_code:code,metrics:null}));
+    signal?.throwIfAborted();
+    if(this.cache.size>=100)this.cache.delete(this.cache.keys().next().value);this.cache.set(code,{value,until:Date.now()+60000});return value;
+  }
   async privateAction(action,p={}){
     if(action==='setup')return {backend:this.base,bound:this.base?(this.store.bound?await this.store.bound():Boolean(await this.store.read())):false,region:this.region,week:weekOf()};
     if(action==='regions'){if(!this.base)return publicRegions;const raw=await this.api('/v1/regions');requireValue(Array.isArray(raw.regions));return raw.regions.filter(r=>isCode(r.code)&&typeof r.name==='string').slice(0,6500).map(r=>({code:r.code,name:r.name.slice(0,64),parent_code:isCode(r.parent_code)?r.parent_code:null}));}

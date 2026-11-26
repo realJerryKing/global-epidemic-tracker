@@ -5,6 +5,7 @@ export function panelDescriptors(z) {
   const create = () => z.strictObject({
     action: z.enum(['setup','regions','snapshot','enroll','read','save','withdraw']),
     region_code: z.string().regex(/^\d{6}$/).optional(),
+    refresh: z.boolean().optional(),
     date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
     invite_code: z.string().optional(), symptom: z.enum(['new','ongoing','none']).optional(),
     observation: z.enum(['more','usual','less']).nullable().optional(),
