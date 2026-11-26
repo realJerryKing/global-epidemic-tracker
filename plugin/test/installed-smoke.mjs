@@ -17,8 +17,20 @@ globalThis.fetch=async (url,opts)=>{
 ctx.provide('credentials');ctx.provide('tools');ctx.set('credentials',{describeRecord:async()=>({configured:false})});ctx.set('tools',{register(t){tool=t;}});ctx.on('internal/error',(err)=>console.error(err));const registry=ctx.plugin(Registry);await new Promise(r=>setImmediate(r));const plugin=ctx.plugin(Plugin,{});await new Promise(r=>setImmediate(r));if(!ctx.epidemicTracker)console.error('status',registry.status,plugin.status,Boolean(ctx.typert),Boolean(ctx.tools),Boolean(ctx.credentials),plugin.error);const host=ctx.epidemicTracker;assert.ok(host);assert.equal(remoteMethods(host)[0].method,'panel');assert.equal(tool.name,'epidemic_snapshot');await assert.rejects(host.panel({action:'setup'}));console.log('PASS: installed Cordis service + Typert registry + owner guard + tool registration (no profile)');
 globalThis.fetch=realFetch;
 const getSnapshot=async refresh=>JSON.parse(await tool.execute({region_code:'440106',refresh},{}));
-const a=await getSnapshot(true),b=await getSnapshot(true),c=await getSnapshot(false);
-assert.equal(hits,2);assert.deepEqual([a.official.provenance,b.official.provenance,c.official.provenance],['published','published','cached']);
+const a=await getSnapshot(true);
+assert.equal(a.official.provenance,'published');
+let b=await getSnapshot(true);
+const watch=live&&process.argv.includes('--watch-next');
+if(watch){
+  console.log('Waiting for a newer live Pages snapshot from',a.official.snapshot_time);
+  for(let attempt=0;attempt<80&&b.official.snapshot_time<=a.official.snapshot_time;attempt++){
+    await new Promise(resolve=>setTimeout(resolve,15000));
+    b=await getSnapshot(true);
+  }
+  assert.ok(b.official.snapshot_time>a.official.snapshot_time,'No newer live snapshot appeared within the verification window');
+}
+const c=await getSnapshot(false);
+assert.ok(watch?hits>=2:hits===2);assert.deepEqual([a.official.provenance,b.official.provenance,c.official.provenance],['published','published','cached']);
 assert.equal(b.official.report_count,c.official.report_count);
 assert.equal(b.official.source_url,OFFICIAL_URL);
 if(live){
