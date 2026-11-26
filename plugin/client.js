@@ -29,7 +29,7 @@ return {inject:['slots','remote','locale','sidebarRightTabs'],async apply(ctx){
   ctx.inject(['remote.epidemicTracker'], ctx => {
   const panelService=ctx['remote.epidemicTracker'];
   const t=(zh,en)=>ctx.locale.resolveText({zh,en});
-  async function call(action,p={}){const wire=await panelService.panel({action,...p});if(!wire.ok){const code=wire.error?.code||'gateway';throw Object.assign(new Error(t('无法连接宿主','Host unavailable')+' ('+code+')'),{code});}const result=wire.value;if(!result.ok)throw new Error(result.error);return result.value;}
+  async function call(action,p={}){const wire=await panelService.panel({action,...p});if(!wire.ok){const code=wire.error?.code||'gateway';const reason=code==='gateway/input-invalid'?t('宿主拒绝了请求。请刷新重试，或打开新版官方地图。','The Host rejected the request. Retry or open the official map.'):t('无法连接宿主','Host unavailable');throw Object.assign(new Error(reason+' ('+code+')'),{code});}const result=wire.value;if(!result.ok)throw new Error(result.error);return result.value;}
   async function readOfficial(refresh){
     try{return await call('official',{refresh});}
     catch(error){if(error.code!=='gateway/input-invalid')throw error;}
@@ -56,8 +56,8 @@ return {inject:['slots','remote','locale','sidebarRightTabs'],async apply(ctx){
     const community=scopedSnap?.community,official=lastOfficial??bundledOfficial;
     const showOfficial=view==='official';
     const sourceNames={who_don:'WHO DON',who_gho:'WHO GHO',owid:'Our World in Data'};
-    const bundledReports=lastOfficial!=null&&!Array.isArray(lastOfficial.recent_reports);
-    const reports=(bundledReports?bundledOfficial.recent_reports:official.recent_reports)??[];
+    const noticeSnapshot=Array.isArray(official.recent_reports)?official:bundledOfficial;
+    const reports=noticeSnapshot.recent_reports??[];
     const mapLink=(href,text)=>h('a',{href,target:'_blank',rel:'noopener noreferrer'},text);
     const viewBtn=(id,text)=>h('button',{type:'button','aria-pressed':view===id,onClick:()=>setView(id)},text);
     const officialOrigin={published:t('在线读取 · 公开 Pages v2','Fetched online · public Pages v2'),cached:t('宿主缓存 · 先前从 Pages v2 读取','Host cache · previously fetched from Pages v2'),bundled:t('插件随附快照（非实时）','Bundled snapshot (not live)')}[official.provenance];
@@ -67,7 +67,7 @@ return {inject:['slots','remote','locale','sidebarRightTabs'],async apply(ctx){
     showOfficial&&h('section',null,h('h2',null,t('最新 WHO 暴发通报','Latest WHO outbreak notices')),
       h('div',null,mapLink(publicMapUrl,t('打开新版官方地图 ↗','Open the new official map ↗')),btn(t('刷新官方报告','Refresh official reports'),refresh,snapshotPending)),
       h('p',{role:'status'},snapshotPending?t('正在读取官方快照…','Checking official snapshot…'):snapshotError||officialFallback||officialOrigin),
-      bundledReports&&h('p',null,t('以下通报名单来自插件随附快照，不是在线结果。','The notices below are from the bundled snapshot, not the online result.')),
+      h('p',null,t('通报名单快照：','Notices snapshot: '),noticeSnapshot===official?officialOrigin:t('插件随附快照（非实时）','Bundled snapshot (not live)'),noticeSnapshot.snapshot_time&&h(R.Fragment,null,' · ',h('time',{dateTime:noticeSnapshot.snapshot_time},noticeSnapshot.snapshot_time))),
       reports.length?h('ul',{className:'epi-reports'},reports.map(report=>h('li',{key:report.url},h('time',{dateTime:report.date},report.date),mapLink(report.url,report.title)))):h('p',null,t('此快照没有可显示的 WHO 通报。','No WHO notices are available in this snapshot.')),
       h('p',null,t('全球通报按发布日期排列，不是地区病例统计。','Global notices are sorted by publication date and are not local case counts.'))),
     !showOfficial&&!setup?.backend&&h('section',null,h('h2',null,t('地区社区周报','Regional community reports')),h('p',{role:'status'},setupError||(!setup?t('正在检查社区服务…','Checking community service…'):t('社区周报暂未开放。当前没有地区样本数据，也不接受签到。','Community reports are not open. No local sample data or check-in is available.'))),setupError&&btn(t('重试','Retry'),()=>U(n=>n+1))),
