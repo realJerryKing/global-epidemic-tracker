@@ -538,7 +538,7 @@ function init(){
     document.addEventListener("click",function(e){if(!e.target.closest(".ms")&&!e.target.closest(".md")&&!e.target.closest("#copts")&&!e.target.closest("#dopts"))closD()});
 }
 
-function ld(){fetch("data/epidemics.json?t="+Date.now()).then(function(r){return r.json()}).then(function(d){allData=d;popD();render(d)}).catch(function(e){console.error(e)})}
+function ld(){fetch("docs/data/epidemics.json?t="+Date.now()).then(function(r){return r.json()}).then(function(d){allData=d;popD();render(d)}).catch(function(e){console.error(e)})}
 
 function render(d){
     var o=d.outbreaks.slice();
