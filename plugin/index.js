@@ -13,7 +13,7 @@ export default class EpidemicTracker extends TypertRemoteService {
   constructor(ctx,config){
     super(ctx,service);for(const initialize of initializers) initialize.call(this);
     const base=endpoint(config.backendUrl);
-    const key=credentialKey('epidemic-tracker',createHash('sha256').update(base??'disabled').digest('hex'));
+    const key=credentialKey('epidemic-tracker','backend-'+createHash('sha256').update(base??'disabled').digest('hex'));
     const vault=desktopVault();this.tracker=new Tracker({backend:base,region:config.defaultRegion,store:{
       bound:async()=>Boolean((await ctx.credentials.describeRecord(key))?.configured),
       read:async()=>{const sealed=(await ctx.credentials.readRecord(key))?.payload?.sealed;return sealed?vault.open(sealed):undefined;},

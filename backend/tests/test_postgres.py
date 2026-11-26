@@ -20,7 +20,7 @@ class PostgresTest(unittest.TestCase):
             try:
                 parts = urlsplit(base)
                 opts = dict(parse_qsl(parts.query))
-                opts['options'] = '-c search_path=' + schema
+                opts['options'] = '-csearch_path=' + schema
                 isolated = urlunsplit(parts._replace(query=urlencode(opts)))
                 now = datetime(2026,11,25,tzinfo=timezone.utc)
                 s = Store(isolated, 'x'*32, publish=True, clock=lambda:now)

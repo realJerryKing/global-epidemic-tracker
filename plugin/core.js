@@ -37,7 +37,7 @@ function releasedReport(data,code) {
   if (validWeek(data.week_start) && isoDate.test(data.week_end)) Object.assign(out,{week_start:data.week_start,week_end:data.week_end});
   if(s!=='available')return out;
   const m=data.metrics;
-  requireValue(isCode(data.region_code) && out.week_start && m && ['30-59','60-119','120+'].includes(m.sample_band) && /^(?:[0-8]?0-[0-8]?9|90-100)%$/.test(m.new_share_band) && trends.includes(m.trend));
+  requireValue(isCode(data.region_code) && out.week_start && m && ['30-59','60-119','120+'].includes(m.sample_band) && ['0-9%','10-19%','20-29%','30-39%','40-49%','50-59%','60-69%','70-79%','80-89%','90-100%'].includes(m.new_share_band) && trends.includes(m.trend));
   const levels=['district','city','province','country'];requireValue(levels.includes(data.level)&&levels.includes(data.requested_level));
   return {...out,region_code:data.region_code,requested_level:data.requested_level,level:data.level,metrics:{sample_band:m.sample_band,new_share_band:m.new_share_band,trend:m.trend}};
 }
