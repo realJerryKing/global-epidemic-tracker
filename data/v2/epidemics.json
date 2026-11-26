@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "legacy": false,
-  "last_update": "2026-11-26T08:42:39+00:00",
+  "last_update": "2026-11-26T16:21:08+00:00",
   "coverage": "Bounded sample: up to 500 latest WHO DON notices, up to 250 country-year observations since 2023 per WHO GHO indicator, latest available cumulative WHO/OWID mpox observation per country.",
   "summary": {
     "report_count": 2313,
