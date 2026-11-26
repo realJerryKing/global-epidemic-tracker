@@ -21,7 +21,11 @@ class WHOGHOCollector:
             rows = fetch_rows(f'{self.BASE_URL}/{code}', {
                 '$filter': "SpatialDimType eq 'COUNTRY' and TimeDim ge 2023 and NumericValue ne null",
                 '$orderby': 'TimeDim desc,SpatialDim asc', '$top': 250})
-            group = [r for row in rows if (r := self._parse_row(row, disease, code))]
+            group = []
+            for row in rows:
+                report = self._parse_row(row, disease, code)
+                if report:
+                    group.append(report)
             if rows and not group:
                 raise ValueError(f'no usable country-year records for {code}')
             self.indicator_metadata[code] = {
@@ -36,6 +40,9 @@ class WHOGHOCollector:
 
     def _parse_row(self, row, disease, code):
         row = {k.lower():v for k,v in row.items()}
+        required = {'spatialdim', 'spatialdimtype', 'timedim', 'timedimtype', 'indicatorcode', 'numericvalue'}
+        if not required.issubset(row):
+            raise ValueError(f'incomplete GHO record for {code}')
         iso = row['spatialdim']
         if row['spatialdimtype'] != 'COUNTRY' or row['timedimtype'] != 'YEAR' or any(row.get(f'dim{i}') for i in (1,2,3)):
             return None

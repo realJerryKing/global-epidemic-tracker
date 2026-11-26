@@ -59,6 +59,13 @@ class OfficialTests(unittest.TestCase):
             self.assertEqual(collector.collect(), [])
             self.assertEqual(collector.indicator_metadata['WHS3_62'], {
                 'record_count': 0, 'period_start': None, 'period_end': None, 'status': 'empty'})
+        with patch('src.collectors.who_gho.fetch_rows', return_value=[{'spatialDim':'CHN'}]), self.assertRaisesRegex(ValueError, 'incomplete GHO record for WHS3_62'):
+            WHOGHOCollector().collect()
+
+    def test_fetch_rows_rejects_invalid_envelopes(self):
+        for payload in ('{}', '{"value":null}', '{"value":{}}', '{"value":[null]}'):
+            with self.subTest(payload=payload), patch('src.models.base.fetch_text', return_value=payload), self.assertRaisesRegex(ValueError, 'array of source records'):
+                fetch_rows('https://example.invalid')
 
     def test_latest_cumulative_per_country(self):
         csv = ('location,iso_code,date,total_cases,total_deaths\nChina,CHN,2024-01-03,2,\n'
