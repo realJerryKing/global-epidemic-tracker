@@ -2,12 +2,25 @@ window.__ModuleLoader__.load({id:'@local/dsh-epidemic-tracker', factory(require)
 // The only UI gateway endpoint; no method is a command or a conversation message.
 const pkg='@local/dsh-epidemic-tracker';
 const service='epidemicTracker';
-const descriptors=[{id:pkg+':'+service+'/panel',service,namespace:service,method:'panel',invocation:{kind:'direct'},parameters:[{name:'request',wire:'request',source:'json',codec:{mode:'src-json'}}],result:{mode:'src-json'}}];
+function panelDescriptors(z) {
+  const create = () => z.strictObject({
+    action: z.enum(['setup','regions','snapshot','enroll','read','save','withdraw']),
+    region_code: z.string().regex(/^\d{6}$/).optional(),
+    date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+    invite_code: z.string().optional(), symptom: z.enum(['new','ongoing','none']).optional(),
+    observation: z.enum(['more','usual','less']).nullable().optional(),
+    consent: z.boolean().optional(), confirm: z.boolean().optional()
+  });
+  const codec = { mode: 'strict', typeSymbol: pkg+'#epidemicTracker/panel:request', create };
+  return [{ id:pkg+'#'+service+'/panel', service, namespace:service, method:'panel',
+    invocation:{kind:'direct'}, parameters:[{name:'request',wire:'request',source:'json',codec}],
+    result:{mode:'src-json'} }];
+}
 
 // Wrapped by build.mjs in the native DSH browser module factory (React supplied by Host).
 const R=require('react'),h=R.createElement;
 return {inject:['slots','remote','locale','sidebarRightTabs'],async apply(ctx){
-  await ctx.remote.$mount({package:pkg,descriptors});
+  await ctx.remote.$mount({package:pkg,descriptors:panelDescriptors(require('zod'))});
   const t=(zh,en)=>ctx.locale.resolveText({zh,en});
   async function call(action,p={}){const wire=await ctx.remote.epidemicTracker.panel({action,...p});if(!wire.ok)throw new Error(t('无法连接宿主','Host unavailable'));const result=wire.value;if(!result.ok)throw new Error(result.error);return result.value;}
   const label=()=>t('地区疫情周报','Regional health reports');

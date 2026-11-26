@@ -1,7 +1,7 @@
 // Wrapped by build.mjs in the native DSH browser module factory (React supplied by Host).
 const R=require('react'),h=R.createElement;
 return {inject:['slots','remote','locale','sidebarRightTabs'],async apply(ctx){
-  await ctx.remote.$mount({package:pkg,descriptors});
+  await ctx.remote.$mount({package:pkg,descriptors:panelDescriptors(require('zod'))});
   const t=(zh,en)=>ctx.locale.resolveText({zh,en});
   async function call(action,p={}){const wire=await ctx.remote.epidemicTracker.panel({action,...p});if(!wire.ok)throw new Error(t('无法连接宿主','Host unavailable'));const result=wire.value;if(!result.ok)throw new Error(result.error);return result.value;}
   const label=()=>t('地区疫情周报','Regional health reports');

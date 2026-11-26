@@ -1,11 +1,18 @@
-import Schema from '@deepseek-ai/schemastery';
-import {TypertRemoteService,Remote} from '@deepseek-ai/dsh-typert-protocol';
-import {credentialKey} from '@deepseek-ai/dsh-credentials';
-import {defineTool} from '@deepseek-ai/dsh-tools';
+import {createRequire} from 'node:module';
+import path from 'node:path';
+// Local bundles may be linked outside the host's node_modules tree.
+const hostRoot = process.env.DSH_INSTALL_DIR || (process.resourcesPath && path.join(process.resourcesPath, 'app.asar', 'dsh'));
+const hostRequire = createRequire(hostRoot ? path.join(hostRoot, 'package.json') : import.meta.url);
+const schemaModule = hostRequire('@deepseek-ai/schemastery');
+const Schema = schemaModule.default ?? schemaModule;
+const {TypertRemoteService, Remote} = hostRequire('@deepseek-ai/dsh-typert-protocol');
+const {credentialKey} = hostRequire('@deepseek-ai/dsh-credentials');
+const {defineTool} = hostRequire('@deepseek-ai/dsh-tools');
 import {createHash} from 'node:crypto';
 import {desktopVault} from './vault.js';
 import {Tracker,endpoint} from './core.js';
-import {pkg,service,descriptors} from './contract.js';
+import {pkg,service,panelDescriptors} from './contract.js';
+const descriptors = panelDescriptors(hostRequire('zod'));
 const initializers=[];
 export default class EpidemicTracker extends TypertRemoteService {
   static inject=['typert','credentials','tools'];
