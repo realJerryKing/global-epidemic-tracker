@@ -1,0 +1,46 @@
+name: Verify public epidemic dashboard
+
+on:
+  workflow_dispatch:
+  deployment_status:
+  workflow_run:
+    workflows: [Update Epidemic Data]
+    branches: [main]
+    types: [completed]
+  schedule:
+    - cron: '37 */3 * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    if: github.event_name != 'deployment_status' || (github.event.deployment.environment == 'github-pages' && github.event.deployment_status.state == 'success')
+    timeout-minutes: 13
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run verifier regression tests
+        run: python -m unittest discover -s tests -p test_verify_public_pages.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Chromium for the public browser check
+        run: |
+          npm install --prefix "$RUNNER_TEMP/dashboard-browser" --no-audit --no-fund playwright@1.56.1
+          "$RUNNER_TEMP/dashboard-browser/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Compare public dashboard and released snapshot
+        run: python scripts/verify_public_pages.py --dashboard docs/v2.html --attempts 9 --retry-delay 30
+      - name: Verify the public dashboard in Chromium
+        run: NODE_PATH="$RUNNER_TEMP/dashboard-browser/node_modules" node tests/verify-public-dashboard.cjs
+      - name: Surface failed public health check
+        if: failure()
+        run: |
+          echo '::error::The public epidemic dashboard could not be verified. Check the snapshot URL, Pages deploy, and recent collection runs.'
+          echo 'Public health check failed. Review the verifier logs and the latest successful Pages build.' >> "$GITHUB_STEP_SUMMARY"

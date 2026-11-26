@@ -7,6 +7,11 @@ on:
 
 permissions:
   contents: write
+  pages: write
+
+concurrency:
+  group: epidemic-data-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   update-data:
@@ -21,20 +26,64 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-      - name: Fetch and validate epidemic data
+      - name: Fetch legacy epidemic data
+        id: legacy
+        continue-on-error: true
         run: |
           mkdir -p data/processed data/cache docs/data
           python scripts/fetch_data.py --fetch --validate --max-validations 20 --export-json --export-geojson --summary
 
-      - name: Commit updated data
+      - name: Fetch v2 official snapshot
+        id: snapshot
+        continue-on-error: true
+        run: |
+          python scripts/v2/fetch_data.py --fetch --export-json --export-geojson --summary --output-dir "$RUNNER_TEMP/official-snapshot"
+          mkdir -p data/v2
+          cp "$RUNNER_TEMP/official-snapshot/epidemics.json" data/v2/epidemics.json
+          cp "$RUNNER_TEMP/official-snapshot/epidemics.geojson" data/v2/epidemics.geojson
+
+      - name: Commit successful data outputs
+        id: publish
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/processed/ docs/data/ -f
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ "${{ steps.legacy.outcome }}" = "success" ]; then
+            git add data/processed/ docs/data/ -f
+          fi
+          if [ "${{ steps.snapshot.outcome }}" = "success" ]; then
+            git add data/v2/ -f
+          fi
           if git diff --staged --quiet; then
             echo "No data changes to commit"
           else
             TIMESTAMP=$(date -u '+%Y-%m-%d %H:%M UTC')
             git commit -m "data: auto-update ($TIMESTAMP)"
             git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Request GitHub Pages build
+        if: github.ref == 'refs/heads/main' && steps.publish.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          head_sha=$(git rev-parse HEAD)
+          latest=$(gh api repos/${{ github.repository }}/pages/builds/latest 2>/dev/null || true)
+          status=$(printf '%s' "$latest" | jq -r '.status // empty')
+          build_id=$(printf '%s' "$latest" | jq -r '.id // empty')
+          if [ "$status" = "building" ] && [ -n "$build_id" ]; then
+            build_sha=$(gh api repos/${{ github.repository }}/pages/builds/$build_id --jq '.commit // .commit_sha // .commit.sha // empty' 2>/dev/null || true)
+            if [ "$build_sha" = "$head_sha" ]; then
+              echo "A Pages build for pushed HEAD $head_sha is already in progress"
+              exit 0
+            fi
+          fi
+          gh api --method POST repos/${{ github.repository }}/pages/builds
+
+      - name: Report source pipeline failures
+        if: always() && (steps.legacy.outcome != 'success' || steps.snapshot.outcome != 'success')
+        run: |
+          echo "Legacy pipeline: ${{ steps.legacy.outcome }}"
+          echo "V2 snapshot pipeline: ${{ steps.snapshot.outcome }}"
+          exit 1

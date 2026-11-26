@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#103a37"><title>公共卫生观察站 · 全球报告与中国社区周报</title>
+<link rel="alternate" type="application/json" id="official-snapshot" href="../data/v2/epidemics.json">
+<link rel="stylesheet" href="dashboard.css"><script defer src="config.js"></script><script type="module" src="dashboard.js"></script>
+</head>
+<body><a class="skip" href="#main">跳至主要内容</a>
+<header><div class="mast"><span class="brand"><i aria-hidden="true">✚</i> 公共卫生观察站</span><span class="edition">PUBLIC HEALTH ATLAS</span></div></header>
+<main id="main"><div class="eyebrow">监测图集 <span>/</span> SURVEILLANCE ATLAS</div><h1>疫情报告地图</h1><p class="intro">查阅有出处的官方报告，或按地区查看中国社区的匿名汇总周报。两类数据独立展示，不作合并推算。</p>
+<nav aria-label="数据视图"><button id="global-tab" aria-pressed="true" aria-controls="global">全球官方报告</button><button id="china-tab" aria-pressed="false" aria-controls="china">中国社区周报</button></nav>
+<noscript>地图与筛选需要 JavaScript。您也可以<a href="../data/v2/epidemics.json">查看官方报告数据文件</a>。</noscript>
+<section id="global" aria-labelledby="global-title"><div class="section-title"><div><small>01 / OFFICIAL RECORDS</small><h2 id="global-title">全球官方报告</h2></div><span id="updated" class="stamp"></span></div>
+<form id="filters" class="filters"><label>报告来源<select id="source"><option value="">全部来源</option></select></label><label>疾病或指标<select id="disease"><option value="">全部条目</option></select></label><label>起始日期<input id="from" type="date"></label><label>结束日期<input id="until" type="date"></label><button type="reset" class="quiet">重置筛选</button></form>
+<p class="note">日期按各来源的报告日期或统计期间筛选；年度记录按整年匹配。</p><p id="legacy-note" class="note" hidden>当前为历史归档，并非实时监测。归档 WHO 暴发新闻的疾病分类为近似值；不推定发生地点，请以来源原文为准。</p>
+<details id="source-details" hidden><summary>各来源收录情况</summary><ul id="source-coverage"></ul><p class="note">期间仅指已收录记录，不表示来源在此期间完整，也不代表病例发生时间。</p></details><button id="official-retry" type="button" class="quiet" hidden>重试读取官方快照</button>
+<div class="panel"><div class="map-head"><b>报告地理分布</b><span class="legend"><i></i> 有定位的报告</span></div><div class="map-box"><svg id="world-map" viewBox="0 0 720 360" aria-label="全球官方报告地图，圆点可筛选地点" role="group"><image href="world-land.svg" width="720" height="360"/><g class="pins"></g></svg></div><div class="caption">等大小圆点仅表示报告所涉国家或地区的近似中心，不代表病例数或暴发地点。底图：Natural Earth。</div></div>
+<div class="list-title"><h3>报告目录</h3><label>国家或地区 <select id="place"><option value="">全部地点</option></select></label></div><p id="summary" role="status">正在读取官方数据…</p><ol id="records"></ol><button id="more" class="quiet" hidden>显示更多报告</button></section>
+<section id="china" aria-labelledby="china-title" hidden><div class="section-title"><div><small>02 / COMMUNITY WEEKLY</small><h2 id="china-title">中国社区周报</h2></div><span class="stamp">试点 · 周度汇总</span></div>
+<p>按省、市和试点区县查阅最新已发布周报。仅部分城市开放区县查询；下图表示可选地区，并非感染分布。</p>
+<div class="china-grid"><div class="panel"><div class="map-head"><b id="china-map-title">省级地区导航</b><span class="legend"><i></i><span id="china-map-legend">选择省份</span></span></div><div class="map-box"><svg id="china-map" viewBox="505 65 130 88" role="group" aria-label="中国省级地区导航，点位为省会附近示意"><image href="world-land.svg" width="720" height="360"/><g class="outlines"></g><g class="pins"></g></svg></div><div class="caption">行政中心点位与简化轮廓仅供导航，不表示用户所在地或法定边界。也可使用地区选择框。底图：Natural Earth；轮廓：<a href="https://github.com/twobin/china-map-geojson">china-map-geojson</a>（1.0.4）。</div></div>
+<div class="region-panel"><small>REGION LOOKUP</small><h3>选择查询地区</h3><label>省级地区<select id="province"></select></label><label>城市<select id="city"></select></label><label>试点区县<select id="district"></select></label><p id="coverage" class="note"></p></div></div>
+<article class="weekly"><div class="eyebrow">COMMUNITY SIGNAL <span>/</span> 自愿签到</div><h3 id="weekly-title">最新社区周报</h3><div id="weekly-body" role="status"></div><button id="retry" class="quiet" hidden>重新查询</button></article><p class="note">周报仅描述自愿签到样本，不代表地区人群感染率，不用于个人诊断。未发布或未达披露门槛不等于零。</p></section>
+<footer>公共卫生观察站 <span>来源可追溯 · 数据口径分开展示 · <a href="map-sources.html">地图来源与许可</a></span></footer></main></body></html>
