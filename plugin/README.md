@@ -6,7 +6,7 @@
 
 在此目录运行 `node build.mjs`、`node --test --test-isolation=none test/*.test.js`、`npm pack`（Windows PowerShell 用 `npm.cmd pack`）。不需要 npm install，无安装脚本。DSH 依赖使用宿主自带的 0.2.2-rc.5 API。生成的归档包含宿主入口、浏览器模块、配置补丁、图标与中英文元数据，不含个人数据。可审查归档后解压到固定目录；**在你决定安装时**，DSH → Plugins → Add plugin → 选择含 package.json 的解压目录或已构建的 plugin 源目录；按提示确认，检查插件行及启用状态，必要时刷新页面并在新会话验证。安装影响整个配置档。本文的构建/验证不会安装或更新现有配置档。
 
-管理员在插件配置中设置 `backendUrl`（示例 `https://reports.example.org`；开发机 `http://127.0.0.1:8000`），可选 `defaultRegion`（六位代码，默认 `000000`）。仅接受 HTTPS 或 HTTP 回环；禁止 URL 用户名、密码、查询、片段及重定向。生产环境只应连接信任的服务，拒绝透明请求体/Authorization 日志。未配置后端仍可看全球摘要并打开地图；当前部署若尚未发布 v2 快照，官方栏显示不可用而不误读旧值。
+管理员在插件配置中设置 `backendUrl`（示例 `https://reports.example.org`；开发机 `http://127.0.0.1:8000`），可选 `defaultRegion`（六位代码，默认 `000000`）。仅接受 HTTPS 或 HTTP 回环；禁止 URL 用户名、密码、查询、片段及重定向。生产环境只应连接信任的服务，拒绝透明请求体/Authorization 日志。未配置后端仍可用随包地区目录浏览、阅读全球摘要并打开地图。面板先显示通过仓库公开快照生成的随包摘要；宿主能取得已发布快照时显示网络结果，否则保留随包摘要（或更新的已读缓存）。官方栏注明来源、快照构建时间和是否为历史迁移数据；这些时间不是病例报告期。社区周报与签到仍须配置后端。
 
 ## 使用与隐私
 

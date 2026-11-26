@@ -1,4 +1,5 @@
 // Host-only data boundary. No session, transcript, telemetry or UI storage dependencies.
+import {bundledOfficial, publicRegions} from './public-data.js';
 export const SITE = 'https://realJerryKing.github.io/global-epidemic-tracker/';
 const isoDate = /^\d{4}-\d{2}-\d{2}$/;
 const codePattern = /^\d{6}$/;
@@ -49,17 +50,20 @@ export class Tracker {
     requireValue(raw.schema_version===2 && Array.isArray(raw.outbreaks) && Number.isSafeInteger(raw.summary?.report_count) && raw.summary.report_count>=0);
     const allowed=['who_don','who_gho','owid'];const sources=allowed.filter(s=>raw.outbreaks.some(r=>r.source===s));
     requireValue(typeof raw.last_update==='string' && Number.isFinite(Date.parse(raw.last_update)));
-    const value={status:'available',scope:'global',snapshot_time:new Date(raw.last_update).toISOString(),legacy:raw.legacy===true,report_count:raw.summary.report_count,sources};
-    this.officialCache={value,until:Date.now()+5*60000};return value;}
+    const value={status:'available',scope:'global',provenance:'published',source_url:SITE+'data/epidemics.json',snapshot_time:new Date(raw.last_update).toISOString(),legacy:raw.legacy===true,report_count:raw.summary.report_count,sources};
+    const previous=this.fallbackOfficial();
+    const selected=previous.snapshot_time>value.snapshot_time?previous:value;
+    this.officialCache={value:selected,until:Date.now()+5*60000};return selected;}
+  fallbackOfficial(){const cached=this.officialCache?.value;return cached && cached.snapshot_time>bundledOfficial.snapshot_time?{...cached,provenance:'cached'}:bundledOfficial;}
   async snapshot(code=this.region,signal){requireValue(isCode(code));signal?.throwIfAborted();
     const old=this.cache.get(code); if(old?.until>Date.now())return old.value;
-    const [official,community]=await Promise.all([this.official(signal).catch(()=>({status:'unavailable',scope:'global'})),this.base?this.api('/v1/reports/latest?region_code='+code,{signal}).then(d=>releasedReport(d,code)).catch(()=>({status:'offline',requested_region_code:code,metrics:null})):Promise.resolve({status:'not_configured',requested_region_code:code,metrics:null})]);signal?.throwIfAborted();
+    const [official,community]=await Promise.all([this.official(signal).catch(()=>this.fallbackOfficial()),this.base?this.api('/v1/reports/latest?region_code='+code,{signal}).then(d=>releasedReport(d,code)).catch(()=>({status:'offline',requested_region_code:code,metrics:null})):Promise.resolve({status:'not_configured',requested_region_code:code,metrics:null})]);signal?.throwIfAborted();
     const guidance=community.status!=='available'?'无可用于本区判断的周报；请参阅当地疾控部门公告，不能把缺失视为零。':community.region_code!==code?'仅说明所示上级地区自选样本趋势，不能推断请求地区正在上升。请结合当地疾控公告。':community.metrics.trend==='possible_rise'?'本区自选样本提示可能上升，不是疫情预警；可关注当地疾控公告。':'未建立明确上升证据不代表没有传播；可关注当地疾控公告。';
     const value={requested_region_code:code,community,official,guidance,prevention:[{advice:community.status==='available'&&community.metrics.trend==='possible_rise'?'在拥挤或通风不佳的室内，尤其与高风险人群接触时，可佩戴贴合面部的优质口罩。':'在拥挤的室内交通工具或照护患病家人时，可考虑佩戴贴合的口罩。',source:'CDC · Masks and respiratory viruses',url:'https://www.cdc.gov/respiratory-viruses/prevention/masks.html'},{advice:'擤鼻涕、咳嗽或打喷嚏后清洁双手；咳嗽时用纸巾或肘部遮挡。',source:'CDC · Hygiene and respiratory viruses',url:'https://www.cdc.gov/respiratory-viruses/prevention/hygiene.html'}],map_url:SITE+'?region='+code,interpretation:'社区自报样本不是确诊病例、发病率或个人风险。全球官方背景不能替代地区周报。'};
     if(this.cache.size>=100)this.cache.delete(this.cache.keys().next().value);this.cache.set(code,{value,until:Date.now()+60000});return value;}
   async privateAction(action,p={}){
     if(action==='setup')return {backend:this.base,bound:this.base?(this.store.bound?await this.store.bound():Boolean(await this.store.read())):false,region:this.region,week:weekOf()};
-    if(action==='regions'){const raw=await this.api('/v1/regions');requireValue(Array.isArray(raw.regions));return raw.regions.filter(r=>isCode(r.code)&&typeof r.name==='string').slice(0,6500).map(r=>({code:r.code,name:r.name.slice(0,64),parent_code:isCode(r.parent_code)?r.parent_code:null}));}
+    if(action==='regions'){if(!this.base)return publicRegions;const raw=await this.api('/v1/regions');requireValue(Array.isArray(raw.regions));return raw.regions.filter(r=>isCode(r.code)&&typeof r.name==='string').slice(0,6500).map(r=>({code:r.code,name:r.name.slice(0,64),parent_code:isCode(r.parent_code)?r.parent_code:null}));}
     requireValue(this.base,'尚未配置服务');
     if(action==='enroll'){requireValue(typeof p.invite_code==='string'&&p.invite_code.length>=1&&p.invite_code.length<=256);await this.store.enroll(async()=>{const data=await this.api('/v1/enroll',{method:'POST',body:{invite_code:p.invite_code}});requireValue(typeof data?.token==='string'&&data.token.length>=16&&data.token.length<=4096,'凭据无效');return data.token;});return {ok:true};}
     requireValue(['read','save','withdraw'].includes(action));requireValue(validWeek(p.date),'请选择星期一');

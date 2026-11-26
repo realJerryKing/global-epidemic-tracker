@@ -3,7 +3,7 @@
   "description":"Regional community respiratory reports and voluntary weekly check-ins for DeepSeek Harness.",
   "engines":{"dsh":"0.2.2-rc.5"},
   "exports":{".":"./index.js","./client":"./client.js","./locale/*.json":"./locale/*.json","./icon":"./icon.svg"},
-  "files":["index.js","core.js","vault.js","contract.js","client.js","locale/*.json","icon.svg","cordis.patch.yml","README.md","LICENSE"],
+  "files":["index.js","core.js","public-data.js","vault.js","contract.js","client.js","locale/*.json","icon.svg","cordis.patch.yml","README.md","LICENSE"],
   "scripts":{"build":"node build.mjs","test":"node --test test/*.test.js"},
   "dsh":{"bundle":{"patch":"./cordis.patch.yml"},"client":{"platform":"web","immediately":true,"inject":["@deepseek-ai/dsh-client-ui-sidebar-right"]}}
 }
