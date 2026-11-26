@@ -24,7 +24,7 @@ const watch=live&&process.argv.includes('--watch-next');
 if(watch){
   console.log('Waiting for a newer live Pages snapshot from',a.official.snapshot_time);
   for(let attempt=0;attempt<80&&b.official.snapshot_time<=a.official.snapshot_time;attempt++){
-    await new Promise(resolve=>setTimeout(resolve,15000));
+    await new Promise(resolve=>setTimeout(resolve,15000).ref());
     b=await getSnapshot(true);
   }
   assert.ok(b.official.snapshot_time>a.official.snapshot_time,'No newer live snapshot appeared within the verification window');
