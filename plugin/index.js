@@ -31,7 +31,7 @@ export default class EpidemicTracker extends TypertRemoteService {
   }
   async panel(request){
     if(this.ctx.invocation?.peer.principal.kind!=='owner')throw new Error('仅限宿主所有者');
-    try{const {action,...p}=request;const value=action==='snapshot'?await this.tracker.snapshot(p.region_code,this.ctx.invocation.signal,{refresh:p.refresh===true}):await this.tracker.privateAction(action,p);if(action==='snapshot')this.tracker.region=value.requested_region_code;return {ok:true,value};}catch(e){const safe=['OS 安全存储不可用','参数无效','服务地址须为 HTTPS 或本机回环地址','尚未配置服务','凭据无效','未获授权','未找到记录','当前状态冲突','服务未接受输入','请求过于频繁','请选择星期一','请先绑定一次性邀请码','请确认撤回','请检查输入并明确同意','已绑定'];return {ok:false,error:safe.includes(e.message)?e.message:'操作未完成，请检查连接后重新读取状态。'};}
+    try{const {action,...p}=request;const value=action==='official'?await this.tracker.official(this.ctx.invocation.signal,{refresh:p.refresh===true}):action==='snapshot'?await this.tracker.snapshot(p.region_code,this.ctx.invocation.signal,{refresh:p.refresh===true}):await this.tracker.privateAction(action,p);if(action==='snapshot')this.tracker.region=value.requested_region_code;return {ok:true,value};}catch(e){const safe=['OS 安全存储不可用','参数无效','服务地址须为 HTTPS 或本机回环地址','尚未配置服务','凭据无效','未获授权','未找到记录','当前状态冲突','服务未接受输入','请求过于频繁','请选择星期一','请先绑定一次性邀请码','请确认撤回','请检查输入并明确同意','已绑定'];return {ok:false,error:safe.includes(e.message)?e.message:'操作未完成，请检查连接后重新读取状态。'};}
   }
 }
 Remote(EpidemicTracker.prototype.panel,{kind:'method',private:false,static:false,name:'panel',addInitializer(fn){initializers.push(fn);}});
