@@ -52,14 +52,32 @@ function refreshGlobal(){
   $('summary').textContent=inverted?'起始日期不能晚于结束日期。':visible.length?`${visible.length} 条报告 · 已显示 ${Math.min(pageSize,visible.length)} 条${missing?` · ${missing} 条无可靠坐标，仅列于目录`:''}`:'当前条件下没有报告。请调整筛选；无报告不代表无病例。';
   $('records').replaceChildren(...visible.slice(0,pageSize).map(listed));$('more').hidden=visible.length<=pageSize;
 }
+function showCoverage(rows){
+  const bySource=new Map();
+  for(const row of rows){
+    const key=row.source||'来源未注明';
+    const stat=bySource.get(key)||{count:0,dated:0,first:null,last:null,kind:row.period_type};
+    stat.count++;const span=dateSpan(row);
+    if(span){stat.dated++;if(!stat.first||span[0]<stat.first)stat.first=span[0];if(!stat.last||span[1]>stat.last)stat.last=span[1];}
+    bySource.set(key,stat);
+  }
+  $('source-coverage').replaceChildren(...Array.from(bySource,([key,s])=>{
+    const fmt=d=>s.kind==='annual'?d.slice(0,4):d;
+    const period=s.dated?`${periodNames[s.kind]||'记录期'} ${fmt(s.first)} 至 ${fmt(s.last)}`:'记录期未知';
+    return el('li',`${sourceNames[key]||key}：${s.count} 条 · ${period}${s.count>s.dated?`（${s.count-s.dated} 条未注明期间）`:''}`);
+  }));
+  $('source-details').hidden=!bySource.size;
+}
 async function loadOfficial(){
-  try{const response=await fetch('data/epidemics.json');if(!response.ok)throw Error();const data=await response.json();if(data.schema_version!==2||!Array.isArray(data.outbreaks))throw Error();
+  officialState='loading';$('official-retry').hidden=true;$('summary').textContent='正在读取官方数据…';
+  try{const response=await fetch('data/epidemics.json',{signal:AbortSignal.timeout(15000)});if(!response.ok)throw Error();const data=await response.json();if(data.schema_version!==2||!Array.isArray(data.outbreaks))throw Error();
     official=data.outbreaks.filter(r=>r&&typeof r==='object').sort((a,b)=>(dateSpan(b)?.[1]||'').localeCompare(dateSpan(a)?.[1]||''));
     for(const key of ['source','disease']){const keys=[...new Set(official.map(r=>r[key]).filter(Boolean))].sort();options($(key),keys.map(v=>[v,key==='source'?sourceNames[v]||v:v]),key==='source'?'全部来源':'全部条目');}
     $('updated').textContent=`${data.legacy?'历史快照':'数据快照'}${data.last_update?' · '+String(data.last_update).slice(0,10):''}`;
-    $('legacy-note').hidden=!data.legacy;officialState='ready';refreshGlobal();
-  }catch{officialState='error';$('summary').textContent='无法读取官方报告快照，请刷新后重试。';}
+    $('legacy-note').hidden=!data.legacy;showCoverage(official);officialState='ready';refreshGlobal();
+  }catch{officialState='error';$('official-retry').hidden=false;$('summary').textContent='无法读取官方报告快照，请重试。';}
 }
+$('official-retry').onclick=loadOfficial;
 $('filters').addEventListener('change',()=>{pageSize=20;refreshGlobal();});$('filters').addEventListener('reset',e=>{e.preventDefault();for(const id of ['source','disease','from','until','place'])$(id).value='';pageSize=20;refreshGlobal();});
 $('place').addEventListener('change',()=>{pageSize=20;refreshGlobal();});$('more').onclick=()=>{pageSize+=20;refreshGlobal();};
 
