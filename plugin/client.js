@@ -29,7 +29,13 @@ return {inject:['slots','remote','locale','sidebarRightTabs'],async apply(ctx){
   ctx.inject(['remote.epidemicTracker'], ctx => {
   const panelService=ctx['remote.epidemicTracker'];
   const t=(zh,en)=>ctx.locale.resolveText({zh,en});
-  async function call(action,p={}){const wire=await panelService.panel({action,...p});if(!wire.ok)throw new Error(t('无法连接宿主','Host unavailable')+' ('+(wire.error?.code||'gateway')+')');const result=wire.value;if(!result.ok)throw new Error(result.error);return result.value;}
+  async function call(action,p={}){const wire=await panelService.panel({action,...p});if(!wire.ok){const code=wire.error?.code||'gateway';throw Object.assign(new Error(t('无法连接宿主','Host unavailable')+' ('+code+')'),{code});}const result=wire.value;if(!result.ok)throw new Error(result.error);return result.value;}
+  async function readOfficial(refresh){
+    try{return await call('official',{refresh});}
+    catch(error){if(error.code!=='gateway/input-invalid')throw error;}
+    // A running older Host still understands the read-only snapshot operation.
+    return (await call('snapshot',{refresh})).official;
+  }
   const label=()=>t('地区疫情周报','Regional health reports');
   function Panel(){const [view,setView]=R.useState('official');const [setup,S]=R.useState(null),[regions,C]=R.useState(publicRegions),[setupError,E]=R.useState(''),[snapshotError,Q]=R.useState(''),[retry,U]=R.useState(0),[selected,G]=R.useState(''),[snap,V]=R.useState(null),[lastOfficial,J]=R.useState(null),[snapshotPending,H]=R.useState(true),[tick,T]=R.useState(0),[date,D]=R.useState(''),[place,P]=R.useState(''),[sym,Y]=R.useState(''),[obs,O]=R.useState(''),[consent,A]=R.useState(false),[invite,I]=R.useState(''),[busy,B]=R.useState(false),[message,M]=R.useState(''),[confirm,F]=R.useState(false);
     const clear=()=>{Y('');O('');A(false);F(false);};
@@ -38,7 +44,7 @@ return {inject:['slots','remote','locale','sidebarRightTabs'],async apply(ctx){
     const [communityTick,refreshCommunity]=R.useState(0),[communityError,setCommunityError]=R.useState(''),[communityPending,setCommunityPending]=R.useState(false);
     const refreshRequest=R.useRef(false),communityRefreshRequest=R.useRef(false);
     const refresh=()=>{refreshRequest.current=true;H(true);T(n=>n+1);};
-    R.useEffect(()=>{let live=true;const force=refreshRequest.current;refreshRequest.current=false;H(true);Q('');call('official',{refresh:force}).then(v=>{if(live)J(v);}).catch(e=>{if(live)Q(t('官方报告读取失败：','Official reports unavailable: ')+e.message)}).finally(()=>{if(live)H(false);});return()=>{live=false;};},[tick]);
+    R.useEffect(()=>{let live=true;const force=refreshRequest.current;refreshRequest.current=false;H(true);Q('');readOfficial(force).then(v=>{if(live)J(v);}).catch(e=>{if(live)Q(t('官方报告读取失败：','Official reports unavailable: ')+e.message)}).finally(()=>{if(live)H(false);});return()=>{live=false;};},[tick]);
     const backend=setup?.backend;
     R.useEffect(()=>{if(view!=='community'||!backend)return;let live=true;const force=communityRefreshRequest.current;communityRefreshRequest.current=false;V(null);setCommunityPending(true);setCommunityError('');call('snapshot',{region_code:code,refresh:force}).then(v=>{if(live)V(v);}).catch(e=>{if(live)setCommunityError(e.message);}).finally(()=>{if(live)setCommunityPending(false);});return()=>{live=false;};},[view,backend,code,communityTick]);
     async function run(fn){if(busy)return;B(true);M('');try{await fn();}catch(e){M(e.message);}finally{B(false);}}
@@ -50,7 +56,8 @@ return {inject:['slots','remote','locale','sidebarRightTabs'],async apply(ctx){
     const community=scopedSnap?.community,official=lastOfficial??bundledOfficial;
     const showOfficial=view==='official';
     const sourceNames={who_don:'WHO DON',who_gho:'WHO GHO',owid:'Our World in Data'};
-    const reports=official.recent_reports??[];
+    const bundledReports=lastOfficial!=null&&!Array.isArray(lastOfficial.recent_reports);
+    const reports=(bundledReports?bundledOfficial.recent_reports:official.recent_reports)??[];
     const mapLink=(href,text)=>h('a',{href,target:'_blank',rel:'noopener noreferrer'},text);
     const viewBtn=(id,text)=>h('button',{type:'button','aria-pressed':view===id,onClick:()=>setView(id)},text);
     const officialOrigin={published:t('在线读取 · 公开 Pages v2','Fetched online · public Pages v2'),cached:t('宿主缓存 · 先前从 Pages v2 读取','Host cache · previously fetched from Pages v2'),bundled:t('插件随附快照（非实时）','Bundled snapshot (not live)')}[official.provenance];
@@ -60,6 +67,7 @@ return {inject:['slots','remote','locale','sidebarRightTabs'],async apply(ctx){
     showOfficial&&h('section',null,h('h2',null,t('最新 WHO 暴发通报','Latest WHO outbreak notices')),
       h('div',null,mapLink(publicMapUrl,t('打开新版官方地图 ↗','Open the new official map ↗')),btn(t('刷新官方报告','Refresh official reports'),refresh,snapshotPending)),
       h('p',{role:'status'},snapshotPending?t('正在读取官方快照…','Checking official snapshot…'):snapshotError||officialFallback||officialOrigin),
+      bundledReports&&h('p',null,t('以下通报名单来自插件随附快照，不是在线结果。','The notices below are from the bundled snapshot, not the online result.')),
       reports.length?h('ul',{className:'epi-reports'},reports.map(report=>h('li',{key:report.url},h('time',{dateTime:report.date},report.date),mapLink(report.url,report.title)))):h('p',null,t('此快照没有可显示的 WHO 通报。','No WHO notices are available in this snapshot.')),
       h('p',null,t('全球通报按发布日期排列，不是地区病例统计。','Global notices are sorted by publication date and are not local case counts.'))),
     !showOfficial&&!setup?.backend&&h('section',null,h('h2',null,t('地区社区周报','Regional community reports')),h('p',{role:'status'},setupError||(!setup?t('正在检查社区服务…','Checking community service…'):t('社区周报暂未开放。当前没有地区样本数据，也不接受签到。','Community reports are not open. No local sample data or check-in is available.'))),setupError&&btn(t('重试','Retry'),()=>U(n=>n+1))),
